@@ -26,7 +26,9 @@ namespace user_login_NEA
 
         private void EditScoresButton_Click(object sender, EventArgs e)
         {
-
+            InputtingScoresForm InputScoreForm = new InputtingScoresForm();
+            InputScoreForm.Show();
+            Hide();
         }
     }
 }

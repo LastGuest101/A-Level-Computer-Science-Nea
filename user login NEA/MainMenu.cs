@@ -19,12 +19,12 @@ namespace user_login_NEA
         public MainMenu()
         {
             InitializeComponent();
-            loggedPlayerId = Convert.ToString(Database_manager.intAttributesFromDB(LoginForm.LoggedInUsername, "Username", "Users", "player_id"));
+            loggedPlayerId = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "player_id"));
 
-            PlayerName.Text = "Bowler: " + Database_manager.stringAttributesFromDB(loggedPlayerId, "player_id", "Players", "FirstName") + " " + Database_manager.stringAttributesFromDB(loggedPlayerId, "player_id", "Players", "LastName");
-            PlayerHandicap.Text = "Handicap:  " + Convert.ToString(Database_manager.intAttributesFromDB(loggedPlayerId, "player_id", "Handicaps", "Handicap"));
-            label2.Text = Convert.ToString(Database_manager.intAttributesFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin"));
-            AddButton.Visible = Database_manager.intAttributesFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin") == 1;
+            PlayerName.Text = "Bowler: " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "LastName");
+            PlayerHandicap.Text = "Handicap:  " + Convert.ToString(Database_manager.singleIntFromDB(loggedPlayerId, "player_id", "Handicaps", "Handicap"));
+            label2.Text = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin"));
+            AddButton.Visible = Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin") == 1;
 
         }
 

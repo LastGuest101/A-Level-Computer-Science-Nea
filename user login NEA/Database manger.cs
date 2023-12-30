@@ -85,7 +85,7 @@ namespace user_login_NEA
                 }
             }
         }
-        public static int intAttributesFromDB(string Input, string attributeNameQuery,  string TableName, string attributeNameOutput)
+        public static int singleIntFromDB(string Input, string attributeNameQuery,  string TableName, string attributeNameOutput)
         {
             int attributeValue = -1; // Default value indicating attribute not found
 
@@ -116,7 +116,7 @@ namespace user_login_NEA
             return attributeValue;
         }
 
-        public static string stringAttributesFromDB(string input, string attributeNameQuery, string tableName, string attributeNameOutput)
+        public static string singleStringFromDB(string input, string attributeNameQuery, string tableName, string attributeNameOutput)
         {
             string attributeString = null; // Default value indicating attribute not found
 
@@ -147,12 +147,44 @@ namespace user_login_NEA
             return attributeString;
         }
 
+        public static List<int> multipleIntFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
+        {
+            List<int> attributeValues = new List<int>(); // Collection to store multiple attribute values
+
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName} WHERE {attributeNameQuery} = @{attributeNameQuery}";
+
+                using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue($"@{attributeNameQuery}", Input);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Read and add each attribute value to the collection
+                            int attributeValue = reader.GetInt32(0);
+                            attributeValues.Add(attributeValue);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return attributeValues;
+        }
+
 
 
 
 
     }
 
+   
 
 
 
