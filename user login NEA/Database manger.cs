@@ -17,7 +17,7 @@ namespace user_login_NEA
         {
             string connectionString;
 
-            string path = @"C:\Users\olive\OneDrive - Bradford Grammar School\Bowling Management\Files";
+            string path = @"C:\Users\olive\OneDrive - Bradford Grammar School\user login NEA";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
 
