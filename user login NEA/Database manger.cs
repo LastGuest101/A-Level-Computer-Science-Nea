@@ -155,7 +155,7 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName} WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
