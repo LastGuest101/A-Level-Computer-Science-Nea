@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,7 @@ namespace user_login_NEA
 
             foreach (var playerid in Database_manager.multipleIntFromDB("1", "team_id", "Teams/Players", "player_id")) // Gets the player's first name from the player's ID linked by the Team's ID
             {
-                string fullname = Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "FirstName") + " " +  Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "LastName");
+                string fullname = Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "LastName");
                 SelectPlayersTeam1.Items.Add(fullname);
             }
             foreach (var playerid in Database_manager.multipleIntFromDB("2", "team_id", "Teams/Players", "player_id")) // Gets the player's first name from the player's ID linked by the Team's ID
@@ -33,6 +34,8 @@ namespace user_login_NEA
                 string fullname = Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "LastName");
                 SelectPlayersTeam2.Items.Add(fullname);
             }
+
+            
 
 
 
@@ -48,7 +51,45 @@ namespace user_login_NEA
 
         }
 
+        private void SelectPlayers_Click(object sender, EventArgs e)
+        {
+            List<string> selectedPlayers1 = new List<string>();
+            foreach (var item in SelectPlayersTeam1.SelectedItems)
+            {
+
+                selectedPlayers1.Add($"{item}");
 
 
+
+            }
+
+            List<string> selectedPlayers2 = new List<string>();
+            foreach (var item in SelectPlayersTeam2.SelectedItems)
+            {
+
+                selectedPlayers2.Add($"{item}");
+
+
+
+            }
+
+
+            if ((SelectPlayersTeam1.SelectedItems.Count == 2) && (SelectPlayersTeam2.SelectedItems.Count == 2))
+            {
+                string player1 = Convert.ToString(SelectPlayersTeam1.SelectedItems[0]);
+                string player2 = Convert.ToString(SelectPlayersTeam1.SelectedItems[1]);
+                string player3 = Convert.ToString(SelectPlayersTeam2.SelectedItems[0]);
+                string player4 = Convert.ToString(SelectPlayersTeam2.SelectedItems[1]);
+
+                label1.Text = player1 + player2 + player3 + player4;
+
+            }
+            else
+            {
+                label1.Text = "Please select two players from each team";
+            }
+
+
+        }
     }
 }
