@@ -156,6 +156,7 @@ namespace user_login_NEA
                 connection.Open();
 
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
