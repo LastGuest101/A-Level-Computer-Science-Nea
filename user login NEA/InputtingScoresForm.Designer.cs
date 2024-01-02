@@ -31,6 +31,7 @@
             Team1 = new Label();
             Team2 = new Label();
             SelectPlayersTeam1 = new ListBox();
+            SelectPlayersTeam2 = new ListBox();
             SuspendLayout();
             // 
             // Team1
@@ -61,11 +62,21 @@
             SelectPlayersTeam1.TabIndex = 2;
             SelectPlayersTeam1.SelectedIndexChanged += SelectPlayersTeam1_SelectedIndexChanged;
             // 
+            // SelectPlayersTeam2
+            // 
+            SelectPlayersTeam2.FormattingEnabled = true;
+            SelectPlayersTeam2.ItemHeight = 20;
+            SelectPlayersTeam2.Location = new Point(506, 157);
+            SelectPlayersTeam2.Name = "SelectPlayersTeam2";
+            SelectPlayersTeam2.Size = new Size(150, 104);
+            SelectPlayersTeam2.TabIndex = 3;
+            // 
             // InputtingScoresForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SelectPlayersTeam2);
             Controls.Add(SelectPlayersTeam1);
             Controls.Add(Team2);
             Controls.Add(Team1);
@@ -81,5 +92,7 @@
         private Label Team1;
         private Label Team2;
         private ListBox SelectPlayersTeam1;
+        private ListBox listBox1;
+        private ListBox SelectPlayersTeam2;
     }
 }
