@@ -1,6 +1,6 @@
 ﻿namespace user_login_NEA
 {
-    partial class InputtingScoresForm
+    partial class SelectingPlayers
     {
         /// <summary>
         /// Required designer variable.
@@ -34,6 +34,7 @@
             SelectPlayersTeam2 = new ListBox();
             label1 = new Label();
             SelectPlayers = new Button();
+            BackButton = new Button();
             SuspendLayout();
             // 
             // Team1
@@ -63,7 +64,6 @@
             SelectPlayersTeam1.SelectionMode = SelectionMode.MultiSimple;
             SelectPlayersTeam1.Size = new Size(150, 104);
             SelectPlayersTeam1.TabIndex = 2;
-            SelectPlayersTeam1.SelectedIndexChanged += SelectPlayersTeam1_SelectedIndexChanged;
             // 
             // SelectPlayersTeam2
             // 
@@ -94,20 +94,31 @@
             SelectPlayers.UseVisualStyleBackColor = true;
             SelectPlayers.Click += SelectPlayers_Click;
             // 
-            // InputtingScoresForm
+            // BackButton
+            // 
+            BackButton.Location = new Point(12, 12);
+            BackButton.Name = "BackButton";
+            BackButton.Size = new Size(94, 29);
+            BackButton.TabIndex = 6;
+            BackButton.Text = "Back";
+            BackButton.UseVisualStyleBackColor = true;
+            BackButton.Click += BackButton_Click;
+            // 
+            // SelectingPlayers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(BackButton);
             Controls.Add(SelectPlayers);
             Controls.Add(label1);
             Controls.Add(SelectPlayersTeam2);
             Controls.Add(SelectPlayersTeam1);
             Controls.Add(Team2);
             Controls.Add(Team1);
-            Name = "InputtingScoresForm";
-            Text = "InputtingScoresForm";
-            Load += InputtingScoresForm_Load;
+            Name = "SelectingPlayers";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "SelectingPlayers";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -117,9 +128,9 @@
         private Label Team1;
         private Label Team2;
         private ListBox SelectPlayersTeam1;
-        private ListBox listBox1;
         private ListBox SelectPlayersTeam2;
         private Label label1;
         private Button SelectPlayers;
+        private Button BackButton;
     }
 }

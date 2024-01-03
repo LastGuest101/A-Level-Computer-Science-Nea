@@ -19,14 +19,14 @@ namespace user_login_NEA
 
         private void BackButton_Click(object sender, EventArgs e)
         {
-            MainMenu mainMenuForm = new MainMenu();
+            MainMenu mainMenuForm = new();
             mainMenuForm.Show();
             Hide();
         }
 
         private void EditScoresButton_Click(object sender, EventArgs e)
         {
-            InputtingScoresForm InputScoreForm = new InputtingScoresForm();
+            SelectingPlayers InputScoreForm = new();
             InputScoreForm.Show();
             Hide();
         }

@@ -71,6 +71,7 @@
             Controls.Add(EditScoresButton);
             Controls.Add(AddPlayersButton);
             Name = "AdminMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AdminMenu";
             ResumeLayout(false);
         }

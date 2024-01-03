@@ -13,8 +13,7 @@ namespace user_login_NEA
 {
     public partial class LoginForm : Form
     {
-        // SQLite connection for database operations
-        private SQLiteConnection dbConnection = new SQLiteConnection(Database_manager.Connection());
+
 
         // Static variable to store the logged-in username
         public static string? LoggedInUsername;
@@ -47,7 +46,7 @@ namespace user_login_NEA
                     LoggedInUsername = username;
 
                     // Redirect to the next form or perform actions upon successful login
-                    MainMenu MenuForm = new MainMenu();
+                    MainMenu MenuForm = new();
                     MenuForm.Show();
                     Hide();
                 }
@@ -83,14 +82,14 @@ namespace user_login_NEA
             }
         }
 
-        private void clearButton_Click(object sender, EventArgs e)
+        private void ClearButton_Click(object sender, EventArgs e)
         {
             usernameTextBox.Clear();
             passwordTextBox.Clear();
             passwordTextBox.Focus();
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
         {
             // Display a confirmation dialog for exiting the application
             DialogResult res = MessageBox.Show("Do you want to exit", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -112,8 +111,12 @@ namespace user_login_NEA
 
         }
 
-
-        // Other methods and event handlers...
+        private void Sign_Up_Button_Click(object sender, EventArgs e)
+        {
+            SignUp signUp = new();
+            signUp.Show();
+            Hide();
+        }
     }
 
 }

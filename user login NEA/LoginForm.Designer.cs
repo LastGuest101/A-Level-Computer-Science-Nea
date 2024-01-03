@@ -37,6 +37,7 @@
             exitButton = new Button();
             clearButton = new Button();
             CheckBoxShowPass = new CheckBox();
+            Sign_Up_Button = new Button();
             SuspendLayout();
             // 
             // titleLabel
@@ -98,7 +99,7 @@
             exitButton.TabIndex = 6;
             exitButton.Text = "Exit";
             exitButton.UseVisualStyleBackColor = true;
-            exitButton.Click += exitButton_Click;
+            exitButton.Click += ExitButton_Click;
             // 
             // clearButton
             // 
@@ -108,7 +109,7 @@
             clearButton.TabIndex = 7;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = true;
-            clearButton.Click += clearButton_Click;
+            clearButton.Click += ClearButton_Click;
             // 
             // CheckBoxShowPass
             // 
@@ -121,11 +122,22 @@
             CheckBoxShowPass.UseVisualStyleBackColor = true;
             CheckBoxShowPass.CheckedChanged += CheckBoxShowPass_CheckedChanged;
             // 
+            // Sign_Up_Button
+            // 
+            Sign_Up_Button.Location = new Point(406, 284);
+            Sign_Up_Button.Name = "Sign_Up_Button";
+            Sign_Up_Button.Size = new Size(94, 29);
+            Sign_Up_Button.TabIndex = 9;
+            Sign_Up_Button.Text = "Sign Up";
+            Sign_Up_Button.UseVisualStyleBackColor = true;
+            Sign_Up_Button.Click += Sign_Up_Button_Click;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(Sign_Up_Button);
             Controls.Add(CheckBoxShowPass);
             Controls.Add(clearButton);
             Controls.Add(exitButton);
@@ -136,6 +148,7 @@
             Controls.Add(passwordLabel);
             Controls.Add(titleLabel);
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";
             ResumeLayout(false);
             PerformLayout();
@@ -152,5 +165,6 @@
         private Button exitButton;
         private Button clearButton;
         private CheckBox CheckBoxShowPass;
+        private Button Sign_Up_Button;
     }
 }

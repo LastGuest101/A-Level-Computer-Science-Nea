@@ -16,7 +16,7 @@ namespace user_login_NEA
           
 
         }
-      public static int value()
+      public static int Value()
         {
             return 69 ;
         }

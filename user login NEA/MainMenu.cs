@@ -30,7 +30,7 @@ namespace user_login_NEA
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            AdminMenu adminMenuForm = new AdminMenu();
+            AdminMenu adminMenuForm = new();
             adminMenuForm.Show();
             Hide();
         }
@@ -46,7 +46,7 @@ namespace user_login_NEA
             DialogResult res = MessageBox.Show("Do you want to Sign Out?", "Sign Out", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
-                LoginForm loginForm = new LoginForm();
+                LoginForm loginForm = new();
                 loginForm.Show();
                 this.Hide();
             }

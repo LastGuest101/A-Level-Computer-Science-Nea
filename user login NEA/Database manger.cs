@@ -30,13 +30,13 @@ namespace user_login_NEA
             // INSERT query
             string insertQuery = $"INSERT INTO Players (FirstName, LastName) VALUES ('{FirstName}', '{LastName}');";
             // Create a new SQLite connection
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            using (SQLiteConnection connection = new (connectionString))
             {
                 // Open the connection
                 connection.Open();
 
                 // Create a command with the query and connection
-                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                using (SQLiteCommand command = new (insertQuery, connection))
                 {
                     // Execute the query
                     command.ExecuteNonQuery();
@@ -67,11 +67,11 @@ namespace user_login_NEA
 
         public static bool AuthenticateUser(string username, string password)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            using (SQLiteConnection connection = new (Connection()))
             {
                 string query = "SELECT * FROM Users WHERE Username = @Username AND Password = @Password";
 
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteCommand command = new (query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
@@ -151,7 +151,7 @@ namespace user_login_NEA
         {
             List<int> attributeValues = new List<int>(); // Collection to store multiple attribute values
 
-            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            using (SQLiteConnection connection = new (Connection()))
             {
                 connection.Open();
 
@@ -179,13 +179,47 @@ namespace user_login_NEA
             return attributeValues;
         }
 
+        public static List<string> multipleStringFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
+        {
+            List<string> attributeValues = new List<string>(); // Collection to store multiple attribute strings
+
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
+
+                using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue($"@{attributeNameQuery}", Input);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Read and add each attribute value to the collection
+                            string attributeValue = reader.GetString(0);
+                            attributeValues.Add(attributeValue);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return attributeValues;
+        }
+
+      
+
 
 
 
 
     }
 
-   
+
 
 
 
