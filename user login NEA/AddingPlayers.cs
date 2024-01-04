@@ -89,7 +89,7 @@ namespace user_login_NEA
                     }
                     else if (Player.ValidateName(LastNameTextBox.Text) != "Valid")
                     {
-                        FirstNameTextBox.Text = "ERROR";
+                        LastNameTextBox.Text = "ERROR";
                         MessageBox.Show($"{Player.ValidateName(LastNameTextBox.Text)} - LastName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         LastNameTextBox.Clear();
                         LastNameTextBox.Focus();

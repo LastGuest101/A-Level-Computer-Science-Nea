@@ -116,9 +116,9 @@ namespace user_login_NEA
           
             else
             {
-                if (!Regex.IsMatch(name, @"^[A-Z]"))
+                if (!Regex.IsMatch(name, @"^[A-Z].*$"))
                 {
-                    return "Error: First character must be an uppercase letter.";
+                     return ("Error: First character must be an uppercase letter.");
                 }
                 else
                 {
