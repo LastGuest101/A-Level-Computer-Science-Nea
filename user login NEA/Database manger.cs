@@ -65,7 +65,7 @@ namespace user_login_NEA
         }
 
 
-        public static bool AuthenticateUser(string username, string password)
+        public static bool AuthenticateUserLoginIn(string username, string password)
         {
             using (SQLiteConnection connection = new (Connection()))
             {
@@ -211,7 +211,39 @@ namespace user_login_NEA
             return attributeValues;
         }
 
-      
+        public static List<string> columnStringFromDB(string TableName, string attributeNameOutput)
+        {
+            List<string> attributeValues = new List<string>(); // Collection to store multiple attribute strings
+
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" ";
+                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
+
+                using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
+                {
+               
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Read and add each attribute value to the collection
+                            string attributeValue = reader.GetString(0);
+                            attributeValues.Add(attributeValue);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return attributeValues;
+        }
+
+
 
 
 

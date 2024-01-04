@@ -38,6 +38,10 @@
             EmailLabel = new Label();
             LeagueLabel = new Label();
             LeagueComboBox = new ComboBox();
+            BowlerLabel = new Label();
+            BowlerComboBox = new ComboBox();
+            SignUpButton = new Button();
+            ValidatorLabel = new Button();
             SuspendLayout();
             // 
             // LoginInButton
@@ -118,17 +122,60 @@
             // 
             // LeagueComboBox
             // 
+            LeagueComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             LeagueComboBox.FormattingEnabled = true;
             LeagueComboBox.Location = new Point(510, 94);
             LeagueComboBox.Name = "LeagueComboBox";
             LeagueComboBox.Size = new Size(151, 28);
             LeagueComboBox.TabIndex = 12;
+            LeagueComboBox.SelectedIndexChanged += LeagueComboBox_SelectedIndexChanged;
+            // 
+            // BowlerLabel
+            // 
+            BowlerLabel.AutoSize = true;
+            BowlerLabel.Location = new Point(556, 191);
+            BowlerLabel.Name = "BowlerLabel";
+            BowlerLabel.Size = new Size(55, 20);
+            BowlerLabel.TabIndex = 13;
+            BowlerLabel.Text = "Bowler";
+            // 
+            // BowlerComboBox
+            // 
+            BowlerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            BowlerComboBox.FormattingEnabled = true;
+            BowlerComboBox.Location = new Point(510, 214);
+            BowlerComboBox.Name = "BowlerComboBox";
+            BowlerComboBox.Size = new Size(151, 28);
+            BowlerComboBox.TabIndex = 14;
+            // 
+            // SignUpButton
+            // 
+            SignUpButton.Location = new Point(372, 331);
+            SignUpButton.Name = "SignUpButton";
+            SignUpButton.Size = new Size(94, 29);
+            SignUpButton.TabIndex = 15;
+            SignUpButton.Text = "Sign Up";
+            SignUpButton.UseVisualStyleBackColor = true;
+            SignUpButton.Click += SignUpButton_Click;
+            // 
+            // ValidatorLabel
+            // 
+            ValidatorLabel.Location = new Point(372, 266);
+            ValidatorLabel.Name = "ValidatorLabel";
+            ValidatorLabel.Size = new Size(94, 29);
+            ValidatorLabel.TabIndex = 16;
+            ValidatorLabel.Text = "button1";
+            ValidatorLabel.UseVisualStyleBackColor = true;
             // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ValidatorLabel);
+            Controls.Add(SignUpButton);
+            Controls.Add(BowlerComboBox);
+            Controls.Add(BowlerLabel);
             Controls.Add(LeagueComboBox);
             Controls.Add(LeagueLabel);
             Controls.Add(EmailLabel);
@@ -142,6 +189,7 @@
             Name = "SignUp";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SignUp";
+            Load += SignUp_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -158,5 +206,9 @@
         private Label EmailLabel;
         private Label LeagueLabel;
         private ComboBox LeagueComboBox;
+        private Label BowlerLabel;
+        private ComboBox BowlerComboBox;
+        private Button SignUpButton;
+        private Button ValidatorLabel;
     }
 }

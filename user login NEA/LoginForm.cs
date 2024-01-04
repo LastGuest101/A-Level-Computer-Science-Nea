@@ -40,7 +40,7 @@ namespace user_login_NEA
             try
             {
                 // Attempt to authenticate the user using the database manager
-                if (Database_manager.AuthenticateUser(username, password))
+                if (Database_manager.AuthenticateUserLoginIn(username, password))
                 {
                     MessageBox.Show("Login Successful!");
                     LoggedInUsername = username;
