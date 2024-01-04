@@ -4,6 +4,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace user_login_NEA
@@ -32,32 +33,71 @@ namespace user_login_NEA
             }
             else
             {
-                if (username.Length < 4 || username.Length > 30)
+                if (username.Length < 1 || username.Length > 30)
                 {
-                    return "Username has to be between 5 - 30 characters long";
+                    return "Username has to be 1 - 30 characters long";
                 }
                 else
                 {
-                    return "valid";
+                    if (Regex.IsMatch(username, "[^A-Za-z0-9_]") == true)
+                    {
+                        return "Username can only include alphanumeric characters and '_'";
+                    }
+                    else
+                    {
+                        return "valid";
+                    }
+                    
                 }
+
+               
             }
              
 
         }
+
+        public static string PasswordValidator(string password)
+        {
+            if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d|[^a-zA-Z])).{8,30}$"))
+            {
+                return "valid";
+            }
+            else if (password.Length < 8 || password.Length > 30)
+            {
+                return "Password must between 8 - 30 characters long.";
+            }
+            else if (!Regex.IsMatch(password, @"^(?=.*[a-z])"))
+            {
+                return "Password must contain at least one lowercase letter.";
+            }
+            else if (!Regex.IsMatch(password, @"^(?=.*[A-Z])"))
+            {
+                return "Password must contain at least one uppercase letter.";
+            }
+            else if (!Regex.IsMatch(password, @"^(?=.*(\d|[^a-zA-Z]))"))
+            {
+                return "Password must contain at least one digit or special character.";
+            }
+            
+            
+            {
+                return "Password does not meet the required criteria.";
+            }
+
+        }
+            
+           
+        
 
         
 
       public static bool OtherUsers(string username)
         {
             if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
-            {
+            { 
                 return true;
             }
-            
-            else
-            {
                 return false;
-            }
         }
         
 

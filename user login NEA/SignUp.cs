@@ -66,8 +66,15 @@ namespace user_login_NEA
 
         private void SignUpButton_Click(object sender, EventArgs e)
         {
+            if (User.UsernameValidator(UsernameTextBox.Text) != "valid")
+            {
+                //UsernameTextBox.Clear();
+                UsernameTextBox.Focus();
+            }
 
-            ValidatorLabel.Text = User.UsernameValidator(UsernameTextBox.Text);
+            ValidatorLabel.Text = User.PasswordValidator(PasswordTextbox.Text);
+
+
 
 
 

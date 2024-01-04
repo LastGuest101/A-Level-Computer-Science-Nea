@@ -160,7 +160,7 @@
             // 
             // ValidatorLabel
             // 
-            ValidatorLabel.Location = new Point(312, 248);
+            ValidatorLabel.Location = new Point(328, 248);
             ValidatorLabel.Name = "ValidatorLabel";
             ValidatorLabel.Size = new Size(356, 69);
             ValidatorLabel.TabIndex = 16;
