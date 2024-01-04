@@ -13,13 +13,18 @@ namespace user_login_NEA
 {
     public partial class AddingPlayers : Form
     {
+        string team_id;
+        string league_id;
         public AddingPlayers()
         {
             InitializeComponent();
+
+
         }
 
         private void AddingPlayers_Load(object sender, EventArgs e)
         {
+
 
             foreach (var LeagueName in Database_manager.columnStringFromDB("Leagues", "LeagueName"))
 
@@ -32,7 +37,10 @@ namespace user_login_NEA
 
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BowlerComboBox.Items.Clear();
+            league_id = Convert.ToString(Database_manager.singleIntFromDB($"{LeagueComboBox.SelectedItem}", "LeagueName", "Leagues", "league_id"));
+
+
+            TeamComboBox.Items.Clear();
 
             List<int> legaueTeams = new List<int>();
 
@@ -47,7 +55,7 @@ namespace user_login_NEA
 
 
 
-                    BowlerComboBox.Items.Add(Database_manager.singleStringFromDB($"{team}", "team_id", "Teams", "TeamName"));
+                    TeamComboBox.Items.Add(Database_manager.singleStringFromDB($"{team}", "team_id", "Teams", "TeamName"));
                 }
             }
             else
@@ -58,47 +66,80 @@ namespace user_login_NEA
 
         private void AddPlayerButton_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(FirstNameTextBox.Text))
+            if (LeagueComboBox.SelectedIndex == -1) // Checks if anything has been selected from the LeagueComboBox
+            {
+                MessageBox.Show("Please select a league!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (TeamComboBox.SelectedIndex == -1) // Checks if anything has been selected from the TeamComboBox
+            {
+                MessageBox.Show("Please select a team!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+            else if (String.IsNullOrWhiteSpace(FirstNameTextBox.Text)) // Checks if textbox is empty/contains only whitespace
             {
                 FirstNameTextBox.Text = "ERROR";
                 MessageBox.Show("Please enter a FirstName!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 FirstNameTextBox.Clear();
                 FirstNameTextBox.Focus();
             }
-            else if (String.IsNullOrWhiteSpace(LastNameTextBox.Text))
+            else if (String.IsNullOrWhiteSpace(LastNameTextBox.Text)) // Checks if textbox is empty/contains only whitespace
             {
                 LastNameTextBox.Text = "ERROR";
                 MessageBox.Show("Please enter a LastName!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LastNameTextBox.Clear();
                 LastNameTextBox.Focus();
             }
-            else
+
+
+            else if (Player.ValidateName(FirstNameTextBox.Text) != "Valid") // Checks if Name inputted is valid using Player.ValidateName
             {
-                if (Player.ValidateName(FirstNameTextBox.Text) == "Valid" && Player.ValidateName(LastNameTextBox.Text) == "Valid")
-                {
-                    FirstNameLabel.Text = "VALID";
-                }
-                else
-                {
-                    if (Player.ValidateName(FirstNameTextBox.Text) != "Valid") 
-                    {
-                        FirstNameTextBox.Text = "ERROR";
-                        MessageBox.Show($"{Player.ValidateName(FirstNameTextBox.Text)} - FirstName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        FirstNameTextBox.Clear();
-                        FirstNameTextBox.Focus();
-                    }
-                    else if (Player.ValidateName(LastNameTextBox.Text) != "Valid")
-                    {
-                        LastNameTextBox.Text = "ERROR";
-                        MessageBox.Show($"{Player.ValidateName(LastNameTextBox.Text)} - LastName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        LastNameTextBox.Clear();
-                        LastNameTextBox.Focus();
-                    }
-                }
+                FirstNameTextBox.Text = "ERROR";
+                MessageBox.Show($"{Player.ValidateName(FirstNameTextBox.Text)} - FirstName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FirstNameTextBox.Clear();
+                FirstNameTextBox.Focus();
+            }
+            else if (Player.ValidateName(LastNameTextBox.Text) != "Valid") // Checks if Name inputted is valid using Player.ValidateName
+            {
+                LastNameTextBox.Text = "ERROR";
+                MessageBox.Show($"{Player.ValidateName(LastNameTextBox.Text)} - LastName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LastNameTextBox.Clear();
+                LastNameTextBox.Focus();
             }
 
-            
+            else if (Player.OtherPlayers(FirstNameTextBox.Text, LastNameTextBox.Text) == true)
+            {
+                MessageBox.Show($"Player is already in the database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FirstNameTextBox.Clear();
+                LastNameTextBox.Clear();
+                LastNameTextBox.Focus();
+            }
 
+
+
+
+
+            else if (Player.ValidateName(FirstNameTextBox.Text) == "Valid" && Player.ValidateName(LastNameTextBox.Text) == "Valid")
+            {
+                string firstname = FirstNameTextBox.Text;
+                string lastname = LastNameTextBox.Text;
+                FirstNameLabel.Text = "VALID";
+
+
+
+                Player.AddPlayer($"{firstname}", $"{lastname}", $"{team_id}", $"{league_id}");
+            }
+
+
+
+
+
+        }
+
+        private void TeamComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            team_id = Convert.ToString(Database_manager.singleIntFromDB($"{TeamComboBox.SelectedItem}", "TeamName", "Teams", "team_id"));
         }
     }
 }

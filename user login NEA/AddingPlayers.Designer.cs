@@ -31,7 +31,7 @@
             LeagueLabel = new Label();
             LeagueComboBox = new ComboBox();
             TeamLabel = new Label();
-            BowlerComboBox = new ComboBox();
+            TeamComboBox = new ComboBox();
             FirstNameLabel = new Label();
             LastNameLabel = new Label();
             FirstNameTextBox = new TextBox();
@@ -67,14 +67,15 @@
             TeamLabel.TabIndex = 14;
             TeamLabel.Text = "Team";
             // 
-            // BowlerComboBox
+            // TeamComboBox
             // 
-            BowlerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            BowlerComboBox.FormattingEnabled = true;
-            BowlerComboBox.Location = new Point(420, 64);
-            BowlerComboBox.Name = "BowlerComboBox";
-            BowlerComboBox.Size = new Size(151, 28);
-            BowlerComboBox.TabIndex = 15;
+            TeamComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            TeamComboBox.FormattingEnabled = true;
+            TeamComboBox.Location = new Point(420, 64);
+            TeamComboBox.Name = "TeamComboBox";
+            TeamComboBox.Size = new Size(151, 28);
+            TeamComboBox.TabIndex = 15;
+            TeamComboBox.SelectedIndexChanged += TeamComboBox_SelectedIndexChanged;
             // 
             // FirstNameLabel
             // 
@@ -128,7 +129,7 @@
             Controls.Add(FirstNameTextBox);
             Controls.Add(LastNameLabel);
             Controls.Add(FirstNameLabel);
-            Controls.Add(BowlerComboBox);
+            Controls.Add(TeamComboBox);
             Controls.Add(TeamLabel);
             Controls.Add(LeagueComboBox);
             Controls.Add(LeagueLabel);
@@ -143,7 +144,7 @@
         private Label LeagueLabel;
         private ComboBox LeagueComboBox;
         private Label TeamLabel;
-        private ComboBox BowlerComboBox;
+        private ComboBox TeamComboBox;
         private Label FirstNameLabel;
         private Label LastNameLabel;
         private TextBox FirstNameTextBox;

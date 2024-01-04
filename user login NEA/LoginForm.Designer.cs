@@ -38,6 +38,7 @@
             clearButton = new Button();
             CheckBoxShowPass = new CheckBox();
             Sign_Up_Button = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // titleLabel
@@ -132,11 +133,21 @@
             Sign_Up_Button.UseVisualStyleBackColor = true;
             Sign_Up_Button.Click += Sign_Up_Button_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(621, 313);
+            label1.Name = "label1";
+            label1.Size = new Size(50, 20);
+            label1.TabIndex = 10;
+            label1.Text = "label1";
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Controls.Add(Sign_Up_Button);
             Controls.Add(CheckBoxShowPass);
             Controls.Add(clearButton);
@@ -166,5 +177,6 @@
         private Button clearButton;
         private CheckBox CheckBoxShowPass;
         private Button Sign_Up_Button;
+        private Label label1;
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
 namespace user_login_NEA
@@ -64,6 +66,72 @@ namespace user_login_NEA
             }
         }
 
+        public static void InsertPlayers(string firstname, string lastname)
+        {
+            
+            string insertQuery = $"INSERT INTO Players (FirstName, LastName) VALUES ('{firstname}','{lastname}');";
+
+            using (SQLiteConnection connection = new (Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+
+
+        }
+
+        public static void InsertHandicap(string league_id, string player_id)
+        {
+
+            string insertQuery = $"INSERT INTO Handicaps (league_id, player_id, Handicap) VALUES ('{league_id}','{player_id}' , '0');";
+
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+
+
+        }
+
+        public static void InsertPlayerIntoTeam(string player_id, string team_id)
+        {
+
+            string insertQuery = $"INSERT INTO [Teams/Players] (player_id, team_id ) VALUES ('{player_id}','{team_id}');"; // Had to use [] since / is a reserved word in SQL.
+
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+
+
+        }
+
 
         public static bool AuthenticateUserLoginIn(string username, string password)
         {
@@ -94,7 +162,7 @@ namespace user_login_NEA
                 connection.Open();
 
                 // Use a parameterized query to prevent SQL injection
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName} WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -243,13 +311,10 @@ namespace user_login_NEA
             return attributeValues;
         }
 
-
-
-
-
-
-
+       
     }
+
+
 
 
 

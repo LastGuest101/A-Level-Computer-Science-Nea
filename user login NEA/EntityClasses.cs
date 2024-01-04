@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Data.Entity;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Policy;
@@ -92,13 +94,13 @@ namespace user_login_NEA
         
 
       public static bool OtherUsers(string username)
-        {
+      {
             if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
             { 
                 return true;
             }
                 return false;
-        }
+      }
         
 
        
@@ -125,6 +127,40 @@ namespace user_login_NEA
                     return "Error: Invalid characters or format.";
                 }
             }
+        }
+        public static void AddPlayer(string firstname, string lastname, string team_id, string league_id)
+        {
+           
+            Database_manager.InsertPlayers(firstname, lastname);
+            string player_id = Convert.ToString(Database_manager.singleIntFromDB($"{firstname}", "FirstName", "Players", "player_id"));
+
+            Database_manager.InsertHandicap(league_id, player_id);
+
+            Database_manager.InsertPlayerIntoTeam(player_id, team_id);
+
+        }
+
+        public static bool OtherPlayers(string firstname, string lastname)
+        {
+                if (Database_manager.singleStringFromDB($"{firstname}", "FirstName", "Players", "Firstname") != null && Database_manager.singleStringFromDB($"{lastname}", "LastName", "Players", "LastName") != null)
+                {
+                    return true;
+                }
+                return false;
+            
+
+        }
+    }
+
+    public class Team
+    {
+        public static int NumberOfPlayers(string TeamName)
+        {
+            int team_id = Database_manager.singleIntFromDB($"{TeamName}", "TeamName", "Teams", "team_id");
+
+            return Database_manager.singleIntFromDB($"{team_id}", "team_id", "[Teams/Players]", "COUNT(player_id)"); //Aggregate SQL function
+
+
         }
     }
 }
