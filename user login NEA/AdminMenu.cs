@@ -30,5 +30,12 @@ namespace user_login_NEA
             InputScoreForm.Show();
             Hide();
         }
+
+        private void AddPlayersButton_Click(object sender, EventArgs e)
+        {
+            AddingPlayers addingPlayers = new();
+            addingPlayers.Show();
+            Hide();
+        }
     }
 }

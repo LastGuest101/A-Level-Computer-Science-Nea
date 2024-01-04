@@ -119,6 +119,7 @@
             LeagueLabel.Size = new Size(57, 20);
             LeagueLabel.TabIndex = 11;
             LeagueLabel.Text = "League";
+ 
             // 
             // LeagueComboBox
             // 

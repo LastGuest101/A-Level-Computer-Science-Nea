@@ -105,4 +105,26 @@ namespace user_login_NEA
 
     }
 
+    public class Player
+    {
+        public static string ValidateName (string name)
+        {
+            if (Regex.IsMatch(name, @"^[A-Z][a-z ,.'-]*$"))
+            {
+                return "Valid";
+            }
+          
+            else
+            {
+                if (!Regex.IsMatch(name, @"^[A-Z]"))
+                {
+                    return "Error: First character must be an uppercase letter.";
+                }
+                else
+                {
+                    return "Error: Invalid characters or format.";
+                }
+            }
+        }
+    }
 }

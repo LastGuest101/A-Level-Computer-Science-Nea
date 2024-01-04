@@ -41,6 +41,7 @@
             AddPlayersButton.TabIndex = 0;
             AddPlayersButton.Text = "Add Players";
             AddPlayersButton.UseVisualStyleBackColor = true;
+            AddPlayersButton.Click += AddPlayersButton_Click;
             // 
             // EditScoresButton
             // 

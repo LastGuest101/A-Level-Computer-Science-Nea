@@ -60,7 +60,7 @@ namespace user_login_NEA
             }
             else
             {
-                //BowlerLabel.Text = "FAIL!";
+                BowlerLabel.Text = "ERROR";
             }
         }
 
@@ -93,6 +93,6 @@ namespace user_login_NEA
 
         }
 
-        
     }
 }
+
