@@ -67,7 +67,7 @@ namespace user_login_NEA
         private void SignUpButton_Click(object sender, EventArgs e)
         {
 
-            ValidatorLabel.Text = User.UsernameValidator(UsernameTextBox.Text).ToString();
+            ValidatorLabel.Text = User.UsernameValidator(UsernameTextBox.Text);
 
 
 

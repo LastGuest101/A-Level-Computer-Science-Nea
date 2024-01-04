@@ -160,9 +160,9 @@
             // 
             // ValidatorLabel
             // 
-            ValidatorLabel.Location = new Point(372, 266);
+            ValidatorLabel.Location = new Point(312, 248);
             ValidatorLabel.Name = "ValidatorLabel";
-            ValidatorLabel.Size = new Size(94, 29);
+            ValidatorLabel.Size = new Size(356, 69);
             ValidatorLabel.TabIndex = 16;
             ValidatorLabel.Text = "button1";
             ValidatorLabel.UseVisualStyleBackColor = true;
