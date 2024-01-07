@@ -22,7 +22,7 @@ namespace user_login_NEA
             loggedPlayerId = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "player_id"));
 
             PlayerName.Text = "Bowler: " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "LastName");
-            PlayerHandicap.Text = "Handicap:  " + Convert.ToString(Database_manager.singleIntFromDB(loggedPlayerId, "player_id", "Handicaps", "Handicap"));
+            PlayerHandicap.Text = "Handicap:  " + Convert.ToString(Database_manager.singleIntFromDB(loggedPlayerId, "player_id", "LeagueStats", "Handicap"));
             label2.Text = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin"));
             AddButton.Visible = Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin") == 1;
 

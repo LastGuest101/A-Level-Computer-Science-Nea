@@ -22,7 +22,7 @@ namespace user_login_NEA
         public LoginForm()
         {
             InitializeComponent();
-           label1.Text = Convert.ToString(Team.NumberOfPlayers("J2O"));
+
            
 
 

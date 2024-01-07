@@ -33,6 +33,11 @@ namespace user_login_NEA
 
         }
 
+        public static int HandicapTotal( int Handicap)
+        {
+            return Handicap * 3;
+        }
+        
 
 
     }

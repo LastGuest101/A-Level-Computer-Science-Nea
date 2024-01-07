@@ -26,7 +26,7 @@ namespace user_login_NEA
         {
 
 
-            foreach (var LeagueName in Database_manager.columnStringFromDB("Leagues", "LeagueName"))
+            foreach (var LeagueName in Database_manager.columnStringFromDB("Leagues", "LeagueName")) //adds the league name of each entity in the table Leagues to the combobox
 
             {
                 LeagueComboBox.Items.Add(LeagueName);
@@ -42,15 +42,15 @@ namespace user_login_NEA
 
             TeamComboBox.Items.Clear();
 
-            List<int> legaueTeams = new List<int>();
+            List<int> legaueTeams = new List<int>(); 
 
-            if (LeagueComboBox.SelectedIndex.ToString() != null)
+            if (LeagueComboBox.SelectedIndex.ToString() != null) // Checks if combobox is not empty
             {
 
 
                 legaueTeams = Database_manager.multipleIntFromDB($"{LeagueComboBox.SelectedIndex.ToString() + 1}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1
 
-                foreach (var team in legaueTeams)
+                foreach (var team in legaueTeams) //adds the team name of each entity in the table Leagues to the combobox, dependent on what league is selected first.
                 {
 
 
@@ -108,7 +108,15 @@ namespace user_login_NEA
                 LastNameTextBox.Focus();
             }
 
-            else if (Player.OtherPlayers(FirstNameTextBox.Text, LastNameTextBox.Text) == true)
+            else if (Team.NumberOfPlayers(TeamComboBox.SelectedText) > 6) // Teams should have a max of 6 players (*NEEDS TESTING)
+            {
+                MessageBox.Show($"Max number of players in a team had been reached (6) ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FirstNameTextBox.Clear();
+                LastNameTextBox.Clear();
+                LastNameTextBox.Focus();
+            }
+
+            else if (Player.OtherPlayers(FirstNameTextBox.Text, LastNameTextBox.Text) == true) // Checks if player is already added into database
             {
                 MessageBox.Show($"Player is already in the database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 FirstNameTextBox.Clear();
@@ -120,7 +128,7 @@ namespace user_login_NEA
 
 
 
-            else if (Player.ValidateName(FirstNameTextBox.Text) == "Valid" && Player.ValidateName(LastNameTextBox.Text) == "Valid")
+            else if (Player.ValidateName(FirstNameTextBox.Text) == "Valid" && Player.ValidateName(LastNameTextBox.Text) == "Valid") //Adds a new player and associated data to the database.
             {
                 string firstname = FirstNameTextBox.Text;
                 string lastname = LastNameTextBox.Text;

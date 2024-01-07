@@ -19,6 +19,8 @@ namespace user_login_NEA
         public static string player2;
         public static string player3;
         public static string player4;
+
+       
         public SelectingPlayers()
         {
             InitializeComponent();
@@ -48,6 +50,9 @@ namespace user_login_NEA
 
             if ((SelectPlayersTeam1.SelectedItems.Count == 2) && (SelectPlayersTeam2.SelectedItems.Count == 2))
             {
+
+                
+
                 player1 = Convert.ToString(SelectPlayersTeam1.SelectedItems[0]);
                 player2 = Convert.ToString(SelectPlayersTeam1.SelectedItems[1]);
                 player3 = Convert.ToString(SelectPlayersTeam2.SelectedItems[0]);

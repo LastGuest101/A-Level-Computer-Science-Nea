@@ -311,7 +311,39 @@ namespace user_login_NEA
             return attributeValues;
         }
 
-       
+        public static int singleIntFromDBMC(string Input,string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput)
+        {
+            int attributeValue = -1; // Default value indicating attribute not found
+
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                // Use a parameterized query to prevent SQL injection
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery} AND {attributeNameQuery2} = @{attributeNameQuery2}";
+
+                using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue($"@{attributeNameQuery}", Input);
+                    command.Parameters.AddWithValue($"@{attributeNameQuery2}", Input2);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Check if the attribute was found
+                            attributeValue = reader.GetInt32(0);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return attributeValue;
+        }
+
+
     }
 
 
