@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,18 +16,10 @@ namespace user_login_NEA
         public InputtingScores()
         {
             InitializeComponent();
-       
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
 
         }
 
-        private void Team1TableLayout_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void InputtingScores_Load(object sender, EventArgs e)
         {
@@ -72,14 +65,470 @@ namespace user_login_NEA
             Average3Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Games")));
             Average4Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Games")));
 
+            Total1Label.Text = "0";
+            Total2Label.Text = "0";
+            Total3Label.Text = "0";
+            Total4Label.Text = "0";
+
         }
 
-    
-           
-
-        private void Handicap1Label_Click(object sender, EventArgs e)
+        private void P1_Game1TextBox_TextChanged(object sender, EventArgs e)
         {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal1Label.Text);
+
+            if (Game.ValidateGameNumber(P1_Game1TextBox.Text) != "valid") // Only allows numbers from 0 - 300 to be inputted
+            {
+                P1_Game1TextBox.Clear();
+                Game1 = 0;
+            }
+
+            else
+            {
+                Game1 = Convert.ToInt32(P1_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P1_Game2TextBox.Text)) // Checks if player1 Game2 is empty
+            {
+                Game2 = 0;
+            }
+            else
+            {
+                Game2 = Convert.ToInt32(P1_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P1_Game3TextBox.Text))  // Checks if player1 Game3 is empty
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P1_Game3TextBox.Text);
+            }
+            ScratchScore1Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3)); // Displays the scratch score of player1
+            Total1Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap); // Displays total score including handicap player1
+        }
+
+        private void P1_Game2TextBox_TextChanged(object sender, EventArgs e)
+        {
+            {
+                int Game2;
+                int Game1;
+                int Game3;
+                int TotalHandicap = Convert.ToInt32(HandicapTotal1Label.Text);
+
+                if (Game.ValidateGameNumber(P1_Game2TextBox.Text) != "valid")
+                {
+                    P1_Game2TextBox.Clear();
+                    Game2 = 0;
+                }
+
+                else
+                {
+                    Game2 = Convert.ToInt32(P1_Game2TextBox.Text);
+                }
+                if (String.IsNullOrWhiteSpace(P1_Game1TextBox.Text))
+                {
+                    Game1 = 0;
+                }
+                else
+                {
+                    Game1 = Convert.ToInt32(P1_Game1TextBox.Text);
+                }
+                if (String.IsNullOrWhiteSpace(P1_Game3TextBox.Text))
+                {
+                    Game3 = 0;
+                }
+                else
+                {
+                    Game3 = Convert.ToInt32(P1_Game3TextBox.Text);
+                }
+                ScratchScore1Label.Text = Convert.ToString(maths.Series(Game2, Game1, Game3));
+                Total1Label.Text = Convert.ToString(maths.Series(Game2, Game1, Game3) + TotalHandicap);
+            }
 
         }
+
+        private void P1_Game3TextBox_TextChanged(object sender, EventArgs e)
+        {
+            {
+                int Game3;
+                int Game2;
+                int Game1;
+                int TotalHandicap = Convert.ToInt32(HandicapTotal1Label.Text);
+
+                if (Game.ValidateGameNumber(P1_Game3TextBox.Text) != "valid")
+                {
+                    P1_Game3TextBox.Clear();
+                    Game3 = 0;
+                }
+
+                else
+                {
+                    Game3 = Convert.ToInt32(P1_Game3TextBox.Text);
+                }
+                if (String.IsNullOrWhiteSpace(P1_Game2TextBox.Text))
+                {
+                    Game2 = 0;
+                }
+                else
+                {
+                    Game2 = Convert.ToInt32(P1_Game2TextBox.Text);
+                }
+                if (String.IsNullOrWhiteSpace(P1_Game1TextBox.Text))
+                {
+                    Game1 = 0;
+                }
+                else
+                {
+                    Game1 = Convert.ToInt32(P1_Game1TextBox.Text);
+                }
+                ScratchScore1Label.Text = Convert.ToString(maths.Series(Game3, Game2, Game1));
+                Total1Label.Text = Convert.ToString(maths.Series(Game3, Game2, Game1) + TotalHandicap);
+            }
+        }
+
+        private void P2_Game1TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal2Label.Text);
+
+            if (Game.ValidateGameNumber(P2_Game1TextBox.Text) != "valid") // Only allows numbers from 0 - 300 to be inputted
+            {
+                P2_Game1TextBox.Clear();
+                Game1 = 0;
+            }
+
+            else
+            {
+                Game1 = Convert.ToInt32(P2_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P2_Game2TextBox.Text)) // Checks if player2 Game2 is empty
+            {
+                Game2 = 0;
+            }
+            else
+            {
+                Game2 = Convert.ToInt32(P2_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P2_Game3TextBox.Text))  // Checks if player2 Game3 is empty
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P2_Game3TextBox.Text);
+            }
+            ScratchScore2Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3)); // Displays the scratch score of player2
+            Total2Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap); // Displays total score including handicap player2
+
+        }
+
+        private void P2_Game2TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game2;
+            int Game1;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal2Label.Text);
+
+            if (Game.ValidateGameNumber(P2_Game2TextBox.Text) != "valid")
+            {
+                P2_Game2TextBox.Clear();
+                Game2 = 0;
+            }
+
+            else
+            {
+                Game2 = Convert.ToInt32(P2_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P2_Game1TextBox.Text))
+            {
+                Game1 = 0;
+            }
+            else
+            {
+                Game1 = Convert.ToInt32(P2_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P2_Game3TextBox.Text))
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P2_Game3TextBox.Text);
+            }
+            ScratchScore2Label.Text = Convert.ToString(maths.Series(Game2, Game1, Game3));
+            Total2Label.Text = Convert.ToString(maths.Series(Game2, Game1, Game3) + TotalHandicap);
+
+        }
+
+        private void P2_Game3TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game3;
+            int Game1;
+            int Game2;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal2Label.Text);
+
+            if (Game.ValidateGameNumber(P2_Game3TextBox.Text) != "valid")
+            {
+                P2_Game3TextBox.Clear();
+                Game3 = 0;
+            }
+
+            else
+            {
+                Game3 = Convert.ToInt32(P2_Game3TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P2_Game2TextBox.Text))
+            {
+                Game2 = 0;
+            }
+
+            else
+            {
+                Game2 = Convert.ToInt32(P2_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P2_Game1TextBox.Text))
+            {
+                Game1 = 0;
+            }
+            else
+            {
+                Game1 = Convert.ToInt32(P2_Game1TextBox.Text);
+            }
+            ScratchScore2Label.Text = Convert.ToString(maths.Series(Game3, Game1, Game2));
+            Total2Label.Text = Convert.ToString(maths.Series(Game3, Game1, Game2) + TotalHandicap);
+        }
+
+        private void P3_Game1TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal3Label.Text);
+
+            if (Game.ValidateGameNumber(P3_Game1TextBox.Text) != "valid")
+            {
+                P3_Game1TextBox.Clear();
+                Game1 = 0;
+            }
+
+            else
+            {
+                Game1 = Convert.ToInt32(P3_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P3_Game2TextBox.Text))
+            {
+                Game2 = 0;
+            }
+            else
+            {
+                Game2 = Convert.ToInt32(P3_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P3_Game3TextBox.Text))
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P3_Game3TextBox.Text);
+            }
+            ScratchScore3Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3));
+            Total3Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
+        }
+
+        private void P3_Game2TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal3Label.Text);
+
+            if (Game.ValidateGameNumber(P3_Game2TextBox.Text) != "valid")
+            {
+                P3_Game2TextBox.Clear();
+                Game2 = 0;
+            }
+
+            else
+            {
+                Game2 = Convert.ToInt32(P3_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P3_Game1TextBox.Text))
+            {
+                Game1 = 0;
+            }
+            else
+            {
+                Game1 = Convert.ToInt32(P3_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P3_Game3TextBox.Text))
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P3_Game3TextBox.Text);
+            }
+            ScratchScore3Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3));
+            Total3Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
+        }
+
+        private void P3_Game3TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal3Label.Text);
+
+            if (Game.ValidateGameNumber(P3_Game3TextBox.Text) != "valid")
+            {
+                P3_Game3TextBox.Clear();
+                Game3 = 0;
+            }
+
+            else
+            {
+                Game3 = Convert.ToInt32(P3_Game3TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P3_Game2TextBox.Text))
+            {
+                Game2 = 0;
+            }
+            else
+            {
+                Game2 = Convert.ToInt32(P3_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P3_Game1TextBox.Text))
+            {
+                Game1 = 0;
+            }
+            else
+            {
+                Game1 = Convert.ToInt32(P3_Game1TextBox.Text);
+            }
+            ScratchScore3Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3));
+            Total3Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
+        }
+
+        private void P4_Game1TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal4Label.Text);
+
+            if (Game.ValidateGameNumber(P4_Game1TextBox.Text) != "valid")
+            {
+                P4_Game1TextBox.Clear();
+                Game1 = 0;
+            }
+
+            else
+            {
+                Game1 = Convert.ToInt32(P4_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P4_Game2TextBox.Text))
+            {
+                Game2 = 0;
+            }
+            else
+            {
+                Game2 = Convert.ToInt32(P4_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P4_Game3TextBox.Text))
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P4_Game3TextBox.Text);
+            }
+            ScratchScore4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3));
+            Total4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
+        }
+
+        private void P4_Game2TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal4Label.Text);
+
+            if (Game.ValidateGameNumber(P4_Game2TextBox.Text) != "valid")
+            {
+                P4_Game2TextBox.Clear();
+                Game2 = 0;
+            }
+
+            else
+            {
+                Game2 = Convert.ToInt32(P4_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P4_Game1TextBox.Text))
+            {
+                Game1 = 0;
+            }
+            else
+            {
+                Game1 = Convert.ToInt32(P4_Game1TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P4_Game3TextBox.Text))
+            {
+                Game3 = 0;
+            }
+            else
+            {
+                Game3 = Convert.ToInt32(P4_Game3TextBox.Text);
+            }
+            ScratchScore4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3));
+            Total4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
+
+        }
+
+        private void P4_Game3TextBox_TextChanged(object sender, EventArgs e)
+        {
+            int Game1;
+            int Game2;
+            int Game3;
+            int TotalHandicap = Convert.ToInt32(HandicapTotal4Label.Text);
+
+            if (Game.ValidateGameNumber(P4_Game3TextBox.Text) != "valid")
+            {
+                P4_Game3TextBox.Clear();
+                Game3 = 0;
+            }
+
+            else
+            {
+                Game3 = Convert.ToInt32(P4_Game3TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P4_Game2TextBox.Text))
+            {
+                Game2 = 0;
+            }
+            else
+            {
+                Game2 = Convert.ToInt32(P4_Game2TextBox.Text);
+            }
+            if (String.IsNullOrWhiteSpace(P4_Game1TextBox.Text))
+            {
+                Game1 = 0;
+            }
+            else
+            {
+                Game1 = Convert.ToInt32(P4_Game1TextBox.Text);
+            }
+            ScratchScore4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3));
+            Total4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
+        }
+
+
     }
 }
+
+
+
+    

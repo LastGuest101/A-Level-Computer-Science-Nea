@@ -47,7 +47,7 @@ namespace user_login_NEA
             {
 
 
-                legaueTeams = Database_manager.multipleIntFromDB($"{LeagueComboBox.SelectedIndex.ToString() + 1}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1
+                legaueTeams = Database_manager.multipleIntFromDB($"{LeagueComboBox.SelectedIndex.ToString() + 1}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
 
                 foreach (var team in legaueTeams)
                 {

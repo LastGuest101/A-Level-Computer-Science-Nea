@@ -50,7 +50,7 @@
             LoginInButton.Name = "LoginInButton";
             LoginInButton.Size = new Size(94, 29);
             LoginInButton.TabIndex = 3;
-            LoginInButton.Text = "Login In";
+            LoginInButton.Text = "Login";
             LoginInButton.UseVisualStyleBackColor = true;
             LoginInButton.Click += LoginInButton_Click;
             // 
@@ -119,7 +119,6 @@
             LeagueLabel.Size = new Size(57, 20);
             LeagueLabel.TabIndex = 11;
             LeagueLabel.Text = "League";
- 
             // 
             // LeagueComboBox
             // 

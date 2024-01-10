@@ -163,4 +163,24 @@ namespace user_login_NEA
 
         }
     }
+
+    public class Game
+    {
+        public static string ValidateGameNumber(string inputNumber)
+        {
+            string pattern = @"^(0|[1-9]|[1-9]\d|1\d{2}|2[0-9]{2}|300)$";
+            string input = inputNumber;
+
+            Regex regex = new Regex(pattern);
+
+            if (regex.IsMatch(input))
+            {
+                return "valid";
+            }
+            else
+            {
+                return "Input does not match the pattern for numbers from 0 to 300.";
+            }
+        }
+    }
 }

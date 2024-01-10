@@ -32,9 +32,12 @@
             Team2 = new Label();
             SelectPlayersTeam1 = new ListBox();
             SelectPlayersTeam2 = new ListBox();
-            label1 = new Label();
             SelectPlayers = new Button();
             BackButton = new Button();
+            WeeksCombobox = new ComboBox();
+            WeekLabel = new Label();
+            MatchComboBox = new ComboBox();
+            MatchLabel = new Label();
             SuspendLayout();
             // 
             // Team1
@@ -45,6 +48,7 @@
             Team1.Size = new Size(53, 20);
             Team1.TabIndex = 0;
             Team1.Text = "Team1";
+            Team1.Click += Team1_Click;
             // 
             // Team2
             // 
@@ -75,15 +79,6 @@
             SelectPlayersTeam2.Size = new Size(150, 104);
             SelectPlayersTeam2.TabIndex = 3;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(353, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 4;
-            label1.Text = "label1";
-            // 
             // SelectPlayers
             // 
             SelectPlayers.Location = new Point(327, 232);
@@ -104,14 +99,54 @@
             BackButton.UseVisualStyleBackColor = true;
             BackButton.Click += BackButton_Click;
             // 
+            // WeeksCombobox
+            // 
+            WeeksCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            WeeksCombobox.FormattingEnabled = true;
+            WeeksCombobox.Location = new Point(156, 49);
+            WeeksCombobox.Name = "WeeksCombobox";
+            WeeksCombobox.Size = new Size(151, 28);
+            WeeksCombobox.TabIndex = 7;
+            WeeksCombobox.SelectedIndexChanged += WeeksCombobox_SelectedIndexChanged;
+            // 
+            // WeekLabel
+            // 
+            WeekLabel.AutoSize = true;
+            WeekLabel.Location = new Point(209, 26);
+            WeekLabel.Name = "WeekLabel";
+            WeekLabel.Size = new Size(52, 20);
+            WeekLabel.TabIndex = 8;
+            WeekLabel.Text = "Week :";
+            // 
+            // MatchComboBox
+            // 
+            MatchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            MatchComboBox.FormattingEnabled = true;
+            MatchComboBox.Location = new Point(471, 49);
+            MatchComboBox.Name = "MatchComboBox";
+            MatchComboBox.Size = new Size(151, 28);
+            MatchComboBox.TabIndex = 9;
+            // 
+            // MatchLabel
+            // 
+            MatchLabel.AutoSize = true;
+            MatchLabel.Location = new Point(516, 22);
+            MatchLabel.Name = "MatchLabel";
+            MatchLabel.Size = new Size(57, 20);
+            MatchLabel.TabIndex = 10;
+            MatchLabel.Text = "Match :";
+            // 
             // SelectingPlayers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(MatchLabel);
+            Controls.Add(MatchComboBox);
+            Controls.Add(WeekLabel);
+            Controls.Add(WeeksCombobox);
             Controls.Add(BackButton);
             Controls.Add(SelectPlayers);
-            Controls.Add(label1);
             Controls.Add(SelectPlayersTeam2);
             Controls.Add(SelectPlayersTeam1);
             Controls.Add(Team2);
@@ -132,5 +167,9 @@
         private Label label1;
         private Button SelectPlayers;
         private Button BackButton;
+        private ComboBox WeeksCombobox;
+        private Label WeekLabel;
+        private ComboBox MatchComboBox;
+        private Label MatchLabel;
     }
 }
