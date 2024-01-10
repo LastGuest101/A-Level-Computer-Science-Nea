@@ -40,6 +40,7 @@ namespace user_login_NEA
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             BowlerComboBox.Items.Clear();
+                                       
 
             List<int> legaueTeams = new List<int>();
 
@@ -47,7 +48,7 @@ namespace user_login_NEA
             {
 
 
-                legaueTeams = Database_manager.multipleIntFromDB($"{LeagueComboBox.SelectedIndex.ToString() + 1}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
+                legaueTeams = Database_manager.multipleIntFromDB($"{(LeagueComboBox.SelectedIndex + 1).ToString()}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
 
                 foreach (var team in legaueTeams)
                 {

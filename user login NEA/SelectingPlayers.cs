@@ -96,21 +96,24 @@ namespace user_login_NEA
 
         private void WeeksCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            WeekLabel.Text = (WeeksCombobox.SelectedIndex + 1).ToString() ;
             MatchComboBox.Items.Clear();
 
-            List<int> week_id = new List<int>();
+            int weekid;
 
             if (WeeksCombobox.SelectedIndex.ToString() != null)
             {
 
 
-                week_id = Database_manager.multipleIntFromDB($"{WeeksCombobox.SelectedIndex.ToString() + 1}", "Week", "Weeks", "week_id"); // + 1 cause list starts at 0, and team_id starts at 1
+                weekid = Database_manager.singleIntFromDB($"{(WeeksCombobox.SelectedIndex + 1).ToString()}", "Week", "Weeks", "week_id"); // + 1 cause list starts at 0, and team_id starts at 1
+              
 
-                foreach (var match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
+                foreach (var Matches in Database_manager.multipleIntFromDB($"{weekid}", "week_id", "Matches", "match_id"))
                 {
 
-                    MatchComboBox.Items.Add(Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "match_id"));
+                    MatchComboBox.Items.Add(Database_manager.singleIntFromDB($"{Matches}", "match_id", "Matches", "match_id"));
                 }
+                
             }
          
             
