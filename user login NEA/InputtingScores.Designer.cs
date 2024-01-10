@@ -87,6 +87,7 @@
             HandicapTotalLabel = new Label();
             TotalLabel = new Label();
             label15 = new Label();
+            AddButton = new Button();
             Team1TableLayout.SuspendLayout();
             Team2TableLayout.SuspendLayout();
             SuspendLayout();
@@ -689,11 +690,22 @@
             label15.Size = new Size(0, 20);
             label15.TabIndex = 3;
             // 
+            // AddButton
+            // 
+            AddButton.Location = new Point(580, 419);
+            AddButton.Name = "AddButton";
+            AddButton.Size = new Size(94, 29);
+            AddButton.TabIndex = 5;
+            AddButton.Text = "Add";
+            AddButton.UseVisualStyleBackColor = true;
+            AddButton.Click += AddButton_Click;
+            // 
             // InputtingScores
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(936, 466);
+            Controls.Add(AddButton);
             Controls.Add(Team2TableLayout);
             Controls.Add(label15);
             Controls.Add(label3);
@@ -772,5 +784,6 @@
         private Label label9;
         private Label label10;
         private Label label11;
+        private Button AddButton;
     }
 }

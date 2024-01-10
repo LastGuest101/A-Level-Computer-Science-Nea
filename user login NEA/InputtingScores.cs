@@ -60,10 +60,38 @@ namespace user_login_NEA
             HandicapTotal3Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Handicap") * 3);
             HandicapTotal4Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Handicap") * 3);
 
-            Average1Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Games")));
-            Average2Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Games")));
-            Average3Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Games")));
-            Average4Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Games")));
+            if (Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Games") != 0)
+            {
+                Average1Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Games")));
+            }
+            else
+            {
+                Average1Label.Text = "0";
+            }
+            if (Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Games") != 0)
+            {
+                Average2Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Games")));
+            }
+            else
+            {
+                Average2Label.Text = "0";
+            }
+            if (Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Games") != 0)
+            {
+                Average3Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Games")));
+            }
+            else
+            {
+                Average3Label.Text = "0";
+            }
+            if (Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Games") != 0)
+            {
+                Average4Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Games")));
+            }
+            else
+            {
+                Average4Label.Text = "0";
+            }
 
             Total1Label.Text = "0";
             Total2Label.Text = "0";
@@ -525,7 +553,22 @@ namespace user_login_NEA
             Total4Label.Text = Convert.ToString(maths.Series(Game1, Game2, Game3) + TotalHandicap);
         }
 
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.TextBox[] textBoxes = { P1_Game1TextBox, P1_Game2TextBox, P1_Game3TextBox, P2_Game1TextBox, P2_Game2TextBox, P2_Game3TextBox, P3_Game1TextBox, P3_Game2TextBox, P3_Game3TextBox, P4_Game1TextBox, P4_Game2TextBox, P4_Game3TextBox };
 
+            foreach (var textBox in textBoxes)
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    MessageBox.Show("Please fill in all the scores for the players", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    // Game.InputGame();
+                }
+            }
+        }
     }
 }
 
