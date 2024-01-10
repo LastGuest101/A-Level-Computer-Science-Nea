@@ -38,8 +38,6 @@ namespace user_login_NEA
             return Handicap * 3;
         }
         
-
-
     }
 
 }

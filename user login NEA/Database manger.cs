@@ -19,32 +19,13 @@ namespace user_login_NEA
         {
             string connectionString;
 
-            string path = @"C:\Users\olive\OneDrive - Bradford Grammar School\user login NEA";
+            string path = @"C:\Users\olive\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
 
             return connectionString;
         }
 
-
-        static void InsertData(string connectionString, string FirstName, string LastName)
-        {
-            // INSERT query
-            string insertQuery = $"INSERT INTO Players (FirstName, LastName) VALUES ('{FirstName}', '{LastName}');";
-            // Create a new SQLite connection
-            using (SQLiteConnection connection = new (connectionString))
-            {
-                // Open the connection
-                connection.Open();
-
-                // Create a command with the query and connection
-                using (SQLiteCommand command = new (insertQuery, connection))
-                {
-                    // Execute the query
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
 
         static void InsertData_Users(string connectionString, string Username, string Password, string Email)
         {
@@ -69,7 +50,7 @@ namespace user_login_NEA
         public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)
         {
             // INSERT query
-            string insertQuery = $"INSERT INTO Games (match_id, player_id, game1, game2, game3) VALUES ('{match_id}','{player_id}', '{game1}', '{game2}, '{game3}');";
+            string insertQuery = $"INSERT INTO Games (match_id, player_id, game1, game2, game3) VALUES ('{match_id}','{player_id}', '{game1}', '{game2}', '{game3}');";
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
@@ -81,6 +62,29 @@ namespace user_login_NEA
                 {
                     // Execute the query
                     command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public static void UpdatePoints(int Points, int team_id)
+        {
+            string updateQuery = "UPDATE Teams SET Points = @Points WHERE team_id = @TeamID";
+
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Points", Points);
+                    command.Parameters.AddWithValue("@TeamID", team_id);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
                 }
             }
         }

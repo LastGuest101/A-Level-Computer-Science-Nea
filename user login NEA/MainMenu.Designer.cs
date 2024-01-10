@@ -52,7 +52,6 @@
             label2.Size = new Size(75, 20);
             label2.TabIndex = 1;
             label2.Text = "Username";
-            
             // 
             // AddButton
             // 
@@ -72,6 +71,7 @@
             PlayerName.Size = new Size(129, 20);
             PlayerName.TabIndex = 7;
             PlayerName.Text = "Player's Full Name";
+ 
             // 
             // SignOut
             // 

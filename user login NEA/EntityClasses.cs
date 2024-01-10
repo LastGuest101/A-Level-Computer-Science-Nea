@@ -154,6 +154,10 @@ namespace user_login_NEA
 
     public class Team
     {
+        public static int GetTeamID(string player_id)
+        {
+            return (Database_manager.singleIntFromDB($"{player_id}", "player_id", "[Teams/Players]", "team_id"));
+        }
         public static int NumberOfPlayers(string TeamName)
         {
             int team_id = Database_manager.singleIntFromDB($"{TeamName}", "TeamName", "Teams", "team_id");
@@ -182,9 +186,107 @@ namespace user_login_NEA
                 return "Input does not match the pattern for numbers from 0 to 300.";
             }
         }
-        public static void InputGame(string match_id, string player_id, string game1, string game2 , string game3)
+        public static void InputGame(string match_id, string player_id, string game1, string game2, string game3)
         {
             Database_manager.InsertGame(match_id, player_id, game1, game2, game3);
+        }
+
+        public static void points(string match_id, string player_id1, string player_id2, string player_id3, string player_id4) //used to calculate + input points from a match  
+        {
+            int newTeam1points = 0;
+            int newTeam2points = 0;
+
+            int TotalHandicapTeam1 = Database_manager.singleIntFromDB($"{player_id1}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id2}", "player_id", "LeagueStats", "Handicap"); // Gets total handicap from player_id1 and player_id2
+            int TotalHandicapTeam2 = Database_manager.singleIntFromDB($"{player_id3}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id4}", "player_id", "LeagueStats", "Handicap"); // Gets total handicap from player_id3 and player_id4
+
+            string player1_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id1}", "match_id", "player_id", "Games", "game_id"));
+            string player2_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id2}", "match_id", "player_id", "Games", "game_id"));
+            string player3_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id3}", "match_id", "player_id", "Games", "game_id"));
+            string player4_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id4}", "match_id", "player_id", "Games", "game_id"));
+
+            int Team1_Game1 = Database_manager.singleIntFromDB($"{player1_gameID}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{player2_gameID}", "game_id", "Games", "game1") + TotalHandicapTeam1;
+            int Team1_Game2 = Database_manager.singleIntFromDB($"{player1_gameID}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{player2_gameID}", "game_id", "Games", "game2") + TotalHandicapTeam1;
+            int Team1_Game3 = Database_manager.singleIntFromDB($"{player1_gameID}", "game_id", "Games", "game3") + Database_manager.singleIntFromDB($"{player2_gameID}", "game_id", "Games", "game3") + TotalHandicapTeam1;
+
+            int Team2_Game1 = Database_manager.singleIntFromDB($"{player3_gameID}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{player4_gameID}", "game_id", "Games", "game1") + TotalHandicapTeam2;
+            int Team2_Game2 = Database_manager.singleIntFromDB($"{player3_gameID}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{player4_gameID}", "game_id", "Games", "game2") + TotalHandicapTeam2;
+            int Team2_Game3 = Database_manager.singleIntFromDB($"{player3_gameID}", "game_id", "Games", "game3") + Database_manager.singleIntFromDB($"{player4_gameID}", "game_id", "Games", "game3") + TotalHandicapTeam2;
+
+            if (Team1_Game1 > Team2_Game1)
+            {
+                newTeam1points += 2;
+            }
+            else if (Team1_Game1 == Team2_Game1)
+            {
+                newTeam1points++;
+                newTeam2points++;
+            }
+            else
+            {
+                newTeam2points += 2;
+            }
+
+
+            if (Team1_Game2 > Team2_Game2)
+            {
+                newTeam1points += 2;
+            }
+            else if (Team1_Game2 == Team2_Game2)
+            {
+                newTeam1points++;
+                newTeam2points++;
+            }
+            else
+            {
+                newTeam2points += 2;
+            }
+
+
+            if (Team1_Game3 > Team2_Game3)
+            {
+                newTeam1points += 2;
+            }
+            else if (Team1_Game3 == Team2_Game3)
+            {
+                newTeam1points++;
+                newTeam2points++;
+            }
+            else
+            {
+                newTeam2points += 2;
+            }
+
+            if((maths.Series(Team1_Game1, Team1_Game2, Team1_Game3) + TotalHandicapTeam1) > (maths.Series(Team2_Game1, Team2_Game2, Team2_Game3) + TotalHandicapTeam2))
+            {
+                newTeam1points += 2;
+            }
+
+            else if ((maths.Series(Team1_Game1, Team1_Game2, Team1_Game3) + TotalHandicapTeam1) == (maths.Series(Team2_Game1, Team2_Game2, Team2_Game3) + TotalHandicapTeam2))
+            {
+                newTeam1points++;
+                newTeam2points++;
+            }
+
+            else
+            {
+                newTeam2points += 2;
+            }
+
+            int Team1_id = Team.GetTeamID(player_id1);
+            int Team2_id = Team.GetTeamID(player_id4);
+
+            int Team1points = Database_manager.singleIntFromDB($"{Team1_id}", "team_id", "Teams", "Points") + newTeam1points;
+            int Team2points = Database_manager.singleIntFromDB($"{Team2_id}", "team_id", "Teams", "Points") + newTeam2points + 4;
+
+            Database_manager.UpdatePoints(Team1points, Team1_id);
+
+            Database_manager.UpdatePoints(Team2points, Team2_id);
+
+
+            
+            
+
+
         }
     }
 }

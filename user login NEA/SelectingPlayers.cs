@@ -20,7 +20,10 @@ namespace user_login_NEA
         public static string player2;
         public static string player3;
         public static string player4;
+        public static string match_id;
+
         List<int> match_ids = new List<int>();
+
 
         public SelectingPlayers()
         {
@@ -47,10 +50,12 @@ namespace user_login_NEA
                 player2 = Convert.ToString(SelectPlayersTeam1.SelectedItems[1]);
                 player3 = Convert.ToString(SelectPlayersTeam2.SelectedItems[0]);
                 player4 = Convert.ToString(SelectPlayersTeam2.SelectedItems[1]);
+                match_id = Convert.ToString(match_ids[MatchComboBox.SelectedIndex]);
 
 
 
-               
+
+
 
                 InputtingScores inputtingScores = new();
                 inputtingScores.Show();
@@ -76,7 +81,10 @@ namespace user_login_NEA
         private void WeeksCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             MatchComboBox.Items.Clear();
-          
+            match_ids.Clear();
+            SelectPlayersTeam1.Items.Clear();
+            SelectPlayersTeam2.Items.Clear();
+
 
             int weekid;
 

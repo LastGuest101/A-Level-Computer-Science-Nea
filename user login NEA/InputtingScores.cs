@@ -8,6 +8,7 @@ using System.Security.Cryptography.Pkcs;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace user_login_NEA
 {
@@ -17,12 +18,14 @@ namespace user_login_NEA
         {
             InitializeComponent();
 
+
         }
 
 
 
         private void InputtingScores_Load(object sender, EventArgs e)
         {
+
             Player1Label.Text = SelectingPlayers.player1;
             Player2Label.Text = SelectingPlayers.player2;
             Player3Label.Text = SelectingPlayers.player3;
@@ -555,19 +558,64 @@ namespace user_login_NEA
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            var player1 = SelectingPlayers.player1.Split(" ");
+            string firstName1 = player1[0];
+            string lastName1 = player1[1];
+
+            var player2 = SelectingPlayers.player2.Split(" ");
+            string firstName2 = player2[0];
+            string lastName2 = player2[1];
+
+            var player3 = SelectingPlayers.player3.Split(" ");
+            string firstName3 = player3[0];
+            string lastName3 = player3[1];
+
+            var player4 = SelectingPlayers.player4.Split(" ");
+            string firstName4 = player4[0];
+            string lastName4 = player4[1];
+
+            string player1_id = Convert.ToString(Database_manager.singleIntFromDBMC($"{firstName1}", $"{lastName1}", "FirstName", "LastName", "Players", "player_id"));
+            string player2_id = Convert.ToString(Database_manager.singleIntFromDBMC($"{firstName2}", $"{lastName2}", "FirstName", "LastName", "Players", "player_id"));
+            string player3_id = Convert.ToString(Database_manager.singleIntFromDBMC($"{firstName3}", $"{lastName3}", "FirstName", "LastName", "Players", "player_id"));
+            string player4_id = Convert.ToString(Database_manager.singleIntFromDBMC($"{firstName4}", $"{lastName4}", "FirstName", "LastName", "Players", "player_id"));
+
+
+
+            if(AreTextBoxesFilled() == false)
+            {
+                MessageBox.Show("Please fill in all of the textboxes", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (AreTextBoxesFilled() == true) 
+            {  
+               Game.points(SelectingPlayers.match_id, player1_id, player2_id, player3_id, player4_id);
+                /*
+                Game.InputGame($"{SelectingPlayers.match_id}", $"{player1_id}", $"{P1_Game1TextBox.Text}", $"{P1_Game2TextBox.Text}", $"{P1_Game3TextBox.Text}");
+                Game.InputGame($"{SelectingPlayers.match_id}", $"{player2_id}", $"{P2_Game1TextBox.Text}", $"{P2_Game2TextBox.Text}", $"{P2_Game3TextBox.Text}");
+                Game.InputGame($"{SelectingPlayers.match_id}", $"{player3_id}", $"{P3_Game1TextBox.Text}", $"{P3_Game2TextBox.Text}", $"{P3_Game3TextBox.Text}");
+                Game.InputGame($"{SelectingPlayers.match_id}", $"{player4_id}", $"{P4_Game1TextBox.Text}", $"{P4_Game2TextBox.Text}", $"{P4_Game3TextBox.Text}");
+                */
+            }
+        }
+            
+        
+
+        private bool AreTextBoxesFilled()
+        {
+            // Array to store references to your textboxes
+
             System.Windows.Forms.TextBox[] textBoxes = { P1_Game1TextBox, P1_Game2TextBox, P1_Game3TextBox, P2_Game1TextBox, P2_Game2TextBox, P2_Game3TextBox, P3_Game1TextBox, P3_Game2TextBox, P3_Game3TextBox, P4_Game1TextBox, P4_Game2TextBox, P4_Game3TextBox };
 
+
+            // Check if any textbox is empty or contains only whitespace
             foreach (var textBox in textBoxes)
             {
                 if (string.IsNullOrWhiteSpace(textBox.Text))
                 {
-                    MessageBox.Show("Please fill in all the scores for the players", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    // Game.InputGame();
+                    return false; // If any textbox is empty or contains only whitespace, return false
                 }
             }
+
+            return true; // All textboxes have content
         }
     }
 }
