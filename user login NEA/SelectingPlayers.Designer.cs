@@ -48,7 +48,6 @@
             Team1.Size = new Size(53, 20);
             Team1.TabIndex = 0;
             Team1.Text = "Team1";
-            Team1.Click += Team1_Click;
             // 
             // Team2
             // 
@@ -105,14 +104,14 @@
             WeeksCombobox.FormattingEnabled = true;
             WeeksCombobox.Location = new Point(156, 49);
             WeeksCombobox.Name = "WeeksCombobox";
-            WeeksCombobox.Size = new Size(151, 28);
+            WeeksCombobox.Size = new Size(63, 28);
             WeeksCombobox.TabIndex = 7;
             WeeksCombobox.SelectedIndexChanged += WeeksCombobox_SelectedIndexChanged;
             // 
             // WeekLabel
             // 
             WeekLabel.AutoSize = true;
-            WeekLabel.Location = new Point(209, 26);
+            WeekLabel.Location = new Point(156, 22);
             WeekLabel.Name = "WeekLabel";
             WeekLabel.Size = new Size(52, 20);
             WeekLabel.TabIndex = 8;
@@ -122,15 +121,16 @@
             // 
             MatchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             MatchComboBox.FormattingEnabled = true;
-            MatchComboBox.Location = new Point(471, 49);
+            MatchComboBox.Location = new Point(393, 49);
             MatchComboBox.Name = "MatchComboBox";
-            MatchComboBox.Size = new Size(151, 28);
+            MatchComboBox.Size = new Size(317, 28);
             MatchComboBox.TabIndex = 9;
+            MatchComboBox.SelectedIndexChanged += MatchComboBox_SelectedIndexChanged;
             // 
             // MatchLabel
             // 
             MatchLabel.AutoSize = true;
-            MatchLabel.Location = new Point(516, 22);
+            MatchLabel.Location = new Point(393, 22);
             MatchLabel.Name = "MatchLabel";
             MatchLabel.Size = new Size(57, 20);
             MatchLabel.TabIndex = 10;
@@ -164,7 +164,6 @@
         private Label Team2;
         private ListBox SelectPlayersTeam1;
         private ListBox SelectPlayersTeam2;
-        private Label label1;
         private Button SelectPlayers;
         private Button BackButton;
         private ComboBox WeeksCombobox;

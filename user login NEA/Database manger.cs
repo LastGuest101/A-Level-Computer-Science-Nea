@@ -66,6 +66,25 @@ namespace user_login_NEA
             }
         }
 
+        public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)
+        {
+            // INSERT query
+            string insertQuery = $"INSERT INTO Games (match_id, player_id, game1, game2, game3) VALUES ('{match_id}','{player_id}', '{game1}', '{game2}, '{game3}');";
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
         public static void InsertPlayers(string firstname, string lastname)
         {
             
@@ -91,7 +110,7 @@ namespace user_login_NEA
         public static void InsertHandicap(string league_id, string player_id)
         {
 
-            string insertQuery = $"INSERT INTO Handicaps (league_id, player_id, Handicap) VALUES ('{league_id}','{player_id}' , '0');";
+            string insertQuery = $"INSERT INTO LeagueStats (league_id, player_id, Handicap) VALUES ('{league_id}','{player_id}' , '0');";
 
             using (SQLiteConnection connection = new(Connection()))
             {

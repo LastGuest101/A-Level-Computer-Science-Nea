@@ -132,11 +132,16 @@ namespace user_login_NEA
             {
                 string firstname = FirstNameTextBox.Text;
                 string lastname = LastNameTextBox.Text;
-                FirstNameLabel.Text = "VALID";
+          
 
 
 
                 Player.AddPlayer($"{firstname}", $"{lastname}", $"{team_id}", $"{league_id}");
+                MessageBox.Show($"Player has been added to the Database", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                AddingPlayers addingPlayers = new();
+                addingPlayers.Show();
+                Hide();
             }
 
 

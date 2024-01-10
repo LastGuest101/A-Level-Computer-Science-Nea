@@ -182,5 +182,9 @@ namespace user_login_NEA
                 return "Input does not match the pattern for numbers from 0 to 300.";
             }
         }
+        public static void InputGame(string match_id, string player_id, string game1, string game2 , string game3)
+        {
+            Database_manager.InsertGame(match_id, player_id, game1, game2, game3);
+        }
     }
 }
