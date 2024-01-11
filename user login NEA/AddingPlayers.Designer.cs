@@ -37,6 +37,7 @@
             FirstNameTextBox = new TextBox();
             LastNameTextBox = new TextBox();
             AddPlayerButton = new Button();
+            backButton = new Button();
             SuspendLayout();
             // 
             // LeagueLabel
@@ -119,11 +120,22 @@
             AddPlayerButton.UseVisualStyleBackColor = true;
             AddPlayerButton.Click += AddPlayerButton_Click;
             // 
+            // backButton
+            // 
+            backButton.Location = new Point(12, 12);
+            backButton.Name = "backButton";
+            backButton.Size = new Size(94, 29);
+            backButton.TabIndex = 21;
+            backButton.Text = "Back";
+            backButton.UseVisualStyleBackColor = true;
+            backButton.Click += backButton_Click;
+            // 
             // AddingPlayers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(backButton);
             Controls.Add(AddPlayerButton);
             Controls.Add(LastNameTextBox);
             Controls.Add(FirstNameTextBox);
@@ -150,5 +162,6 @@
         private TextBox FirstNameTextBox;
         private TextBox LastNameTextBox;
         private Button AddPlayerButton;
+        private Button backButton;
     }
 }

@@ -42,7 +42,7 @@ namespace user_login_NEA
 
             TeamComboBox.Items.Clear();
 
-            List<int> legaueTeams = new List<int>(); 
+            List<int> legaueTeams = new List<int>();
 
             if (LeagueComboBox.SelectedIndex.ToString() != null) // Checks if combobox is not empty
             {
@@ -132,7 +132,7 @@ namespace user_login_NEA
             {
                 string firstname = FirstNameTextBox.Text;
                 string lastname = LastNameTextBox.Text;
-          
+
 
 
 
@@ -153,6 +153,13 @@ namespace user_login_NEA
         private void TeamComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             team_id = Convert.ToString(Database_manager.singleIntFromDB($"{TeamComboBox.SelectedItem}", "TeamName", "Teams", "team_id"));
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            AdminMenu adminMenuForm = new();
+            adminMenuForm.Show();
+            Hide();
         }
     }
 }
