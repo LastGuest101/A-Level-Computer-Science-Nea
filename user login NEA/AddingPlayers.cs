@@ -13,8 +13,8 @@ namespace user_login_NEA
 {
     public partial class AddingPlayers : Form
     {
-        string team_id;
-        string league_id;
+        int team_id;
+        int league_id;
         public AddingPlayers()
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace user_login_NEA
 
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            league_id = Convert.ToString(Database_manager.singleIntFromDB($"{LeagueComboBox.SelectedItem}", "LeagueName", "Leagues", "league_id"));
+            league_id = Database_manager.singleIntFromDB($"{LeagueComboBox.SelectedItem}", "LeagueName", "Leagues", "league_id");
 
 
             TeamComboBox.Items.Clear();
@@ -136,7 +136,7 @@ namespace user_login_NEA
 
 
 
-                Player.AddPlayer($"{firstname}", $"{lastname}", $"{team_id}", $"{league_id}");
+                Player.AddPlayer($"{firstname}", $"{lastname}", team_id , league_id);
                 MessageBox.Show($"Player has been added to the Database", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 AddingPlayers addingPlayers = new();
@@ -152,7 +152,7 @@ namespace user_login_NEA
 
         private void TeamComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            team_id = Convert.ToString(Database_manager.singleIntFromDB($"{TeamComboBox.SelectedItem}", "TeamName", "Teams", "team_id"));
+            team_id = Database_manager.singleIntFromDB($"{TeamComboBox.SelectedItem}", "TeamName", "Teams", "team_id");
         }
 
         private void backButton_Click(object sender, EventArgs e)

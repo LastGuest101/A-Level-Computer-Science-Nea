@@ -128,11 +128,11 @@ namespace user_login_NEA
                 }
             }
         }
-        public static void AddPlayer(string firstname, string lastname, string team_id, string league_id)
+        public static void AddPlayer(string firstname, string lastname, int team_id, int league_id)
         {
            
             Database_manager.InsertPlayers(firstname, lastname);
-            string player_id = Convert.ToString(Database_manager.singleIntFromDB($"{firstname}", "FirstName", "Players", "player_id"));
+            int player_id = Database_manager.singleIntFromDBMC($"{firstname}", $"{lastname}", "FirstName", "LastName", "Players", "player_id");
 
             Database_manager.InsertHandicap(league_id, player_id);
 
@@ -140,12 +140,17 @@ namespace user_login_NEA
 
         }
 
-        public static bool OtherPlayers(string firstname, string lastname)
+        public static bool OtherPlayers(string InputtedFirstname, string InputtedLastname)
         {
-                if (Database_manager.singleStringFromDB($"{firstname}", "FirstName", "Players", "Firstname") != null && Database_manager.singleStringFromDB($"{lastname}", "LastName", "Players", "LastName") != null)
-                {
-                    return true;
-                }
+                
+
+              List<string> FirstNames =  Database_manager.columnStringFromDB("Players", "FirstName");
+              List<string> LastNames = Database_manager.columnStringFromDB("Players", "LastName");
+
+           if ( Database_manager.singleIntFromDBMC($"{InputtedFirstname}", $"{InputtedLastname}", "FirstName", "LastName", "Players", "player_id" ) != -1)
+            {
+                return true;
+            } 
                 return false;
             
 

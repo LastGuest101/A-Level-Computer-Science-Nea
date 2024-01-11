@@ -177,7 +177,7 @@ namespace user_login_NEA
 
         }
 
-        public static void InsertHandicap(string league_id, string player_id)
+        public static void InsertHandicap(int league_id, int player_id)
         {
 
             string insertQuery = $"INSERT INTO LeagueStats (league_id, player_id, Handicap) VALUES ('{league_id}','{player_id}' , '0');";
@@ -199,7 +199,7 @@ namespace user_login_NEA
 
         }
 
-        public static void InsertPlayerIntoTeam(string player_id, string team_id)
+        public static void InsertPlayerIntoTeam(int player_id, int team_id)
         {
 
             string insertQuery = $"INSERT INTO [Teams/Players] (player_id, team_id ) VALUES ('{player_id}','{team_id}');"; // Had to use [] since / is a reserved word in SQL.
