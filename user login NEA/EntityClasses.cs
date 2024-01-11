@@ -166,32 +166,7 @@ namespace user_login_NEA
 
 
         }
-    }
-
-    public class Game
-    {
-        public static string ValidateGameNumber(string inputNumber)
-        {
-            string pattern = @"^(0|[1-9]|[1-9]\d|1\d{2}|2[0-9]{2}|300)$";
-            string input = inputNumber;
-
-            Regex regex = new Regex(pattern);
-
-            if (regex.IsMatch(input))
-            {
-                return "valid";
-            }
-            else
-            {
-                return "Input does not match the pattern for numbers from 0 to 300.";
-            }
-        }
-        public static void InputGame(string match_id, string player_id, string game1, string game2, string game3)
-        {
-            Database_manager.InsertGame(match_id, player_id, game1, game2, game3);
-        }
-
-        public static void points(string match_id, string player_id1, string player_id2, string player_id3, string player_id4) //used to calculate + input points from a match  
+        public static int SetPoints(string match_id, string player_id1, string player_id2, string player_id3, string player_id4) //used to calculate + input points from a match  
         {
             int newTeam1points = 0;
             int newTeam2points = 0;
@@ -199,10 +174,10 @@ namespace user_login_NEA
             int TotalHandicapTeam1 = Database_manager.singleIntFromDB($"{player_id1}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id2}", "player_id", "LeagueStats", "Handicap"); // Gets total handicap from player_id1 and player_id2
             int TotalHandicapTeam2 = Database_manager.singleIntFromDB($"{player_id3}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id4}", "player_id", "LeagueStats", "Handicap"); // Gets total handicap from player_id3 and player_id4
 
-            string player1_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id1}", "match_id", "player_id", "Games", "game_id"));
-            string player2_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id2}", "match_id", "player_id", "Games", "game_id"));
-            string player3_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id3}", "match_id", "player_id", "Games", "game_id"));
-            string player4_gameID = Convert.ToString(Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id4}", "match_id", "player_id", "Games", "game_id"));
+            int player1_gameID = (Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id1}", "match_id", "player_id", "Games", "game_id"));
+            int player2_gameID = (Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id2}", "match_id", "player_id", "Games", "game_id"));
+            int player3_gameID = (Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id3}", "match_id", "player_id", "Games", "game_id"));
+            int player4_gameID = (Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id4}", "match_id", "player_id", "Games", "game_id"));
 
             int Team1_Game1 = Database_manager.singleIntFromDB($"{player1_gameID}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{player2_gameID}", "game_id", "Games", "game1") + TotalHandicapTeam1;
             int Team1_Game2 = Database_manager.singleIntFromDB($"{player1_gameID}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{player2_gameID}", "game_id", "Games", "game2") + TotalHandicapTeam1;
@@ -211,6 +186,8 @@ namespace user_login_NEA
             int Team2_Game1 = Database_manager.singleIntFromDB($"{player3_gameID}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{player4_gameID}", "game_id", "Games", "game1") + TotalHandicapTeam2;
             int Team2_Game2 = Database_manager.singleIntFromDB($"{player3_gameID}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{player4_gameID}", "game_id", "Games", "game2") + TotalHandicapTeam2;
             int Team2_Game3 = Database_manager.singleIntFromDB($"{player3_gameID}", "game_id", "Games", "game3") + Database_manager.singleIntFromDB($"{player4_gameID}", "game_id", "Games", "game3") + TotalHandicapTeam2;
+
+
 
             if (Team1_Game1 > Team2_Game1)
             {
@@ -256,7 +233,7 @@ namespace user_login_NEA
                 newTeam2points += 2;
             }
 
-            if((maths.Series(Team1_Game1, Team1_Game2, Team1_Game3) + TotalHandicapTeam1) > (maths.Series(Team2_Game1, Team2_Game2, Team2_Game3) + TotalHandicapTeam2))
+            if ((maths.Series(Team1_Game1, Team1_Game2, Team1_Game3) + TotalHandicapTeam1) > (maths.Series(Team2_Game1, Team2_Game2, Team2_Game3) + TotalHandicapTeam2))
             {
                 newTeam1points += 2;
             }
@@ -276,17 +253,101 @@ namespace user_login_NEA
             int Team2_id = Team.GetTeamID(player_id4);
 
             int Team1points = Database_manager.singleIntFromDB($"{Team1_id}", "team_id", "Teams", "Points") + newTeam1points;
-            int Team2points = Database_manager.singleIntFromDB($"{Team2_id}", "team_id", "Teams", "Points") + newTeam2points + 4;
+            int Team2points = Database_manager.singleIntFromDB($"{Team2_id}", "team_id", "Teams", "Points") + newTeam2points;
 
-            Database_manager.UpdatePoints(Team1points, Team1_id);
-
-            Database_manager.UpdatePoints(Team2points, Team2_id);
+           
 
 
-            
-            
+            return Team1_Game1;
 
 
         }
+    }
+
+    public class Game
+    {
+        public static string ValidateGameNumber(string inputNumber)
+        {
+            string pattern = @"^(0|[1-9]|[1-9]\d|1\d{2}|2[0-9]{2}|300)$";
+            string input = inputNumber;
+
+            Regex regex = new Regex(pattern);
+
+            if (regex.IsMatch(input))
+            {
+                return "valid";
+            }
+            else
+            {
+                return "Input does not match the pattern for numbers from 0 to 300.";
+            }
+        }
+        public static void InputGame(string match_id, string player_id, string game1, string game2, string game3)
+        {
+            Database_manager.InsertGame(match_id, player_id, game1, game2, game3);
+        }
+
+        public static int GetGameID(int match_id,  int player_id) 
+        {
+            return Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id}", "match_id", "player_id", "Games", "game_id");
+        }
+
+        public static int Series(int game_id)
+        {
+            return Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game3");
+        }
+
+       
+    }
+
+    public class LeagueStats
+    {
+        public static void SetTotalPinFall(int match_id, int player_id)
+        {
+            int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
+
+            int game_id = Game.GetGameID(match_id, player_id);
+            int handicap_id = GetHandicapID(league_id, player_id);
+
+            int newTotalPinFall = GetTotalPinFall(handicap_id) + Game.Series(game_id);
+
+            Database_manager.UpdateTotalPinFall(newTotalPinFall, handicap_id);
+        }
+
+        public static void SetNumberOfGames(int match_id, int player_id)
+        {
+            int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
+            int game_id = Game.GetGameID(match_id, player_id);
+            int handicap_id = GetHandicapID(league_id, player_id);
+
+            int newNumberOfGames = GetNumberOfGames(handicap_id) + 3;
+
+            Database_manager.UpdateNumberOfGames(newNumberOfGames, handicap_id);
+        }
+
+        
+
+        public static int GetTotalPinFall(int handicap_id)
+        {
+            return Database_manager.singleIntFromDB($"{handicap_id}", "handicap_id", "LeagueStats", "TotalPinFall");
+        }
+
+        public static int GetNumberOfGames(int handicap_id)
+        {
+            return Database_manager.singleIntFromDB($"{handicap_id}", "handicap_id", "LeagueStats", "Games");
+        }
+       
+        public static int GetHandicapID(int league_id, int player_id)
+        {
+            return Database_manager.singleIntFromDBMC($"{league_id}", $"{player_id}", "league_id", "player_id", "LeagueStats", "handicap_id");
+        }
+
+
+        public static void UpdateLeagueStats(int match_id, int player_id)
+        {
+            SetTotalPinFall(match_id, player_id);
+            SetNumberOfGames(match_id, player_id);
+        }
+
     }
 }

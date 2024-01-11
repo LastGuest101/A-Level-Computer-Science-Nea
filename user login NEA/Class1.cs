@@ -10,6 +10,8 @@ namespace user_login_NEA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+        
             // Create and run your login form
             Application.Run(new LoginForm());
           
