@@ -89,6 +89,28 @@ namespace user_login_NEA
             }
         }
 
+        public static void UpdateHandicap(int Handicap, int handicap_id)
+        {
+            string updateQuery = "UPDATE LeagueStats SET Handicap = @Handicap WHERE handicap_id = @HandicapID";
+
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Handicap", Handicap);
+                    command.Parameters.AddWithValue("@HandicapID", handicap_id);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
         public static void UpdateTotalPinFall(int TotalPinFall, int handicap_id)
         {
             string updateQuery = "UPDATE LeagueStats SET TotalPinFall = @TotalPinFall WHERE handicap_id = @HandicapID";
@@ -135,10 +157,10 @@ namespace user_login_NEA
 
         public static void InsertPlayers(string firstname, string lastname)
         {
-            
+
             string insertQuery = $"INSERT INTO Players (FirstName, LastName) VALUES ('{firstname}','{lastname}');";
 
-            using (SQLiteConnection connection = new (Connection()))
+            using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
@@ -202,11 +224,11 @@ namespace user_login_NEA
 
         public static bool AuthenticateUserLoginIn(string username, string password)
         {
-            using (SQLiteConnection connection = new (Connection()))
+            using (SQLiteConnection connection = new(Connection()))
             {
                 string query = "SELECT * FROM Users WHERE Username = @Username AND Password = @Password";
 
-                using (SQLiteCommand command = new (query, connection))
+                using (SQLiteCommand command = new(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
@@ -220,7 +242,7 @@ namespace user_login_NEA
                 }
             }
         }
-        public static int singleIntFromDB(string Input, string attributeNameQuery,  string TableName, string attributeNameOutput)
+        public static int singleIntFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             int attributeValue = -1; // Default value indicating attribute not found
 
@@ -286,7 +308,7 @@ namespace user_login_NEA
         {
             List<int> attributeValues = new List<int>(); // Collection to store multiple attribute values
 
-            using (SQLiteConnection connection = new (Connection()))
+            using (SQLiteConnection connection = new(Connection()))
             {
                 connection.Open();
 
@@ -359,7 +381,7 @@ namespace user_login_NEA
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
-               
+
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
@@ -410,7 +432,7 @@ namespace user_login_NEA
             return attributeValues;
         }
 
-        public static int singleIntFromDBMC(string Input,string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput) // Retrieves a single int value from the database, and queries from 2 columns.
+        public static int singleIntFromDBMC(string Input, string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput) // Retrieves a single int value from the database, and queries from 2 columns.
         {
             int attributeValue = -1; // Default value indicating attribute not found
 
