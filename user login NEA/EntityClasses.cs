@@ -413,7 +413,6 @@ namespace user_login_NEA
         {
             SetTotalPinFall(match_id, player_id);
             SetNumberOfGames(match_id, player_id);
-            SetHandicap(match_id, player_id);
         }
 
     }

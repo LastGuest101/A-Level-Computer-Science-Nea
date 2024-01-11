@@ -55,10 +55,6 @@ namespace user_login_NEA
 
 
 
-            playerNamesLabel.Text = Convert.ToString(Team.SetPoints(SelectingPlayers.match_id, player1_id, player2_id, player3_id, player4_id));
-
-
-
             Handicap1Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Handicap"));
             Handicap2Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Handicap"));
             Handicap3Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Handicap"));
@@ -605,12 +601,17 @@ namespace user_login_NEA
                     Game.InputGame($"{SelectingPlayers.match_id}", $"{player3_id}", $"{P3_Game1TextBox.Text}", $"{P3_Game2TextBox.Text}", $"{P3_Game3TextBox.Text}");
                     Game.InputGame($"{SelectingPlayers.match_id}", $"{player4_id}", $"{P4_Game1TextBox.Text}", $"{P4_Game2TextBox.Text}", $"{P4_Game3TextBox.Text}");
 
-                    Team.SetPoints(SelectingPlayers.match_id, player1_id, player2_id, player3_id, player4_id);
-
                     LeagueStats.UpdateLeagueStats(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player1_id));
                     LeagueStats.UpdateLeagueStats(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player2_id));
                     LeagueStats.UpdateLeagueStats(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player3_id));
                     LeagueStats.UpdateLeagueStats(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player4_id));
+
+                    Team.SetPoints(SelectingPlayers.match_id, player1_id, player2_id, player3_id, player4_id);
+
+                    LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player1_id));
+                    LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player2_id));
+                    LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player3_id));
+                    LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player4_id));
 
                     int team1 = Team.GetTeamID(player1_id);
                     int team2 = Team.GetTeamID(player3_id);
