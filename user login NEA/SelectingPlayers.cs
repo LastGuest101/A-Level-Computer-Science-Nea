@@ -20,7 +20,7 @@ namespace user_login_NEA
         public static string player2;
         public static string player3;
         public static string player4;
-        public static string match_id;
+        public static int match_id;
 
         List<int> match_ids = new List<int>();
 
@@ -35,7 +35,7 @@ namespace user_login_NEA
                 WeeksCombobox.Items.Add($"{week}");
 
             }
-          
+
         }
 
         private void SelectPlayers_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace user_login_NEA
                 player2 = Convert.ToString(SelectPlayersTeam1.SelectedItems[1]);
                 player3 = Convert.ToString(SelectPlayersTeam2.SelectedItems[0]);
                 player4 = Convert.ToString(SelectPlayersTeam2.SelectedItems[1]);
-                match_id = Convert.ToString(match_ids[MatchComboBox.SelectedIndex]);
+                match_id = match_ids[MatchComboBox.SelectedIndex];
 
 
 
@@ -60,7 +60,7 @@ namespace user_login_NEA
                 InputtingScores inputtingScores = new();
                 inputtingScores.Show();
                 Hide();
-                
+
 
             }
             else
@@ -84,25 +84,40 @@ namespace user_login_NEA
             match_ids.Clear();
             SelectPlayersTeam1.Items.Clear();
             SelectPlayersTeam2.Items.Clear();
+            CompletedComboBox.Items.Clear();
+
+            // Clears the comboboxes and the list when a different week is selected.
 
 
-            int weekid;
+            int weekid; // Used to store the weekID selected
 
-            if (WeeksCombobox.SelectedIndex.ToString() != null)
+            if (WeeksCombobox.SelectedIndex.ToString() != null) //Checks if the Week Combobox is empty or not
             {
 
 
                 weekid = Database_manager.singleIntFromDB($"{(WeeksCombobox.SelectedIndex + 1).ToString()}", "Week", "Weeks", "week_id"); // + 1 cause list starts at 0, and team_id starts at 1
 
 
-                foreach (var match_id in Database_manager.multipleIntFromDB($"{weekid}", "week_id", "Matches", "match_id"))
+                foreach (var match_id in Database_manager.multipleIntFromDB($"{weekid}", "week_id", "Matches", "match_id")) //Gets all the match_ids in the week
                 {
-                    match_ids.Add(match_id);
 
-                    int team_id1 = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"); // Get's team_1 id from match_id
-                    int team_id2 = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"); // Get's team_2 id from match_id
+                    if (Database_manager.singleIntFromDB($"{match_id}", "match_id", "Games", "game_id") == -1) //Checks if the Matches has any Games recorded or not. If not then it will add the match to the MatchCombobox
+                    {
+                        match_ids.Add(match_id);
 
-                    MatchComboBox.Items.Add(Database_manager.singleStringFromDB($"{team_id1}", "team_id", "Teams", "TeamName") + " VS " + Database_manager.singleStringFromDB($"{team_id2}", "team_id", "Teams", "TeamName"));
+                        int team_id1 = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"); // Get's team_1 id from match_id
+                        int team_id2 = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"); // Get's team_2 id from match_id
+
+                        MatchComboBox.Items.Add(Database_manager.singleStringFromDB($"{team_id1}", "team_id", "Teams", "TeamName") + " VS " + Database_manager.singleStringFromDB($"{team_id2}", "team_id", "Teams", "TeamName"));
+                    }
+
+                    else if (Database_manager.singleIntFromDB($"{match_id}", "match_id", "Games", "game_id") != -1) // If the Match already has Games recorded for it, it will stored the match into completed combobox, so it will not allow more games to be added to the same match.
+                    {
+                        int team_id1 = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"); // Get's team_1 id from match_id
+                        int team_id2 = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"); // Get's team_2 id from match_id
+
+                        CompletedComboBox.Items.Add(Database_manager.singleStringFromDB($"{team_id1}", "team_id", "Teams", "TeamName") + " VS " + Database_manager.singleStringFromDB($"{team_id2}", "team_id", "Teams", "TeamName"));
+                    }
 
                 }
 
@@ -133,6 +148,11 @@ namespace user_login_NEA
                 string fullname = Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB($"{playerid}", "player_id", "Players", "LastName");
                 SelectPlayersTeam2.Items.Add(fullname);
             }
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

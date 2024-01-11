@@ -38,6 +38,8 @@
             WeekLabel = new Label();
             MatchComboBox = new ComboBox();
             MatchLabel = new Label();
+            CompletedLabel = new Label();
+            CompletedComboBox = new ComboBox();
             SuspendLayout();
             // 
             // Team1
@@ -136,11 +138,32 @@
             MatchLabel.TabIndex = 10;
             MatchLabel.Text = "Match :";
             // 
+            // CompletedLabel
+            // 
+            CompletedLabel.AutoSize = true;
+            CompletedLabel.Location = new Point(90, 318);
+            CompletedLabel.Name = "CompletedLabel";
+            CompletedLabel.Size = new Size(90, 20);
+            CompletedLabel.TabIndex = 11;
+            CompletedLabel.Text = "Completed :";
+            // 
+            // CompletedComboBox
+            // 
+            CompletedComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            CompletedComboBox.FormattingEnabled = true;
+            CompletedComboBox.Location = new Point(90, 351);
+            CompletedComboBox.Name = "CompletedComboBox";
+            CompletedComboBox.Size = new Size(305, 28);
+            CompletedComboBox.TabIndex = 12;
+            CompletedComboBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
             // SelectingPlayers
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(CompletedComboBox);
+            Controls.Add(CompletedLabel);
             Controls.Add(MatchLabel);
             Controls.Add(MatchComboBox);
             Controls.Add(WeekLabel);
@@ -170,5 +193,7 @@
         private Label WeekLabel;
         private ComboBox MatchComboBox;
         private Label MatchLabel;
+        private Label CompletedLabel;
+        private ComboBox CompletedComboBox;
     }
 }
