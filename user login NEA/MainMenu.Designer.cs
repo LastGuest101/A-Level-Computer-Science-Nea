@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             PlayerHandicap = new Label();
-            label2 = new Label();
-            AddButton = new Button();
+            AdminButton = new Button();
             PlayerName = new Label();
             SignOut = new Button();
+            UserMenu = new Button();
+            UserSettings = new Button();
             SuspendLayout();
             // 
             // PlayerHandicap
@@ -44,24 +45,15 @@
             PlayerHandicap.TabIndex = 0;
             PlayerHandicap.Text = "Player's Handicap";
             // 
-            // label2
+            // AdminButton
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(464, 212);
-            label2.Name = "label2";
-            label2.Size = new Size(75, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Username";
-            // 
-            // AddButton
-            // 
-            AddButton.Location = new Point(290, 267);
-            AddButton.Name = "AddButton";
-            AddButton.Size = new Size(409, 172);
-            AddButton.TabIndex = 6;
-            AddButton.Text = "Add (Admin Only)";
-            AddButton.UseVisualStyleBackColor = true;
-            AddButton.Click += AddButton_Click;
+            AdminButton.Location = new Point(30, 232);
+            AdminButton.Name = "AdminButton";
+            AdminButton.Size = new Size(385, 167);
+            AdminButton.TabIndex = 6;
+            AdminButton.Text = "ADMIN MENU(Admin Only)";
+            AdminButton.UseVisualStyleBackColor = true;
+            AdminButton.Click += AddButton_Click;
             // 
             // PlayerName
             // 
@@ -71,7 +63,6 @@
             PlayerName.Size = new Size(129, 20);
             PlayerName.TabIndex = 7;
             PlayerName.Text = "Player's Full Name";
- 
             // 
             // SignOut
             // 
@@ -83,15 +74,36 @@
             SignOut.UseVisualStyleBackColor = true;
             SignOut.Click += SignOut_Click;
             // 
+            // UserMenu
+            // 
+            UserMenu.Location = new Point(545, 234);
+            UserMenu.Name = "UserMenu";
+            UserMenu.Size = new Size(385, 162);
+            UserMenu.TabIndex = 9;
+            UserMenu.Text = "USER MENU";
+            UserMenu.UseVisualStyleBackColor = true;
+            UserMenu.Click += UserMenu_Click;
+            // 
+            // UserSettings
+            // 
+            UserSettings.Location = new Point(698, 21);
+            UserSettings.Name = "UserSettings";
+            UserSettings.Size = new Size(249, 45);
+            UserSettings.TabIndex = 10;
+            UserSettings.Text = "User Profile/Settings";
+            UserSettings.UseVisualStyleBackColor = true;
+            UserSettings.Click += UserSettings_Click;
+            // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(959, 667);
+            Controls.Add(UserSettings);
+            Controls.Add(UserMenu);
             Controls.Add(SignOut);
             Controls.Add(PlayerName);
-            Controls.Add(AddButton);
-            Controls.Add(label2);
+            Controls.Add(AdminButton);
             Controls.Add(PlayerHandicap);
             Name = "MainMenu";
             StartPosition = FormStartPosition.CenterScreen;
@@ -104,9 +116,10 @@
         #endregion
 
         private Label PlayerHandicap;
-        private Label label2;
-        private Button AddButton;
+        private Button AdminButton;
         private Label PlayerName;
         private Button SignOut;
+        private Button UserMenu;
+        private Button UserSettings;
     }
 }

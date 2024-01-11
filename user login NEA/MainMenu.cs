@@ -17,13 +17,12 @@ namespace user_login_NEA
         public static string? loggedPlayerId;
 
         public MainMenu()
-        { 
+        {
             InitializeComponent();
             loggedPlayerId = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "player_id"));
             PlayerName.Text = "Bowler: " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "LastName");
             PlayerHandicap.Text = "Handicap:  " + Convert.ToString(Database_manager.singleIntFromDB(loggedPlayerId, "player_id", "LeagueStats", "Handicap"));
-            label2.Text = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin"));
-            AddButton.Visible = Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin") == 1;
+            AdminButton.Visible = Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin") == 1;
 
         }
 
@@ -58,6 +57,18 @@ namespace user_login_NEA
 
         }
 
-        
+        private void UserMenu_Click(object sender, EventArgs e)
+        {
+            UserMenu userMenuForm = new UserMenu();
+            userMenuForm.Show();
+            Hide();
+        }
+
+        private void UserSettings_Click(object sender, EventArgs e)
+        {
+            ProfileSettings profileSettingsForm = new ProfileSettings();
+            profileSettingsForm.Show();
+            Hide();
+        }
     }
 }

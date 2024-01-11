@@ -87,23 +87,35 @@ namespace user_login_NEA
             }
 
         }
-            
-           
-        
 
-        
-
-      public static bool OtherUsers(string username)
-      {
-            if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
+         public static bool OtherUsers(string username)
+         {
+              if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
             { 
                 return true;
             }
                 return false;
-      }
-        
+         }
 
-       
+         public static string getUsername(int user_id)
+         {
+           return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "Username");
+         }
+         public static int getUserID(string Username)
+         {
+              return Database_manager.singleIntFromDB($"{Username}", "Username", "Users", "user_id");
+         }
+
+        public static void SetUsername(string newUsername, int user_id)
+        {
+            Database_manager.UpdateUsername(newUsername,user_id)
+        }
+
+    
+
+
+
+
 
     }
 
