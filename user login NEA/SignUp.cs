@@ -70,7 +70,7 @@ namespace user_login_NEA
         {
             if (User.UsernameValidator(UsernameTextBox.Text) != "valid")
             {
-                //UsernameTextBox.Clear();
+                UsernameTextBox.Clear();
                 UsernameTextBox.Focus();
             }
 

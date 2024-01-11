@@ -106,9 +106,15 @@ namespace user_login_NEA
               return Database_manager.singleIntFromDB($"{Username}", "Username", "Users", "user_id");
          }
 
+        public static int GetAdminLevel(int user_id)
+        {
+          return Database_manager.singleIntFromDB($"{user_id}", "user_id", "Users", "Admin");
+        }
+    
+
         public static void SetUsername(string newUsername, int user_id)
         {
-            Database_manager.UpdateUsername(newUsername,user_id)
+            Database_manager.UpdateUsername(newUsername, user_id);
         }
 
     
