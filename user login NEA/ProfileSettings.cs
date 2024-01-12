@@ -30,13 +30,25 @@ namespace user_login_NEA
 
         private void ProfileSettings_Load(object sender, EventArgs e)
         {
-            int user_id = User.getUserID(LoginForm.LoggedInUsername);    
+            int user_id = User.getUserID(LoginForm.LoggedInUsername);
 
             UserID2.Text = Convert.ToString(user_id);
+
+            foreach (string Username in Database_manager.columnStringFromDB("Users", "Username"))
+            {
+                int allUser_id = User.getUserID(Username);
+
+                if (User.GetAdminLevel(allUser_id) == 0)
+                {
+                    UserCombobox.Items.Add($"{Username}");
+                }
+
+            }
 
             if (User.GetAdminLevel(user_id) == 1)
             {
                 AccountLevelDisplayLabel.Text = "Admin";
+                UserCombobox.Visible = true;
             }
             else
             {
@@ -51,14 +63,14 @@ namespace user_login_NEA
 
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
-           if (UsernameTextBox.Text != LoginForm.LoggedInUsername)
-           {
+            if (UsernameTextBox.Text != LoginForm.LoggedInUsername)
+            {
                 UsernameButton.Visible = true;
-           }
-           else
-           {
+            }
+            else
+            {
                 UsernameButton.Visible = false;
-           }
+            }
         }
 
         private void UsernameButton_Click(object sender, EventArgs e)
@@ -81,12 +93,33 @@ namespace user_login_NEA
 
 
                     }
-                    
+
 
                 }
 
             }
-                
+
+        }
+
+        private void UserCombobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (UserCombobox.SelectedIndex.ToString() != null)
+            {
+                AddAdminButton.Visible = true;
+            }
+        }
+
+        private void AddAdminButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmation = MessageBox.Show($"Do you want to give Admin level permission to {UserCombobox.SelectedText}?", "Change Username", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmation == DialogResult.Yes)
+            {
+                int selectedUser_id = User.getUserID(UserCombobox.SelectedText);
+                User.SetAdminLevel(1, selectedUser_id);
+;
+
+
+            }
         }
     }
 }

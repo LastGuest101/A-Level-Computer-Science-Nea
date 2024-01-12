@@ -32,11 +32,13 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             UserIDLabel = new Label();
             UserID2 = new Label();
-            UsernameLabel = new Label();
-            UsernameTextBox = new TextBox();
             AccountLevelLabel = new Label();
             AccountLevelDisplayLabel = new Label();
+            UsernameTextBox = new TextBox();
+            UsernameLabel = new Label();
             UsernameButton = new Button();
+            UserCombobox = new ComboBox();
+            AddAdminButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,10 +59,10 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(UserIDLabel, 0, 0);
             tableLayoutPanel1.Controls.Add(UserID2, 1, 0);
-            tableLayoutPanel1.Controls.Add(UsernameLabel, 0, 2);
-            tableLayoutPanel1.Controls.Add(UsernameTextBox, 1, 2);
             tableLayoutPanel1.Controls.Add(AccountLevelLabel, 0, 1);
             tableLayoutPanel1.Controls.Add(AccountLevelDisplayLabel, 1, 1);
+            tableLayoutPanel1.Controls.Add(UsernameTextBox, 1, 2);
+            tableLayoutPanel1.Controls.Add(UsernameLabel, 0, 2);
             tableLayoutPanel1.Location = new Point(141, 35);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 6;
@@ -91,24 +93,6 @@
             UserID2.TabIndex = 1;
             UserID2.Text = "UserID Display";
             // 
-            // UsernameLabel
-            // 
-            UsernameLabel.AccessibleRole = AccessibleRole.None;
-            UsernameLabel.AutoSize = true;
-            UsernameLabel.Location = new Point(3, 116);
-            UsernameLabel.Name = "UsernameLabel";
-            UsernameLabel.Size = new Size(82, 20);
-            UsernameLabel.TabIndex = 2;
-            UsernameLabel.Text = "Username :";
-            // 
-            // UsernameTextBox
-            // 
-            UsernameTextBox.Location = new Point(128, 119);
-            UsernameTextBox.Name = "UsernameTextBox";
-            UsernameTextBox.Size = new Size(119, 27);
-            UsernameTextBox.TabIndex = 3;
-            UsernameTextBox.TextChanged += UsernameTextBox_TextChanged;
-            // 
             // AccountLevelLabel
             // 
             AccountLevelLabel.AutoSize = true;
@@ -128,6 +112,24 @@
             AccountLevelDisplayLabel.TabIndex = 4;
             AccountLevelDisplayLabel.Text = "AccountLevel";
             // 
+            // UsernameTextBox
+            // 
+            UsernameTextBox.Location = new Point(128, 119);
+            UsernameTextBox.Name = "UsernameTextBox";
+            UsernameTextBox.Size = new Size(119, 27);
+            UsernameTextBox.TabIndex = 3;
+            UsernameTextBox.TextChanged += UsernameTextBox_TextChanged;
+            // 
+            // UsernameLabel
+            // 
+            UsernameLabel.AccessibleRole = AccessibleRole.None;
+            UsernameLabel.AutoSize = true;
+            UsernameLabel.Location = new Point(3, 116);
+            UsernameLabel.Name = "UsernameLabel";
+            UsernameLabel.Size = new Size(82, 20);
+            UsernameLabel.TabIndex = 2;
+            UsernameLabel.Text = "Username :";
+            // 
             // UsernameButton
             // 
             UsernameButton.Location = new Point(412, 154);
@@ -139,11 +141,35 @@
             UsernameButton.Visible = false;
             UsernameButton.Click += UsernameButton_Click;
             // 
+            // UserCombobox
+            // 
+            UserCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            UserCombobox.FormattingEnabled = true;
+            UserCombobox.Location = new Point(511, 35);
+            UserCombobox.Name = "UserCombobox";
+            UserCombobox.Size = new Size(151, 28);
+            UserCombobox.TabIndex = 3;
+            UserCombobox.Visible = false;
+            UserCombobox.SelectedIndexChanged += UserCombobox_SelectedIndexChanged;
+            // 
+            // AddAdminButton
+            // 
+            AddAdminButton.Location = new Point(694, 35);
+            AddAdminButton.Name = "AddAdminButton";
+            AddAdminButton.Size = new Size(94, 29);
+            AddAdminButton.TabIndex = 4;
+            AddAdminButton.Text = "Add Admin";
+            AddAdminButton.UseVisualStyleBackColor = true;
+            AddAdminButton.Visible = false;
+            AddAdminButton.Click += AddAdminButton_Click;
+            // 
             // ProfileSettings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(AddAdminButton);
+            Controls.Add(UserCombobox);
             Controls.Add(UsernameButton);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(backButton);
@@ -166,5 +192,7 @@
         private Label AccountLevelLabel;
         private Label AccountLevelDisplayLabel;
         private Button UsernameButton;
+        private ComboBox UserCombobox;
+        private Button AddAdminButton;
     }
 }

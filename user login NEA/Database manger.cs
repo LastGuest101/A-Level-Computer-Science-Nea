@@ -176,6 +176,27 @@ namespace user_login_NEA
                 }
             }
         }
+        public static void UpdateAdmin(int AdminLevel, int user_id)
+        {
+            string updateQuery = "UPDATE Users SET Admin = @Admin WHERE user_id = @user_id";
+
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Admin", AdminLevel);
+                    command.Parameters.AddWithValue("@user_id", user_id);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
 
         public static void InsertPlayers(string firstname, string lastname)
         {

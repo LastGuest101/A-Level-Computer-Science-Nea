@@ -116,6 +116,11 @@ namespace user_login_NEA
         {
             Database_manager.UpdateUsername(newUsername, user_id);
         }
+        
+        public static void SetAdminLevel(int AdminLevel,  int user_id)
+        {
+            Database_manager.UpdateAdmin(AdminLevel, user_id);
+        }
 
     
 
