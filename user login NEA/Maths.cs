@@ -22,8 +22,17 @@ namespace user_login_NEA
             float Percentage_Factor = 0.8f;  // Note: Use 'f' suffix for float literals
 
             float newHandicap_D = (Basis_Score - average) * Percentage_Factor;
-            int newHandicap_Whole = (int)newHandicap_D;  // Truncates the handicap calculated
-            return newHandicap_Whole;
+            int newHandicap_Whole = (int)newHandicap_D;// Truncates the handicap calculated
+
+            if(newHandicap_Whole < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return newHandicap_Whole;
+            }
+
         }
 
         public static int Average(int totalPinFall, int NumberOfGames)

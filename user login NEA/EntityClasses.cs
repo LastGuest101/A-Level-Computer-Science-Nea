@@ -210,15 +210,15 @@ namespace user_login_NEA
             {
                 LeagueStats.SetHandicap(match_id, player_id1);
             }
-            else if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id2)) == 0)
+            if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id2)) == 0)
             {
                 LeagueStats.SetHandicap(match_id, player_id2);
             }
-            else if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id3)) == 0)
+            if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id3)) == 0)
             {
                 LeagueStats.SetHandicap(match_id, player_id3);
             }
-            else if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id4)) == 0)
+            if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id4)) == 0)
             {
                 LeagueStats.SetHandicap(match_id, player_id4);
             }
