@@ -475,6 +475,46 @@ namespace user_login_NEA
             return attributeValues;
         }
 
+        public static List<int> AllGames(int player_id)
+        {
+            List<int> attributeValues = new List<int>();
+
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                string sqlQuery = $"SELECT game1, game2, game3 FROM Games WHERE player_id = @player_id";
+                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
+
+                using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@player_id", player_id);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Read and add each attribute value to the collection
+                            int game1Value = reader.GetInt32(0);
+                            int game2Value = reader.GetInt32(1);  // Assuming game2 is the second column
+                            int game3Value = reader.GetInt32(2);  // Assuming game3 is the third column
+
+                            attributeValues.Add(game1Value);
+                            attributeValues.Add(game2Value);
+                            attributeValues.Add(game3Value);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+                
+            
+            // Collection to store multiple attribute strings
+
+            return attributeValues;
+        }
+
         public static int singleIntFromDBMC(string Input, string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput) // Retrieves a single int value from the database, and queries from 2 columns.
         {
             int attributeValue = -1; // Default value indicating attribute not found

@@ -23,5 +23,12 @@ namespace user_login_NEA
             MainMenuForm.Show();
             Hide();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WeeklyHighScores WeeklyScoresForm = new WeeklyHighScores();
+            WeeklyScoresForm.Show();
+            Hide();
+        }
     }
 }

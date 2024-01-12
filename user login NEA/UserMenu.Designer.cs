@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             backButton = new Button();
+            WeeklyScoresButton = new Button();
             SuspendLayout();
             // 
             // backButton
@@ -41,11 +42,22 @@
             backButton.UseVisualStyleBackColor = true;
             backButton.Click += backButton_Click;
             // 
+            // WeeklyScoresButton
+            // 
+            WeeklyScoresButton.Location = new Point(464, 220);
+            WeeklyScoresButton.Name = "WeeklyScoresButton";
+            WeeklyScoresButton.Size = new Size(239, 63);
+            WeeklyScoresButton.TabIndex = 1;
+            WeeklyScoresButton.Text = "Weekly HighScores";
+            WeeklyScoresButton.UseVisualStyleBackColor = true;
+            WeeklyScoresButton.Click += button1_Click;
+            // 
             // UserMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(WeeklyScoresButton);
             Controls.Add(backButton);
             Name = "UserMenu";
             Text = "UserMenu";
@@ -55,5 +67,6 @@
         #endregion
 
         private Button backButton;
+        private Button WeeklyScoresButton;
     }
 }

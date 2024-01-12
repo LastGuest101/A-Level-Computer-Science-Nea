@@ -42,6 +42,10 @@ namespace user_login_NEA
                 {
                     UserCombobox.Items.Add($"{Username}");
                 }
+                else if (User.GetAdminLevel(allUser_id) == 1)
+                {
+                    AdminComboBox.Items.Add($"{Username}");
+                }
 
             }
 
@@ -49,6 +53,9 @@ namespace user_login_NEA
             {
                 AccountLevelDisplayLabel.Text = "Admin";
                 UserCombobox.Visible = true;
+                AdminAddLabel.Visible = true;
+                RemoveAdminLabel.Visible = true;
+                AdminComboBox.Visible = true;
             }
             else
             {
@@ -111,13 +118,43 @@ namespace user_login_NEA
 
         private void AddAdminButton_Click(object sender, EventArgs e)
         {
-            DialogResult confirmation = MessageBox.Show($"Do you want to give Admin level permission to {UserCombobox.SelectedText}?", "Change Username", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult confirmation = MessageBox.Show($"Do you want to give Admin level permission to {UserCombobox.SelectedItem}?", "Add Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmation == DialogResult.Yes)
             {
-                int selectedUser_id = User.getUserID(UserCombobox.SelectedText);
+                int selectedUser_id = User.getUserID(UserCombobox.SelectedItem.ToString());
                 User.SetAdminLevel(1, selectedUser_id);
-;
 
+                MessageBox.Show($"Admin Added: {UserCombobox.SelectedItem}  ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ProfileSettings profileSettingsForm = new ProfileSettings();
+                profileSettingsForm.Show(this);
+                Hide();
+
+
+            }
+        }
+
+        private void AdminComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (UserCombobox.SelectedIndex.ToString() != null)
+            {
+                RemoveAdminButton.Visible = true;
+            }
+        }
+
+        private void RemoveAdminButton_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmation = MessageBox.Show($"Do you want to remove Admin level permission : {AdminComboBox.SelectedItem} ?", "Remove Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmation == DialogResult.Yes)
+            {
+                int selectedUser_id = User.getUserID(AdminComboBox.SelectedItem.ToString());
+                User.SetAdminLevel(0, selectedUser_id);
+
+                MessageBox.Show($"Admin Removed: {AdminComboBox.SelectedItem}  ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ProfileSettings profileSettingsForm = new ProfileSettings();
+                profileSettingsForm.Show(this);
+                Hide();
 
             }
         }

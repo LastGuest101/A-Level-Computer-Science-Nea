@@ -39,6 +39,10 @@
             UsernameButton = new Button();
             UserCombobox = new ComboBox();
             AddAdminButton = new Button();
+            AdminAddLabel = new Label();
+            AdminComboBox = new ComboBox();
+            RemoveAdminLabel = new Label();
+            RemoveAdminButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -163,11 +167,57 @@
             AddAdminButton.Visible = false;
             AddAdminButton.Click += AddAdminButton_Click;
             // 
+            // AdminAddLabel
+            // 
+            AdminAddLabel.AutoSize = true;
+            AdminAddLabel.Location = new Point(511, 12);
+            AdminAddLabel.Name = "AdminAddLabel";
+            AdminAddLabel.Size = new Size(92, 20);
+            AdminAddLabel.TabIndex = 5;
+            AdminAddLabel.Text = "Add Admin :";
+            AdminAddLabel.Visible = false;
+            // 
+            // AdminComboBox
+            // 
+            AdminComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            AdminComboBox.FormattingEnabled = true;
+            AdminComboBox.Location = new Point(511, 191);
+            AdminComboBox.Name = "AdminComboBox";
+            AdminComboBox.Size = new Size(151, 28);
+            AdminComboBox.TabIndex = 6;
+            AdminComboBox.Visible = false;
+            AdminComboBox.SelectedIndexChanged += AdminComboBox_SelectedIndexChanged;
+            // 
+            // RemoveAdminLabel
+            // 
+            RemoveAdminLabel.AutoSize = true;
+            RemoveAdminLabel.Location = new Point(511, 161);
+            RemoveAdminLabel.Name = "RemoveAdminLabel";
+            RemoveAdminLabel.Size = new Size(114, 20);
+            RemoveAdminLabel.TabIndex = 7;
+            RemoveAdminLabel.Text = "Remove Admin:";
+            RemoveAdminLabel.Visible = false;
+            // 
+            // RemoveAdminButton
+            // 
+            RemoveAdminButton.Location = new Point(700, 194);
+            RemoveAdminButton.Name = "RemoveAdminButton";
+            RemoveAdminButton.Size = new Size(94, 29);
+            RemoveAdminButton.TabIndex = 8;
+            RemoveAdminButton.Text = "Remove Admin";
+            RemoveAdminButton.UseVisualStyleBackColor = true;
+            RemoveAdminButton.Visible = false;
+            RemoveAdminButton.Click += RemoveAdminButton_Click;
+            // 
             // ProfileSettings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(RemoveAdminButton);
+            Controls.Add(RemoveAdminLabel);
+            Controls.Add(AdminComboBox);
+            Controls.Add(AdminAddLabel);
             Controls.Add(AddAdminButton);
             Controls.Add(UserCombobox);
             Controls.Add(UsernameButton);
@@ -179,6 +229,7 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -194,5 +245,9 @@
         private Button UsernameButton;
         private ComboBox UserCombobox;
         private Button AddAdminButton;
+        private Label AdminAddLabel;
+        private ComboBox AdminComboBox;
+        private Label RemoveAdminLabel;
+        private Button RemoveAdminButton;
     }
 }

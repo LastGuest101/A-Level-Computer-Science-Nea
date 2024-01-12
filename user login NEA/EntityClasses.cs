@@ -178,6 +178,14 @@ namespace user_login_NEA
             
 
         }
+        public static string GetFirstName(int player_id)
+        {
+            return Database_manager.singleStringFromDB($"{player_id}", "player_id", "Players", "FirstName");
+        }
+        public static string GetLastName(int player_id)
+        {
+            return Database_manager.singleStringFromDB($"{player_id}", "player_id", "Players", "LastName");
+        }
     }
 
     public class Team
@@ -348,6 +356,30 @@ namespace user_login_NEA
             return Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id}", "match_id", "player_id", "Games", "game_id");
         }
 
+        public static List<Tuple<int, int>> GetGames(int week)
+        {
+            int week_id = Week.GetWeekID(week);
+            List<Tuple<int, int>> player_idandHighestGame = new List<Tuple<int, int>>();
+
+            foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
+            {
+                foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id"))
+                {
+                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    PlayersGame.Sort((a, b) => b.CompareTo(a));
+
+                    // Store player_id along with the highest game value as a Tuple
+                    player_idandHighestGame.Add(new Tuple<int, int>(player_id, PlayersGame[0]));
+                }
+            }
+
+            // Sort the TotalGames list based on the highest game value
+            player_idandHighestGame.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+
+            return player_idandHighestGame;
+        }
+
+
         public static int Series(int game_id)
         {
             return Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game3");
@@ -420,5 +452,13 @@ namespace user_login_NEA
             SetNumberOfGames(match_id, player_id);
         }
 
+    }
+
+    public class Week
+    {
+        public static int GetWeekID(int week)
+        {
+            return Database_manager.singleIntFromDB($"{week}", "Week", "Weeks", "week_id");
+        }
     }
 }
