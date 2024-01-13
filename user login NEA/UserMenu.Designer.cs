@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             backButton = new Button();
-            WeeklyScoresButton = new Button();
+            WeeklyScoresPlayerButton = new Button();
+            WeeklyScoresTeamButton = new Button();
             SuspendLayout();
             // 
             // backButton
@@ -42,22 +43,33 @@
             backButton.UseVisualStyleBackColor = true;
             backButton.Click += backButton_Click;
             // 
-            // WeeklyScoresButton
+            // WeeklyScoresPlayerButton
             // 
-            WeeklyScoresButton.Location = new Point(464, 220);
-            WeeklyScoresButton.Name = "WeeklyScoresButton";
-            WeeklyScoresButton.Size = new Size(239, 63);
-            WeeklyScoresButton.TabIndex = 1;
-            WeeklyScoresButton.Text = "Weekly HighScores";
-            WeeklyScoresButton.UseVisualStyleBackColor = true;
-            WeeklyScoresButton.Click += button1_Click;
+            WeeklyScoresPlayerButton.Location = new Point(464, 220);
+            WeeklyScoresPlayerButton.Name = "WeeklyScoresPlayerButton";
+            WeeklyScoresPlayerButton.Size = new Size(254, 63);
+            WeeklyScoresPlayerButton.TabIndex = 1;
+            WeeklyScoresPlayerButton.Text = "Weekly HighScores: (Players)";
+            WeeklyScoresPlayerButton.UseVisualStyleBackColor = true;
+            WeeklyScoresPlayerButton.Click += button1_Click;
+            // 
+            // WeeklyScoresTeamButton
+            // 
+            WeeklyScoresTeamButton.Location = new Point(49, 220);
+            WeeklyScoresTeamButton.Name = "WeeklyScoresTeamButton";
+            WeeklyScoresTeamButton.Size = new Size(256, 63);
+            WeeklyScoresTeamButton.TabIndex = 2;
+            WeeklyScoresTeamButton.Text = "Weekly HighScores: (Teams)";
+            WeeklyScoresTeamButton.UseVisualStyleBackColor = true;
+            WeeklyScoresTeamButton.Click += WeeklyScoresTeamButton_Click;
             // 
             // UserMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(WeeklyScoresButton);
+            Controls.Add(WeeklyScoresTeamButton);
+            Controls.Add(WeeklyScoresPlayerButton);
             Controls.Add(backButton);
             Name = "UserMenu";
             Text = "UserMenu";
@@ -67,6 +79,7 @@
         #endregion
 
         private Button backButton;
-        private Button WeeklyScoresButton;
+        private Button WeeklyScoresPlayerButton;
+        private Button WeeklyScoresTeamButton;
     }
 }

@@ -30,5 +30,12 @@ namespace user_login_NEA
             WeeklyScoresForm.Show();
             Hide();
         }
+
+        private void WeeklyScoresTeamButton_Click(object sender, EventArgs e)
+        {
+            WeeklyHighScoresTeam WeeklyScoresTeamForm = new WeeklyHighScoresTeam();
+            WeeklyScoresTeamForm.Show();
+            Hide();
+        }
     }
 }

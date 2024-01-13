@@ -403,7 +403,126 @@ namespace user_login_NEA
 
             return HighestHandicapScore;
         }
+        public static List<Tuple<int, int>> HighestScratchSeries(int week)
+        {
+            int week_id = Week.GetWeekID(week);
+            List<Tuple<int, int>> HighestScratchSeries = new List<Tuple<int, int>>();
 
+            foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
+            {
+                foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id"))
+                {
+                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    PlayersGame.Sort((a, b) => b.CompareTo(a));
+
+                    // Store player_id along with the highest game value as a Tuple
+                    HighestScratchSeries.Add(new Tuple<int, int>(player_id, PlayersGame[0] + PlayersGame[1] + PlayersGame[2]));
+                }
+            }
+
+            // Sort the TotalGames list based on the highest game value
+            HighestScratchSeries.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+
+            return HighestScratchSeries;
+        }
+
+        public static List<Tuple<int, int>> HighestHandicapSeries(int week)
+        {
+            int week_id = Week.GetWeekID(week);
+            List<Tuple<int, int>> HighestHandicapSeries = new List<Tuple<int, int>>();
+
+            foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
+            {
+                foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id"))
+                {
+                    int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
+                    int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
+
+                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    PlayersGame.Sort((a, b) => b.CompareTo(a));
+
+                    // Store player_id along with the highest game value as a Tuple
+                    HighestHandicapSeries.Add(new Tuple<int, int>(player_id, PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + (LeagueStats.GetHandicap(handicap_id) * 3) ));
+                }
+            }
+
+            // Sort the TotalGames list based on the highest game value
+            HighestHandicapSeries.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+
+            return HighestHandicapSeries;
+        }
+
+        public static List<Tuple<int, int>> HighestScoresByTeam(int week)
+        {
+            
+            int week_id = Week.GetWeekID(week);
+
+            List<Tuple<int, int>> HighestScratchScores = new List<Tuple<int, int>>();
+
+            foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
+            {
+                foreach (int team_id1 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"))
+                {
+                    List<int> teamTotal = new List<int> { 0, 0, 0 };
+
+                    foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
+                    {
+                        
+                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        if(PlayersGame.Count != 0)
+                        {
+                            teamTotal[0] += PlayersGame[0];
+                            teamTotal[1] += PlayersGame[1];
+                            teamTotal[2] += PlayersGame[2];  
+                        }
+                        
+                    }
+
+                    if(teamTotal[0] != 0)
+                    {
+                        teamTotal.Sort((a, b) => b.CompareTo(a));
+
+                        // Store player_id along with the highest game value as a Tuple
+                        HighestScratchScores.Add(new Tuple<int, int>(team_id1, teamTotal[0]));
+                    }
+                    
+                }
+                foreach (int team_id2 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"))
+                {
+                    List<int> teamTotal = new List<int> { 0, 0, 0 };
+
+                    foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id2}", "team_id", "Teams/Players", "player_id"))
+                    {
+
+                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        if (PlayersGame.Count != 0)
+                        {
+                            teamTotal[0] += PlayersGame[0];
+                            teamTotal[1] += PlayersGame[1];
+                            teamTotal[2] += PlayersGame[2];
+                        }
+
+                    }
+
+                    if (teamTotal[0] != 0)
+                    {
+                        teamTotal.Sort((a, b) => b.CompareTo(a));
+
+                        // Store player_id along with the highest game value as a Tuple
+                        HighestScratchScores.Add(new Tuple<int, int>(team_id2, teamTotal[0]));
+                    }
+
+                }
+            }
+
+            HighestScratchScores.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+
+            return HighestScratchScores;
+        }
+            
+        
+
+        
 
         public static int Series(int game_id)
         {
