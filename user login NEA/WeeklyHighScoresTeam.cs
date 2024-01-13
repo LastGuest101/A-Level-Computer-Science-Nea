@@ -49,30 +49,79 @@ namespace user_login_NEA
 
         private void WeekComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<Tuple<int, int>> HighestScratchScores = Game.HighestScoresByTeam(Convert.ToInt32(WeeksComboBox.SelectedItem));
+            List<Tuple<int, int>> HighestScratchGame = Game.ScratchGameTeam(Convert.ToInt32(WeeksComboBox.SelectedItem));
+            List<Tuple<int, int>> HighestHandicapGame = Game.HandicapGameTeam(Convert.ToInt32(WeeksComboBox.SelectedItem));
+            List<Tuple<int, int>> HighestScratchSeries = Game.ScratchSeriesTeam(Convert.ToInt32(WeeksComboBox.SelectedItem));
 
-            FirstTeamSS.Text = Team.GetTeamName(HighestScratchScores[0].Item1);
-            FirstScratchScore.Text = Convert.ToString(HighestScratchScores[0].Item2);
-         
+            FirstTeamSS.Text = Team.GetTeamName(HighestScratchGame[0].Item1);
+            FirstScratchGame.Text = Convert.ToString(HighestScratchGame[0].Item2);
+            HighestHandicapGame.RemoveAll(t => t.Item1 == HighestScratchGame[0].Item1);
 
-            SecondTeamSS.Text = Team.GetTeamName(HighestScratchScores[1].Item1);
-            SecondScratchScore.Text = Convert.ToString(HighestScratchScores[1].Item2);
+            SecondTeamSS.Text = Team.GetTeamName(HighestScratchGame[1].Item1);
+            SecondScratchGame.Text = Convert.ToString(HighestScratchGame[1].Item2);
+            HighestHandicapGame.RemoveAll(t => t.Item1 == HighestScratchGame[1].Item1);
 
+            ThirdTeamSS.Text = Team.GetTeamName(HighestScratchGame[2].Item1);
+            ThirdScratchGame.Text = Convert.ToString(HighestScratchGame[2].Item2);
+            HighestHandicapGame.RemoveAll(t => t.Item1 == HighestScratchGame[2].Item1);
 
-            ThirdTeamSS.Text = Team.GetTeamName(HighestScratchScores[2].Item1);
-            ThirdScratchScore.Text = Convert.ToString(HighestScratchScores[2].Item2);
+            FirstTeamHS.Text = Team.GetTeamName(HighestHandicapGame[0].Item1);
+            FirstHandicapGame.Text = Convert.ToString(HighestHandicapGame[0].Item2);
+            HighestScratchGame.RemoveAll(t => t.Item1 == HighestHandicapGame[0].Item1);
+
+            SecondTeamHS.Text = Team.GetTeamName(HighestHandicapGame[1].Item1);
+            SecondHandicapGame.Text = Convert.ToString(HighestHandicapGame[1].Item2);
+            HighestScratchGame.RemoveAll(t => t.Item1 == HighestHandicapGame[1].Item1);
+
+            ThirdTeamHS.Text = Team.GetTeamName(HighestHandicapGame[2].Item1);
+            ThirdHandicapGame.Text = Convert.ToString(HighestHandicapGame[2].Item2);
+            HighestScratchGame.RemoveAll(t => t.Item1 == HighestHandicapGame[2].Item1);
+
+            FirstTeamSSeries.Text = Team.GetTeamName(HighestScratchSeries[0].Item1);
+            FirstScratchSeries.Text = Convert.ToString(HighestScratchSeries[0].Item2);
+            // HighestHandicapGame.RemoveAll(t => t.Item1 == HighestScratchSeries[0].Item1);
+
+            SecondTeamSSeries.Text = Team.GetTeamName(HighestScratchSeries[1].Item1);
+            SecondScratchSeries.Text = Convert.ToString(HighestScratchSeries[1].Item2);
+            // HighestHandicapGame.RemoveAll(t => t.Item1 == HighestScratchSeries[1].Item1);
+
+            ThirdTeamSSeries.Text = Team.GetTeamName(HighestScratchSeries[2].Item1);
+            ThirdScratchSeries.Text = Convert.ToString(HighestScratchSeries[2].Item2);
+            // HighestHandicapGame.RemoveAll(t => t.Item1 == HighestScratchSeries[2].Item1);
+
 
             ScratchScoreLabel.Visible = true;
+            HandicapScoreLabel.Visible = true;
+            ScratchSeriesLabel.Visible = true;
 
             FirstTeamSS.Visible = true;
             SecondTeamSS.Visible = true;
             ThirdTeamSS.Visible = true;
 
-            FirstScratchScore.Visible = true;
-            SecondScratchScore.Visible = true;
-            ThirdScratchScore.Visible = true;
+            FirstScratchGame.Visible = true;
+            SecondScratchGame.Visible = true;
+            ThirdScratchGame.Visible = true;
+
+            FirstTeamHS.Visible = true;
+            SecondTeamHS.Visible = true;
+            ThirdTeamHS.Visible = true;
+
+            FirstHandicapGame.Visible = true;
+            SecondHandicapGame.Visible = true;
+            ThirdHandicapGame.Visible = true;
+
+            FirstTeamSSeries.Visible = true;
+            SecondTeamSSeries.Visible = true;
+            ThirdTeamSSeries.Visible = true;
+
+            FirstScratchSeries.Visible = true;
+            SecondScratchSeries.Visible = true;
+            ThirdScratchSeries.Visible = true;
+
 
 
         }
+
+        
     }
 }
