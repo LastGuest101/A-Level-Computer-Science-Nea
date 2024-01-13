@@ -55,9 +55,18 @@
             SecondScratchSeries = new Label();
             FirstScratchSeries = new Label();
             ScratchSeriesLabel = new Label();
+            HandicapSeriesLabel = new Label();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            FirstTeamHSeries = new Label();
+            SecondTeamHSeries = new Label();
+            ThirdTeamHSeries = new Label();
+            ThirdHandicapSeries = new Label();
+            SecondHandicapSeries = new Label();
+            FirstHandicapSeries = new Label();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
             // backButton
@@ -196,7 +205,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.Size = new Size(359, 125);
+            tableLayoutPanel2.Size = new Size(347, 125);
             tableLayoutPanel2.TabIndex = 5;
             // 
             // ThirdTeamHS
@@ -232,7 +241,7 @@
             // ThirdHandicapGame
             // 
             ThirdHandicapGame.AutoSize = true;
-            ThirdHandicapGame.Location = new Point(182, 82);
+            ThirdHandicapGame.Location = new Point(176, 82);
             ThirdHandicapGame.Name = "ThirdHandicapGame";
             ThirdHandicapGame.Size = new Size(134, 20);
             ThirdHandicapGame.TabIndex = 11;
@@ -242,7 +251,7 @@
             // SecondHandicapGame
             // 
             SecondHandicapGame.AutoSize = true;
-            SecondHandicapGame.Location = new Point(182, 41);
+            SecondHandicapGame.Location = new Point(176, 41);
             SecondHandicapGame.Name = "SecondHandicapGame";
             SecondHandicapGame.Size = new Size(137, 20);
             SecondHandicapGame.TabIndex = 12;
@@ -252,7 +261,7 @@
             // FirstHandicapGame
             // 
             FirstHandicapGame.AutoSize = true;
-            FirstHandicapGame.Location = new Point(182, 0);
+            FirstHandicapGame.Location = new Point(176, 0);
             FirstHandicapGame.Name = "FirstHandicapGame";
             FirstHandicapGame.Size = new Size(131, 20);
             FirstHandicapGame.TabIndex = 6;
@@ -324,9 +333,9 @@
             ThirdScratchSeries.AutoSize = true;
             ThirdScratchSeries.Location = new Point(176, 82);
             ThirdScratchSeries.Name = "ThirdScratchSeries";
-            ThirdScratchSeries.Size = new Size(116, 20);
+            ThirdScratchSeries.Size = new Size(118, 20);
             ThirdScratchSeries.TabIndex = 6;
-            ThirdScratchSeries.Text = "3rdScratchScore";
+            ThirdScratchSeries.Text = "3rdScratchSeries";
             ThirdScratchSeries.Visible = false;
             // 
             // SecondScratchSeries
@@ -334,9 +343,9 @@
             SecondScratchSeries.AutoSize = true;
             SecondScratchSeries.Location = new Point(176, 41);
             SecondScratchSeries.Name = "SecondScratchSeries";
-            SecondScratchSeries.Size = new Size(119, 20);
+            SecondScratchSeries.Size = new Size(121, 20);
             SecondScratchSeries.TabIndex = 7;
-            SecondScratchSeries.Text = "2ndScratchScore";
+            SecondScratchSeries.Text = "2ndScratchSeries";
             SecondScratchSeries.Visible = false;
             // 
             // FirstScratchSeries
@@ -344,9 +353,9 @@
             FirstScratchSeries.AutoSize = true;
             FirstScratchSeries.Location = new Point(176, 0);
             FirstScratchSeries.Name = "FirstScratchSeries";
-            FirstScratchSeries.Size = new Size(113, 20);
+            FirstScratchSeries.Size = new Size(115, 20);
             FirstScratchSeries.TabIndex = 8;
-            FirstScratchSeries.Text = "1stScratchScore";
+            FirstScratchSeries.Text = "1stScratchSeries";
             FirstScratchSeries.Visible = false;
             // 
             // ScratchSeriesLabel
@@ -356,14 +365,106 @@
             ScratchSeriesLabel.Name = "ScratchSeriesLabel";
             ScratchSeriesLabel.Size = new Size(103, 20);
             ScratchSeriesLabel.TabIndex = 9;
-            ScratchSeriesLabel.Text = "Scratch Game:";
+            ScratchSeriesLabel.Text = "Scratch Series:";
             ScratchSeriesLabel.Visible = false;
+            // 
+            // HandicapSeriesLabel
+            // 
+            HandicapSeriesLabel.AutoSize = true;
+            HandicapSeriesLabel.Location = new Point(492, 263);
+            HandicapSeriesLabel.Name = "HandicapSeriesLabel";
+            HandicapSeriesLabel.Size = new Size(119, 20);
+            HandicapSeriesLabel.TabIndex = 11;
+            HandicapSeriesLabel.Text = "Handicap Series:";
+            HandicapSeriesLabel.Visible = false;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 2;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Controls.Add(FirstTeamHSeries, 0, 0);
+            tableLayoutPanel4.Controls.Add(SecondTeamHSeries, 0, 1);
+            tableLayoutPanel4.Controls.Add(ThirdTeamHSeries, 0, 2);
+            tableLayoutPanel4.Controls.Add(ThirdHandicapSeries, 1, 2);
+            tableLayoutPanel4.Controls.Add(SecondHandicapSeries, 1, 1);
+            tableLayoutPanel4.Controls.Add(FirstHandicapSeries, 1, 0);
+            tableLayoutPanel4.Location = new Point(422, 302);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 3;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel4.Size = new Size(347, 125);
+            tableLayoutPanel4.TabIndex = 10;
+            // 
+            // FirstTeamHSeries
+            // 
+            FirstTeamHSeries.AutoSize = true;
+            FirstTeamHSeries.Location = new Point(3, 0);
+            FirstTeamHSeries.Name = "FirstTeamHSeries";
+            FirstTeamHSeries.Size = new Size(68, 20);
+            FirstTeamHSeries.TabIndex = 3;
+            FirstTeamHSeries.Text = "1st Team";
+            FirstTeamHSeries.Visible = false;
+            // 
+            // SecondTeamHSeries
+            // 
+            SecondTeamHSeries.AutoSize = true;
+            SecondTeamHSeries.Location = new Point(3, 41);
+            SecondTeamHSeries.Name = "SecondTeamHSeries";
+            SecondTeamHSeries.Size = new Size(74, 20);
+            SecondTeamHSeries.TabIndex = 4;
+            SecondTeamHSeries.Text = "2nd Team";
+            SecondTeamHSeries.Visible = false;
+            // 
+            // ThirdTeamHSeries
+            // 
+            ThirdTeamHSeries.AutoSize = true;
+            ThirdTeamHSeries.Location = new Point(3, 82);
+            ThirdTeamHSeries.Name = "ThirdTeamHSeries";
+            ThirdTeamHSeries.Size = new Size(71, 20);
+            ThirdTeamHSeries.TabIndex = 5;
+            ThirdTeamHSeries.Text = "3rd Team";
+            ThirdTeamHSeries.Visible = false;
+            // 
+            // ThirdHandicapSeries
+            // 
+            ThirdHandicapSeries.AutoSize = true;
+            ThirdHandicapSeries.Location = new Point(176, 82);
+            ThirdHandicapSeries.Name = "ThirdHandicapSeries";
+            ThirdHandicapSeries.Size = new Size(134, 20);
+            ThirdHandicapSeries.TabIndex = 6;
+            ThirdHandicapSeries.Text = "3rdHandicapSeries";
+            ThirdHandicapSeries.Visible = false;
+            // 
+            // SecondHandicapSeries
+            // 
+            SecondHandicapSeries.AutoSize = true;
+            SecondHandicapSeries.Location = new Point(176, 41);
+            SecondHandicapSeries.Name = "SecondHandicapSeries";
+            SecondHandicapSeries.Size = new Size(137, 20);
+            SecondHandicapSeries.TabIndex = 7;
+            SecondHandicapSeries.Text = "2ndHandicapSeries";
+            SecondHandicapSeries.Visible = false;
+            // 
+            // FirstHandicapSeries
+            // 
+            FirstHandicapSeries.AutoSize = true;
+            FirstHandicapSeries.Location = new Point(176, 0);
+            FirstHandicapSeries.Name = "FirstHandicapSeries";
+            FirstHandicapSeries.Size = new Size(131, 20);
+            FirstHandicapSeries.TabIndex = 8;
+            FirstHandicapSeries.Text = "1stHandicapSeries";
+            FirstHandicapSeries.Visible = false;
             // 
             // WeeklyHighScoresTeam
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(HandicapSeriesLabel);
+            Controls.Add(tableLayoutPanel4);
             Controls.Add(ScratchSeriesLabel);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(HandicapScoreLabel);
@@ -382,6 +483,8 @@
             tableLayoutPanel2.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -416,5 +519,13 @@
         private Label SecondScratchSeries;
         private Label FirstScratchSeries;
         private Label ScratchSeriesLabel;
+        private Label HandicapSeriesLabel;
+        private TableLayoutPanel tableLayoutPanel4;
+        private Label FirstTeamHSeries;
+        private Label SecondTeamHSeries;
+        private Label ThirdTeamHSeries;
+        private Label ThirdHandicapSeries;
+        private Label SecondHandicapSeries;
+        private Label FirstHandicapSeries;
     }
 }

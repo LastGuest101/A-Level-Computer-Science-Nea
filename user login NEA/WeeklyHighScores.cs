@@ -64,45 +64,47 @@ namespace user_login_NEA
             FirstScratchScore.Text = Convert.ToString(HighestScratchScores[0].Item2);
             HighestHandicapScores.RemoveAll(t => t.Item1 == HighestScratchScores[0].Item1);
 
-            SecondPlayerSS.Text = Player.GetFirstName(HighestScratchScores[1].Item1) + " " + Player.GetLastName(HighestScratchScores[1].Item1);
-            SecondScratchScore.Text = Convert.ToString(HighestScratchScores[1].Item2);
-            HighestHandicapScores.RemoveAll(t => t.Item1 == HighestScratchScores[1].Item1);
-
-            ThirdPlayerSS.Text = Player.GetFirstName(HighestScratchScores[2].Item1) + " " + Player.GetLastName(HighestScratchScores[2].Item1);
-            ThirdScratchScore.Text = Convert.ToString(HighestScratchScores[2].Item2);
-            HighestHandicapScores.RemoveAll(t => t.Item1 == HighestScratchScores[2].Item1);
-
             FirstPlayerHS.Text = Player.GetFirstName(HighestHandicapScores[0].Item1) + " " + Player.GetLastName(HighestHandicapScores[0].Item1);
             FirstHandicapScore.Text = Convert.ToString(HighestHandicapScores[0].Item2);
             HighestScratchScores.RemoveAll(t => t.Item1 == HighestHandicapScores[0].Item1);
+
+            SecondPlayerSS.Text = Player.GetFirstName(HighestScratchScores[1].Item1) + " " + Player.GetLastName(HighestScratchScores[1].Item1);
+            SecondScratchScore.Text = Convert.ToString(HighestScratchScores[1].Item2);
+            HighestHandicapScores.RemoveAll(t => t.Item1 == HighestScratchScores[1].Item1);
 
             SecondPlayerHS.Text = Player.GetFirstName(HighestHandicapScores[1].Item1) + " " + Player.GetLastName(HighestHandicapScores[1].Item1);
             SecondHandicapScore.Text = Convert.ToString(HighestHandicapScores[1].Item2);
             HighestScratchScores.RemoveAll(t => t.Item1 == HighestHandicapScores[2].Item1);
 
+            ThirdPlayerSS.Text = Player.GetFirstName(HighestScratchScores[2].Item1) + " " + Player.GetLastName(HighestScratchScores[2].Item1);
+            ThirdScratchScore.Text = Convert.ToString(HighestScratchScores[2].Item2);
+            HighestHandicapScores.RemoveAll(t => t.Item1 == HighestScratchScores[2].Item1);
+
             ThirdPlayerHS.Text = Player.GetFirstName(HighestHandicapScores[2].Item1) + " " + Player.GetLastName(HighestHandicapScores[2].Item1);
             ThirdHandicapScore.Text = Convert.ToString(HighestHandicapScores[2].Item2);
             HighestScratchScores.RemoveAll(t => t.Item1 == HighestHandicapScores[2].Item1);
         
+
+
             FirstPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[0].Item1) + " " + Player.GetLastName(HighestScratchSeries[0].Item1);
             FirstScratchSeries.Text = Convert.ToString(HighestScratchSeries[0].Item2);
             HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[0].Item1);
-
-            SecondPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[1].Item1) + " " + Player.GetLastName(HighestScratchSeries[1].Item1);
-            SecondScratchSeries.Text = Convert.ToString(HighestScratchSeries[1].Item2);
-            HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[1].Item1);
-
-            ThirdPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[2].Item1) + " " + Player.GetLastName(HighestScratchSeries[2].Item1);
-            ThirdScratchSeries.Text = Convert.ToString(HighestScratchSeries[2].Item2);
-            HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[2].Item1);
 
             FirstPlayerHSeries.Text = Player.GetFirstName(HighestHandicapSeries[0].Item1) + " " + Player.GetLastName(HighestHandicapSeries[0].Item1);
             FirstHandicapSeries.Text = Convert.ToString(HighestHandicapSeries[0].Item2);
             HighestScratchSeries.RemoveAll(t => t.Item1 == HighestHandicapSeries[0].Item1);
 
+            SecondPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[1].Item1) + " " + Player.GetLastName(HighestScratchSeries[1].Item1);
+            SecondScratchSeries.Text = Convert.ToString(HighestScratchSeries[1].Item2);
+            HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[1].Item1);
+
             SecondPlayerHSeries.Text = Player.GetFirstName(HighestHandicapSeries[1].Item1) + " " + Player.GetLastName(HighestHandicapSeries[1].Item1);
             SecondHandicapSeries.Text = Convert.ToString(HighestHandicapSeries[1].Item2);
             HighestScratchSeries.RemoveAll(t => t.Item1 == HighestHandicapSeries[1].Item1);
+
+            ThirdPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[2].Item1) + " " + Player.GetLastName(HighestScratchSeries[2].Item1);
+            ThirdScratchSeries.Text = Convert.ToString(HighestScratchSeries[2].Item2);
+            HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[2].Item1);
 
             ThirdPlayerHSeries.Text = Player.GetFirstName(HighestHandicapSeries[2].Item1) + " " + Player.GetLastName(HighestHandicapSeries[2].Item1);
             ThirdHandicapSeries.Text = Convert.ToString(HighestHandicapSeries[2].Item2);
