@@ -224,6 +224,7 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(backButton);
             Name = "ProfileSettings";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ProfileSettings";
             Load += ProfileSettings_Load;
             tableLayoutPanel1.ResumeLayout(false);

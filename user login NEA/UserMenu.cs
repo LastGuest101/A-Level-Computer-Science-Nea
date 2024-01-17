@@ -37,5 +37,12 @@ namespace user_login_NEA
             WeeklyScoresTeamForm.Show();
             Hide();
         }
+
+        private void StandingsButton_Click(object sender, EventArgs e)
+        {
+            Standings standingsForm = new Standings();
+            standingsForm.Show();
+            Hide();
+        }
     }
 }

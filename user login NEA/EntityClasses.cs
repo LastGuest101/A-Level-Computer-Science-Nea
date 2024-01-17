@@ -729,6 +729,26 @@ namespace user_login_NEA
             return HighestScratchSeries;
         }
 
+        public static List<Tuple<string, int>> Leaderboard(int league_id)
+        {
+            List<Tuple<string, int>> TeamName_Points = new List<Tuple<string, int>>();
+
+            foreach(int team_id in Database_manager.multipleIntFromDB($"{league_id}", "league_id", "Teams", "team_id"))
+            {
+                string TeamName = Team.GetTeamName(team_id);
+                int Points = Team.GetPoints(team_id);
+
+                TeamName_Points.Add(new Tuple<string, int>(TeamName, Points));
+            }
+
+           TeamName_Points.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+
+            return TeamName_Points;
+
+        }
+            
+
+
 
 
 

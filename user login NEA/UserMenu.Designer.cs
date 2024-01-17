@@ -31,6 +31,7 @@
             backButton = new Button();
             WeeklyScoresPlayerButton = new Button();
             WeeklyScoresTeamButton = new Button();
+            StandingsButton = new Button();
             SuspendLayout();
             // 
             // backButton
@@ -45,9 +46,9 @@
             // 
             // WeeklyScoresPlayerButton
             // 
-            WeeklyScoresPlayerButton.Location = new Point(464, 220);
+            WeeklyScoresPlayerButton.Location = new Point(423, 162);
             WeeklyScoresPlayerButton.Name = "WeeklyScoresPlayerButton";
-            WeeklyScoresPlayerButton.Size = new Size(254, 63);
+            WeeklyScoresPlayerButton.Size = new Size(258, 61);
             WeeklyScoresPlayerButton.TabIndex = 1;
             WeeklyScoresPlayerButton.Text = "Weekly HighScores: (Players)";
             WeeklyScoresPlayerButton.UseVisualStyleBackColor = true;
@@ -55,23 +56,35 @@
             // 
             // WeeklyScoresTeamButton
             // 
-            WeeklyScoresTeamButton.Location = new Point(49, 220);
+            WeeklyScoresTeamButton.Location = new Point(77, 162);
             WeeklyScoresTeamButton.Name = "WeeklyScoresTeamButton";
-            WeeklyScoresTeamButton.Size = new Size(256, 63);
+            WeeklyScoresTeamButton.Size = new Size(258, 61);
             WeeklyScoresTeamButton.TabIndex = 2;
             WeeklyScoresTeamButton.Text = "Weekly HighScores: (Teams)";
             WeeklyScoresTeamButton.UseVisualStyleBackColor = true;
             WeeklyScoresTeamButton.Click += WeeklyScoresTeamButton_Click;
             // 
+            // StandingsButton
+            // 
+            StandingsButton.Location = new Point(241, 59);
+            StandingsButton.Name = "StandingsButton";
+            StandingsButton.Size = new Size(256, 61);
+            StandingsButton.TabIndex = 3;
+            StandingsButton.Text = "Standings";
+            StandingsButton.UseVisualStyleBackColor = true;
+            StandingsButton.Click += StandingsButton_Click;
+            // 
             // UserMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(770, 334);
+            Controls.Add(StandingsButton);
             Controls.Add(WeeklyScoresTeamButton);
             Controls.Add(WeeklyScoresPlayerButton);
             Controls.Add(backButton);
             Name = "UserMenu";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UserMenu";
             ResumeLayout(false);
         }
@@ -81,5 +94,6 @@
         private Button backButton;
         private Button WeeklyScoresPlayerButton;
         private Button WeeklyScoresTeamButton;
+        private Button StandingsButton;
     }
 }

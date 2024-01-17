@@ -146,6 +146,7 @@
             Controls.Add(LeagueComboBox);
             Controls.Add(LeagueLabel);
             Name = "AddingPlayers";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AddingPlayers";
             Load += AddingPlayers_Load;
             ResumeLayout(false);

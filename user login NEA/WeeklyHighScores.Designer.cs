@@ -475,6 +475,7 @@
             Controls.Add(WeekLabel);
             Controls.Add(ScratchSeriesTableLayout);
             Name = "WeeklyHighScores";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "WeeklyHighScores";
             Load += WeeklyHighScores_Load;
             ScratchSeriesTableLayout.ResumeLayout(false);

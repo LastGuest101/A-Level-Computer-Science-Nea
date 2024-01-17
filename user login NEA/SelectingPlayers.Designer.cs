@@ -175,7 +175,7 @@
             Controls.Add(Team2);
             Controls.Add(Team1);
             Name = "SelectingPlayers";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "SelectingPlayers";
             ResumeLayout(false);
             PerformLayout();

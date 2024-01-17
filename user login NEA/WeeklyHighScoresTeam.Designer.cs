@@ -475,6 +475,7 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(backButton);
             Name = "WeeklyHighScoresTeam";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "WeeklyHighScoresTeam";
             Load += WeeklyHighScoresTeam_Load;
             tableLayoutPanel1.ResumeLayout(false);

@@ -38,13 +38,12 @@
             clearButton = new Button();
             CheckBoxShowPass = new CheckBox();
             Sign_Up_Button = new Button();
-            label1 = new Label();
             SuspendLayout();
             // 
             // titleLabel
             // 
             titleLabel.AutoSize = true;
-            titleLabel.Location = new Point(315, 35);
+            titleLabel.Location = new Point(246, 42);
             titleLabel.Name = "titleLabel";
             titleLabel.Size = new Size(71, 20);
             titleLabel.TabIndex = 0;
@@ -53,7 +52,7 @@
             // passwordLabel
             // 
             passwordLabel.AutoSize = true;
-            passwordLabel.Location = new Point(246, 171);
+            passwordLabel.Location = new Point(177, 176);
             passwordLabel.Name = "passwordLabel";
             passwordLabel.Size = new Size(70, 20);
             passwordLabel.TabIndex = 1;
@@ -62,7 +61,7 @@
             // usernameLabel
             // 
             usernameLabel.AutoSize = true;
-            usernameLabel.Location = new Point(246, 107);
+            usernameLabel.Location = new Point(177, 112);
             usernameLabel.Name = "usernameLabel";
             usernameLabel.Size = new Size(78, 20);
             usernameLabel.TabIndex = 2;
@@ -70,14 +69,14 @@
             // 
             // usernameTextBox
             // 
-            usernameTextBox.Location = new Point(392, 104);
+            usernameTextBox.Location = new Point(323, 109);
             usernameTextBox.Name = "usernameTextBox";
             usernameTextBox.Size = new Size(125, 27);
             usernameTextBox.TabIndex = 3;
             // 
             // passwordTextBox
             // 
-            passwordTextBox.Location = new Point(392, 168);
+            passwordTextBox.Location = new Point(323, 173);
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.Size = new Size(125, 27);
             passwordTextBox.TabIndex = 4;
@@ -85,7 +84,7 @@
             // 
             // loginButton
             // 
-            loginButton.Location = new Point(518, 231);
+            loginButton.Location = new Point(449, 236);
             loginButton.Name = "loginButton";
             loginButton.Size = new Size(94, 29);
             loginButton.TabIndex = 5;
@@ -94,7 +93,7 @@
             // 
             // exitButton
             // 
-            exitButton.Location = new Point(183, 231);
+            exitButton.Location = new Point(114, 236);
             exitButton.Name = "exitButton";
             exitButton.Size = new Size(94, 29);
             exitButton.TabIndex = 6;
@@ -104,7 +103,7 @@
             // 
             // clearButton
             // 
-            clearButton.Location = new Point(292, 231);
+            clearButton.Location = new Point(223, 236);
             clearButton.Name = "clearButton";
             clearButton.Size = new Size(94, 29);
             clearButton.TabIndex = 7;
@@ -115,7 +114,7 @@
             // CheckBoxShowPass
             // 
             CheckBoxShowPass.AutoSize = true;
-            CheckBoxShowPass.Location = new Point(392, 234);
+            CheckBoxShowPass.Location = new Point(323, 239);
             CheckBoxShowPass.Name = "CheckBoxShowPass";
             CheckBoxShowPass.Size = new Size(132, 24);
             CheckBoxShowPass.TabIndex = 8;
@@ -125,7 +124,7 @@
             // 
             // Sign_Up_Button
             // 
-            Sign_Up_Button.Location = new Point(406, 284);
+            Sign_Up_Button.Location = new Point(337, 289);
             Sign_Up_Button.Name = "Sign_Up_Button";
             Sign_Up_Button.Size = new Size(94, 29);
             Sign_Up_Button.TabIndex = 9;
@@ -133,21 +132,11 @@
             Sign_Up_Button.UseVisualStyleBackColor = true;
             Sign_Up_Button.Click += Sign_Up_Button_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(621, 313);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 10;
-            label1.Text = "label1";
-            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(label1);
+            ClientSize = new Size(611, 348);
             Controls.Add(Sign_Up_Button);
             Controls.Add(CheckBoxShowPass);
             Controls.Add(clearButton);
@@ -161,6 +150,7 @@
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";
+            WindowState = FormWindowState.Minimized;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -177,6 +167,5 @@
         private Button clearButton;
         private CheckBox CheckBoxShowPass;
         private Button Sign_Up_Button;
-        private Label label1;
     }
 }
