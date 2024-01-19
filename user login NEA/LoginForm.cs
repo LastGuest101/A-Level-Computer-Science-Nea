@@ -43,7 +43,7 @@ namespace user_login_NEA
             try
             {
                 // Attempt to authenticate the user using the database manager
-                if (Database_manager.AuthenticateUserLoginIn(username, password))
+                if (User.LoginValidator(username, password) == true)
                 {
                     MessageBox.Show("Login Successful!");
                     LoggedInUsername = username;

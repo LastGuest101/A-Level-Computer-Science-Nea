@@ -14,15 +14,20 @@ namespace user_login_NEA
 {
     public partial class MainMenu : Form
     {
-        public static string? loggedPlayerId;
+        public static int loggedPlayerID;
 
         public MainMenu()
         {
             InitializeComponent();
-            loggedPlayerId = Convert.ToString(Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "player_id"));
-            PlayerName.Text = "Bowler: " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB(loggedPlayerId, "player_id", "Players", "LastName");
-            PlayerHandicap.Text = "Handicap:  " + Convert.ToString(Database_manager.singleIntFromDB(loggedPlayerId, "player_id", "LeagueStats", "Handicap"));
-            AdminButton.Visible = Database_manager.singleIntFromDB(LoginForm.LoggedInUsername, "Username", "Users", "Admin") == 1;
+            loggedPlayerID = Player.GetPlayerID(LoginForm.LoggedInUsername);
+            PlayerName.Text = "Bowler: " + Player.GetFirstName(loggedPlayerID) + " " + Player.GetLastName(loggedPlayerID);
+            PlayerHandicap.Text = "Handicap:  " + LeagueStats.GetHandicap(LeagueStats.GetHandicapID(1, loggedPlayerID));
+
+            if(User.GetAdminLevel(User.getUserID(LoginForm.LoggedInUsername)) == 1)
+            {
+                AdminButton.Visible = true;
+            }
+            
 
         }
 

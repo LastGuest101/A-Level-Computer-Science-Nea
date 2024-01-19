@@ -8,6 +8,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.DirectoryServices.ActiveDirectory;
 
 namespace user_login_NEA
 {
@@ -88,6 +89,16 @@ namespace user_login_NEA
 
         }
 
+        public static bool LoginValidator(string username, string password)
+        {
+           if(Database_manager.AuthenticateUserLoginIn(username, password) == true)
+            {
+                return true;
+            }
+            return false;
+            
+        }
+
          public static bool OtherUsers(string username)
          {
               if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
@@ -132,7 +143,7 @@ namespace user_login_NEA
 
     public class Player
     {
-        public static string ValidateName (string name)
+        public static string ValidateName(string name)
         {
             if (Regex.IsMatch(name, @"^[A-Z][a-z ,.'-]*$"))
             {
@@ -185,6 +196,11 @@ namespace user_login_NEA
         public static string GetLastName(int player_id)
         {
             return Database_manager.singleStringFromDB($"{player_id}", "player_id", "Players", "LastName");
+        }
+
+        public static int GetPlayerID(string LoggedUsername)
+        {
+            return Database_manager.singleIntFromDB(LoggedUsername, "Username", "Users", "player_id");
         }
     }
 
