@@ -27,13 +27,12 @@ namespace user_login_NEA
         }
 
 
-        static void InsertData_Users(string connectionString, string Username, string Password, string Email)
+        public static void InsertUser(string Username, string Password, int Player_id)
         {
-            string value = "1";
-            // INSERT query
-            string insertQuery = $"INSERT INTO Users (Username, player_id, Password, Email) VALUES ('{Username}','{value}', '{Password}', '{Email}');";
-            // Create a new SQLite connection
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+
+            string insertQuery = $"INSERT INTO Users (Username, Password, player_id) VALUES ('{Username}','{Password}' , '{Player_id}');";
+
+            using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
@@ -43,8 +42,11 @@ namespace user_login_NEA
                 {
                     // Execute the query
                     command.ExecuteNonQuery();
+                    connection.Close();
                 }
             }
+
+
         }
 
         public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)

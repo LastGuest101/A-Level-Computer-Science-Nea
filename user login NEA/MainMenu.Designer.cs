@@ -53,6 +53,7 @@
             AdminButton.TabIndex = 6;
             AdminButton.Text = "ADMIN MENU(Admin Only)";
             AdminButton.UseVisualStyleBackColor = true;
+            AdminButton.Visible = false;
             AdminButton.Click += AddButton_Click;
             // 
             // PlayerName

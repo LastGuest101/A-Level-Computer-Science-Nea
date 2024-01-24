@@ -53,8 +53,6 @@ namespace user_login_NEA
                 foreach (var team in legaueTeams) //adds the team name of each entity in the table Leagues to the combobox, dependent on what league is selected first.
                 {
 
-
-
                     TeamComboBox.Items.Add(Database_manager.singleStringFromDB($"{team}", "team_id", "Teams", "TeamName"));
                 }
             }

@@ -14,17 +14,6 @@ namespace user_login_NEA
 {
     public class User
     {
-        public int user_id { get; set; }
-
-        public int player_id { get; set; }
-
-        public string username { get; set; }
-
-        public string password { get; set; }
-
-        public string email { get; set; }
-
-        public int admin { get; set; }
 
         public static string UsernameValidator(string username)
         {
@@ -107,6 +96,12 @@ namespace user_login_NEA
             }
                 return false;
          }
+
+        public static void AddUser(string username, string password, int player_id)
+        {
+            Database_manager.InsertUser(username, password, player_id);
+          
+        }
 
          public static string getUsername(int user_id)
          {
@@ -201,6 +196,10 @@ namespace user_login_NEA
         public static int GetPlayerID(string LoggedUsername)
         {
             return Database_manager.singleIntFromDB(LoggedUsername, "Username", "Users", "player_id");
+        }
+        public static int GetPlayerIDName(string FirstName, string LastName)
+        {
+            return Database_manager.singleIntFromDBMC($"{FirstName}", $"{LastName}", "FirstName", "LastName", "Players", "player_id");
         }
     }
 

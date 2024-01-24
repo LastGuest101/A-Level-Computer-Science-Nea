@@ -32,10 +32,8 @@
             SignUpLabel = new Label();
             UsernameTextBox = new TextBox();
             PasswordTextbox = new TextBox();
-            EmailTextbox = new TextBox();
             UsernameLabel = new Label();
             PasswordLabel = new Label();
-            EmailLabel = new Label();
             LeagueLabel = new Label();
             LeagueComboBox = new ComboBox();
             BowlerLabel = new Label();
@@ -77,13 +75,6 @@
             PasswordTextbox.Size = new Size(125, 27);
             PasswordTextbox.TabIndex = 6;
             // 
-            // EmailTextbox
-            // 
-            EmailTextbox.Location = new Point(181, 259);
-            EmailTextbox.Name = "EmailTextbox";
-            EmailTextbox.Size = new Size(125, 27);
-            EmailTextbox.TabIndex = 7;
-            // 
             // UsernameLabel
             // 
             UsernameLabel.AutoSize = true;
@@ -101,15 +92,6 @@
             PasswordLabel.Size = new Size(70, 20);
             PasswordLabel.TabIndex = 9;
             PasswordLabel.Text = "Password";
-            // 
-            // EmailLabel
-            // 
-            EmailLabel.AutoSize = true;
-            EmailLabel.Location = new Point(100, 266);
-            EmailLabel.Name = "EmailLabel";
-            EmailLabel.Size = new Size(46, 20);
-            EmailLabel.TabIndex = 10;
-            EmailLabel.Text = "Email";
             // 
             // LeagueLabel
             // 
@@ -178,10 +160,8 @@
             Controls.Add(BowlerLabel);
             Controls.Add(LeagueComboBox);
             Controls.Add(LeagueLabel);
-            Controls.Add(EmailLabel);
             Controls.Add(PasswordLabel);
             Controls.Add(UsernameLabel);
-            Controls.Add(EmailTextbox);
             Controls.Add(PasswordTextbox);
             Controls.Add(UsernameTextBox);
             Controls.Add(SignUpLabel);
@@ -200,10 +180,8 @@
         private Label SignUpLabel;
         private TextBox UsernameTextBox;
         private TextBox PasswordTextbox;
-        private TextBox EmailTextbox;
         private Label UsernameLabel;
         private Label PasswordLabel;
-        private Label EmailLabel;
         private Label LeagueLabel;
         private ComboBox LeagueComboBox;
         private Label BowlerLabel;

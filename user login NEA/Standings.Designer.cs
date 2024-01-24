@@ -347,7 +347,6 @@
             Team12.Size = new Size(61, 20);
             Team12.TabIndex = 34;
             Team12.Text = "Team12";
-
             // 
             // Points12
             // 
@@ -402,7 +401,6 @@
             Team5.Size = new Size(53, 20);
             Team5.TabIndex = 13;
             Team5.Text = "Team5";
-
             // 
             // Team6
             // 
@@ -412,12 +410,11 @@
             Team6.Size = new Size(53, 20);
             Team6.TabIndex = 16;
             Team6.Text = "Team6";
-
             // 
             // TeamNameLabel
             // 
             TeamNameLabel.AutoSize = true;
-            TeamNameLabel.Location = new Point(375, 37);
+            TeamNameLabel.Location = new Point(430, 21);
             TeamNameLabel.Name = "TeamNameLabel";
             TeamNameLabel.Size = new Size(88, 20);
             TeamNameLabel.TabIndex = 2;

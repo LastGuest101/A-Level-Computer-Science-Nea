@@ -48,7 +48,7 @@ namespace user_login_NEA
             {
 
 
-                legaueTeams = Database_manager.multipleIntFromDB($"{(LeagueComboBox.SelectedIndex + 1).ToString()}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
+                legaueTeams = Database_manager.multipleIntFromDB($"{LeagueComboBox.SelectedIndex + 1}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
 
                 foreach (var team in legaueTeams)
                 {
@@ -70,27 +70,44 @@ namespace user_login_NEA
         {
             if (User.UsernameValidator(UsernameTextBox.Text) != "valid")
             {
+                MessageBox.Show($"{User.UsernameValidator(UsernameTextBox.Text)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 UsernameTextBox.Clear();
                 UsernameTextBox.Focus();
+               
             }
 
-            ValidatorLabel.Text = User.PasswordValidator(PasswordTextbox.Text);
+            if (User.PasswordValidator(PasswordTextbox.Text) != "valid")
+            {
+                MessageBox.Show($"{User.PasswordValidator(PasswordTextbox.Text)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PasswordTextbox.Clear();
+                PasswordTextbox.Focus();
+            }
+
+            if(BowlerComboBox.SelectedItem == null)
+            {
+                MessageBox.Show($"Please select a player for this account. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else if (User.UsernameValidator(UsernameTextBox.Text) == "valid" && User.PasswordValidator(PasswordTextbox.Text) == "valid" && BowlerComboBox.SelectedItem != null)
+            {
+                var SelectedPlayer = BowlerComboBox.SelectedItem.ToString().Split(" ");
+                string SelectedFirstName = SelectedPlayer[0];
+                string SelectedLastName = SelectedPlayer[1];
 
 
+                int playerID = Player.GetPlayerIDName($"{SelectedFirstName}", $"{SelectedLastName}");
+                User.AddUser($"{UsernameTextBox.Text}", $"{PasswordTextbox.Text}", playerID);
+                MessageBox.Show($"Successfully added {UsernameTextBox.Text} to database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LoginForm LoginForm = new();
+                LoginForm.Show();
+                Hide();
 
 
-
-
-            //ValidatorLabel.Text = Database_manager.singleStringFromDB($"{UsernameTextBox.Text}", "Username", "Users", "Username");
-            /* if (User.OtherUsers(UsernameTextBox.Text) == true)
-             {
-                ValidatorLabel.Text = "true";
-             }
-             else
-             {
-                 ValidatorLabel.Text = "false";
-             }
-            */
+            }
+            
+             
+             
+            
 
 
         }

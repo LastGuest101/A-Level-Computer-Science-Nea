@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,7 @@ namespace user_login_NEA
         public Standings()
         {
             InitializeComponent();
-            UpdateLabels();
+   
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -26,48 +27,58 @@ namespace user_login_NEA
         }
 
         private void Standings_Load(object sender, EventArgs e)
-          {
-             /* List<Tuple<string, int>> TeamName_Points = Game.Leaderboard(1);
-
-              for (int i = 1; i < TeamName_Points.Count; i++)
-              {
-                  Team[i].Text = TeamName_Points[i].Item1;
-              }
-             */
-          }
-
-
-        private void UpdateLabels()
         {
-            List<Tuple<string, int>> TeamName_Points = Game.Leaderboard(1);
-            // Iterate through the items using foreach
-            for (int i = 0; i < Math.Min(TeamName_Points.Count, 14); i++)
-            {
-                string teamName = TeamName_Points[i].Item1;
+            List<Tuple<string, int>> TEST = Game.Leaderboard(1);
 
-                // Assuming you have labels named Team1, Team2, ..., Team14
-                // Adjust these label names based on your actual label names
-                Label label = FindLabelByName($"Team{i + 1}");
+            Team1.Text = TEST[0].Item1;
+            Points1.Text = Convert.ToString(TEST[0].Item2);
 
-                // Update the label text
-                label.Text = $"Team: {teamName}";
-            }
+            Team2.Text = TEST[1].Item1;
+            Points2.Text = Convert.ToString(TEST[1].Item2);
+
+            Team3.Text = TEST[2].Item1;
+            Points3.Text = Convert.ToString(TEST[2].Item2);
+
+            Team4.Text = TEST[3].Item1;
+            Points4.Text = Convert.ToString(TEST[3].Item2);
+
+            Team5.Text = TEST[4].Item1;
+            Points5.Text = Convert.ToString(TEST[4].Item2);
+
+            Team6.Text = TEST[5].Item1;
+            Points6.Text = Convert.ToString(TEST[5].Item2);
+
+            Team7.Text = TEST[6].Item1;
+            Points7.Text = Convert.ToString(TEST[6].Item2);
+
+            Team8.Text = TEST[7].Item1;
+            Points8.Text = Convert.ToString(TEST[7].Item2);
+
+            Team9.Text = TEST[8].Item1;
+            Points9.Text = Convert.ToString(TEST[8].Item2);
+
+            Team10.Text = TEST[9].Item1;
+            Points10.Text = Convert.ToString(TEST[9].Item2);
+
+            Team11.Text = TEST[10].Item1;
+            Points11.Text = Convert.ToString(TEST[10].Item2);
+
+            Team12.Text = TEST[11].Item1;
+            Points12.Text = Convert.ToString(TEST[11].Item2);
+
+            Team13.Text = TEST[12].Item1;
+            Points13.Text = Convert.ToString(TEST[12].Item2);
+
+            Team14.Text = TEST[13].Item1;
+            Points14.Text = Convert.ToString(TEST[13].Item2);
+
+
         }
 
-        private Label FindLabelByName(string name)
-        {
-            // Search for a label with the specified name in the form's controls
-            foreach (Control control in Controls)
-            {
-                if (control is Label label && label.Name == name)
-                {
-                    return label;
-                }
-            }
 
-            // Handle the case where the label is not found
-            throw new ArgumentException($"Label with name {name} not found.");
-        }
+
+
+
     }
 }
 
