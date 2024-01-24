@@ -21,7 +21,7 @@ namespace user_login_NEA
         private void SignUp_Load(object sender, EventArgs e)
         {
 
-            foreach (var LeagueName in Database_manager.columnStringFromDB("Leagues", "LeagueName"))
+            foreach (var LeagueName in League.GetLeagues())
 
             {
                 LeagueComboBox.Items.Add(LeagueName);
@@ -42,21 +42,21 @@ namespace user_login_NEA
             BowlerComboBox.Items.Clear();
                                        
 
-            List<int> legaueTeams = new List<int>();
+           
 
             if (LeagueComboBox.SelectedIndex.ToString() != null)
             {
 
 
-                legaueTeams = Database_manager.multipleIntFromDB($"{LeagueComboBox.SelectedIndex + 1}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
+               List<int> leagueTeamsIDs = Team.GetTeamID_leagueID(LeagueComboBox.SelectedIndex + 1); // + 1 cause list starts at 0, and team_id starts at 1 // Gets team_id's in a league
 
-                foreach (var team in legaueTeams)
+                foreach (var team_id in leagueTeamsIDs)
                 {
 
-                    foreach (var playerID in Database_manager.multipleIntFromDB($"{team}", "team_id", "Teams/Players", "player_id"))
+                    foreach (var playerID in Team.GetAllPlayerID(team_id))
                     {
 
-                        BowlerComboBox.Items.Add(Database_manager.singleStringFromDB($"{playerID}", "player_id", "Players", "FirstName") + " " + Database_manager.singleStringFromDB($"{playerID}", "player_id", "Players", "LastName"));
+                        BowlerComboBox.Items.Add(Player.GetFirstName(playerID) + " " + Player.GetLastName(playerID));
                     }
                 }
             }

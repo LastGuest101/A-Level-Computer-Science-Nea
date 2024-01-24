@@ -39,7 +39,6 @@
             BowlerLabel = new Label();
             BowlerComboBox = new ComboBox();
             SignUpButton = new Button();
-            ValidatorLabel = new Button();
             SuspendLayout();
             // 
             // LoginInButton
@@ -140,21 +139,11 @@
             SignUpButton.UseVisualStyleBackColor = true;
             SignUpButton.Click += SignUpButton_Click;
             // 
-            // ValidatorLabel
-            // 
-            ValidatorLabel.Location = new Point(328, 248);
-            ValidatorLabel.Name = "ValidatorLabel";
-            ValidatorLabel.Size = new Size(356, 69);
-            ValidatorLabel.TabIndex = 16;
-            ValidatorLabel.Text = "button1";
-            ValidatorLabel.UseVisualStyleBackColor = true;
-            // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(ValidatorLabel);
             Controls.Add(SignUpButton);
             Controls.Add(BowlerComboBox);
             Controls.Add(BowlerLabel);

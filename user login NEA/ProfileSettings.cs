@@ -34,7 +34,7 @@ namespace user_login_NEA
 
             UserID2.Text = Convert.ToString(user_id);
 
-            foreach (string Username in Database_manager.columnStringFromDB("Users", "Username"))
+            foreach (string Username in User.GetAllUsers())
             {
                 int allUser_id = User.getUserID(Username);
 

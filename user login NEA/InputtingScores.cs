@@ -31,6 +31,8 @@ namespace user_login_NEA
             Player3Label.Text = SelectingPlayers.player3;
             Player4Label.Text = SelectingPlayers.player4;
 
+            int league_id = League.GetLeagueIDMatch_id(SelectingPlayers.match_id);
+
 
             var player1 = SelectingPlayers.player1.Split(" ");
             string firstName1 = player1[0];
@@ -48,50 +50,53 @@ namespace user_login_NEA
             string firstName4 = player4[0];
             string lastName4 = player4[1];
 
-            int player1_id = Database_manager.singleIntFromDBMC($"{firstName1}", $"{lastName1}", "FirstName", "LastName", "Players", "player_id");
-            int player2_id = Database_manager.singleIntFromDBMC($"{firstName2}", $"{lastName2}", "FirstName", "LastName", "Players", "player_id");
-            int player3_id = Database_manager.singleIntFromDBMC($"{firstName3}", $"{lastName3}", "FirstName", "LastName", "Players", "player_id");
-            int player4_id = Database_manager.singleIntFromDBMC($"{firstName4}", $"{lastName4}", "FirstName", "LastName", "Players", "player_id");
+            int player1_id = Player.GetPlayerIDName(firstName1,lastName1);
+            int player2_id = Player.GetPlayerIDName(firstName2, lastName2);
+            int player3_id = Player.GetPlayerIDName(firstName3, lastName3);
+            int player4_id = Player.GetPlayerIDName(firstName4, lastName4);
 
+            int handicap1_id = LeagueStats.GetHandicapID(league_id, player1_id);
+            int handicap2_id = LeagueStats.GetHandicapID(league_id, player2_id);
+            int handicap3_id = LeagueStats.GetHandicapID(league_id, player3_id);
+            int handicap4_id = LeagueStats.GetHandicapID(league_id, player4_id);
 
+            Handicap1Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap1_id));
+            Handicap2Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap2_id));
+            Handicap3Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap3_id));
+            Handicap4Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap4_id));
 
-            Handicap1Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Handicap"));
-            Handicap2Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Handicap"));
-            Handicap3Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Handicap"));
-            Handicap4Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Handicap"));
+            HandicapTotal1Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap1_id) * 3);
+            HandicapTotal2Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap2_id) * 3);
+            HandicapTotal3Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap3_id) * 3);
+            HandicapTotal4Label.Text = Convert.ToString(LeagueStats.GetHandicap(handicap4_id) * 3);
 
-            HandicapTotal1Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Handicap") * 3);
-            HandicapTotal2Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Handicap") * 3);
-            HandicapTotal3Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Handicap") * 3);
-            HandicapTotal4Label.Text = Convert.ToString(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Handicap") * 3);
-
-            if (Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Games") != 0)
+            if (LeagueStats.GetTotalPinFall(handicap1_id) != 0 && LeagueStats.GetNumberOfGames(handicap1_id) != 0)
             {
-                Average1Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player1_id}", "player_id", "LeagueStats", "Games")));
+                Average1Label.Text = Convert.ToString(maths.Average(LeagueStats.GetTotalPinFall(handicap1_id), LeagueStats.GetNumberOfGames(handicap1_id)));
             }
             else
             {
                 Average1Label.Text = "0";
             }
-            if (Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Games") != 0)
+            if (LeagueStats.GetTotalPinFall(handicap2_id) != 0 && LeagueStats.GetNumberOfGames(handicap2_id) != 0)
             {
-                Average2Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player2_id}", "player_id", "LeagueStats", "Games")));
+                Average2Label.Text = Convert.ToString(maths.Average(LeagueStats.GetTotalPinFall(handicap2_id), LeagueStats.GetNumberOfGames(handicap2_id)));
             }
             else
             {
                 Average2Label.Text = "0";
             }
-            if (Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Games") != 0)
+            if (LeagueStats.GetTotalPinFall(handicap3_id) != 0 && LeagueStats.GetNumberOfGames(handicap3_id) != 0)
             {
-                Average3Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player3_id}", "player_id", "LeagueStats", "Games")));
+                Average3Label.Text = Convert.ToString(maths.Average(LeagueStats.GetTotalPinFall(handicap3_id), LeagueStats.GetNumberOfGames(handicap3_id)));
             }
             else
             {
                 Average3Label.Text = "0";
             }
-            if (Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "TotalPinFall") != 0 && Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Games") != 0)
+            if (LeagueStats.GetTotalPinFall(handicap4_id) != 0 && LeagueStats.GetNumberOfGames(handicap4_id) != 0)
             {
-                Average4Label.Text = Convert.ToString(maths.Average(Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "TotalPinFall"), Database_manager.singleIntFromDB($"{player4_id}", "player_id", "LeagueStats", "Games")));
+                Average4Label.Text = Convert.ToString(maths.Average(LeagueStats.GetTotalPinFall(handicap4_id), LeagueStats.GetNumberOfGames(handicap4_id)));
             }
             else
             {
@@ -576,10 +581,10 @@ namespace user_login_NEA
             string firstName4 = player4[0];
             string lastName4 = player4[1];
 
-            int player1_id = Database_manager.singleIntFromDBMC($"{firstName1}", $"{lastName1}", "FirstName", "LastName", "Players", "player_id");
-            int player2_id = Database_manager.singleIntFromDBMC($"{firstName2}", $"{lastName2}", "FirstName", "LastName", "Players", "player_id");
-            int player3_id = Database_manager.singleIntFromDBMC($"{firstName3}", $"{lastName3}", "FirstName", "LastName", "Players", "player_id");
-            int player4_id = Database_manager.singleIntFromDBMC($"{firstName4}", $"{lastName4}", "FirstName", "LastName", "Players", "player_id");
+            int player1_id = Player.GetPlayerIDName(firstName1, lastName1);
+            int player2_id = Player.GetPlayerIDName(firstName2, lastName2);
+            int player3_id = Player.GetPlayerIDName(firstName3, lastName3);
+            int player4_id = Player.GetPlayerIDName(firstName4, lastName4);
 
 
 
@@ -613,8 +618,8 @@ namespace user_login_NEA
                     LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player3_id));
                     LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player4_id));
 
-                    int team1 = Team.GetTeamID(player1_id);
-                    int team2 = Team.GetTeamID(player3_id);
+                    int team1 = Team.GetTeamID_playerID(player1_id);
+                    int team2 = Team.GetTeamID_playerID(player3_id);
 
                     MessageBox.Show($"{Team.GetTeamName(team1)} has gained {Team.GetPoints(team1)} Points and {Team.GetTeamName(team2)} has gained {Team.GetPoints(team2)} ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     AdminMenu adminMenu = new AdminMenu();

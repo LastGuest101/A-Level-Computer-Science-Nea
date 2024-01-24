@@ -19,14 +19,14 @@ namespace user_login_NEA
 
         private void WeeklyHighScoresTeam_Load(object sender, EventArgs e)
         {
-            foreach (var week in Database_manager.columnIntFromDB("Weeks", "week"))
+            foreach (var week in Week.TotalWeeks())
             {
                 int week_id = Week.GetWeekID(week);
                 int NumOfGames = 0;
 
-                foreach (var match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
+                foreach (var match_id in Matches.GetMatches(week_id))
                 {
-                    if (Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "game_id").Count != 0)
+                    if (Matches.CheckForGame(match_id) == true)
                     {
                         NumOfGames += 4;
                     }

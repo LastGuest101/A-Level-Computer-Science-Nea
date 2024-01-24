@@ -155,7 +155,6 @@
             CompletedComboBox.Name = "CompletedComboBox";
             CompletedComboBox.Size = new Size(305, 28);
             CompletedComboBox.TabIndex = 12;
-            CompletedComboBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // SelectingPlayers
             // 

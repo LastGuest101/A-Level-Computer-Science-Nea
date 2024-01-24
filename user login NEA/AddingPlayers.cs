@@ -26,7 +26,7 @@ namespace user_login_NEA
         {
 
 
-            foreach (var LeagueName in Database_manager.columnStringFromDB("Leagues", "LeagueName")) //adds the league name of each entity in the table Leagues to the combobox
+            foreach (var LeagueName in League.GetLeagues()) //adds the league name of each entity in the table Leagues to the combobox
 
             {
                 LeagueComboBox.Items.Add(LeagueName);
@@ -37,7 +37,7 @@ namespace user_login_NEA
 
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            league_id = Database_manager.singleIntFromDB($"{LeagueComboBox.SelectedItem}", "LeagueName", "Leagues", "league_id");
+            league_id = League.GetLeagueIDLeagueName(LeagueComboBox.SelectedItem.ToString());
 
 
             TeamComboBox.Items.Clear();
@@ -48,7 +48,7 @@ namespace user_login_NEA
             {
 
 
-                legaueTeams = Database_manager.multipleIntFromDB($"{(LeagueComboBox.SelectedIndex + 1).ToString()}", "league_id", "Teams", "team_id"); // + 1 cause list starts at 0, and team_id starts at 1
+                legaueTeams = Team.GetTeamID_leagueID(LeagueComboBox.SelectedIndex + 1);  // + 1 cause list starts at 0, and team_id starts at 1
 
                 foreach (var team in legaueTeams) //adds the team name of each entity in the table Leagues to the combobox, dependent on what league is selected first.
                 {
@@ -150,7 +150,7 @@ namespace user_login_NEA
 
         private void TeamComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            team_id = Database_manager.singleIntFromDB($"{TeamComboBox.SelectedItem}", "TeamName", "Teams", "team_id");
+            team_id = Team.GetTeamID_TeamName(TeamComboBox.SelectedItem.ToString());  
         }
 
         private void backButton_Click(object sender, EventArgs e)

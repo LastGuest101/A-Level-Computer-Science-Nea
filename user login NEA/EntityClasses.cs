@@ -17,8 +17,8 @@ namespace user_login_NEA
 
         public static string UsernameValidator(string username)
         {
-          
-            if (OtherUsers(username) == true) 
+
+            if (OtherUsers(username) == true)
             {
 
                 return "Username Taken";
@@ -39,12 +39,12 @@ namespace user_login_NEA
                     {
                         return "valid";
                     }
-                    
+
                 }
 
-               
+
             }
-             
+
 
         }
 
@@ -70,8 +70,8 @@ namespace user_login_NEA
             {
                 return "Password must contain at least one digit or special character.";
             }
-            
-            
+
+
             {
                 return "Password does not meet the required criteria.";
             }
@@ -80,55 +80,59 @@ namespace user_login_NEA
 
         public static bool LoginValidator(string username, string password)
         {
-           if(Database_manager.AuthenticateUserLoginIn(username, password) == true)
+            if (Database_manager.AuthenticateUserLoginIn(username, password) == true)
             {
                 return true;
             }
             return false;
-            
+
         }
 
-         public static bool OtherUsers(string username)
-         {
-              if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
-            { 
+        public static bool OtherUsers(string username)
+        {
+            if (Database_manager.singleStringFromDB($"{username}", "Username", "Users", "Username") != null)
+            {
                 return true;
             }
-                return false;
-         }
+            return false;
+        }
 
         public static void AddUser(string username, string password, int player_id)
         {
             Database_manager.InsertUser(username, password, player_id);
-          
+
         }
 
-         public static string getUsername(int user_id)
-         {
-           return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "Username");
-         }
-         public static int getUserID(string Username)
-         {
-              return Database_manager.singleIntFromDB($"{Username}", "Username", "Users", "user_id");
-         }
+        public static string getUsername(int user_id)
+        {
+            return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "Username");
+        }
+        public static int getUserID(string Username)
+        {
+            return Database_manager.singleIntFromDB($"{Username}", "Username", "Users", "user_id");
+        }
 
         public static int GetAdminLevel(int user_id)
         {
-          return Database_manager.singleIntFromDB($"{user_id}", "user_id", "Users", "Admin");
+            return Database_manager.singleIntFromDB($"{user_id}", "user_id", "Users", "Admin");
         }
-    
+
 
         public static void SetUsername(string newUsername, int user_id)
         {
             Database_manager.UpdateUsername(newUsername, user_id);
         }
-        
-        public static void SetAdminLevel(int AdminLevel,  int user_id)
+
+        public static void SetAdminLevel(int AdminLevel, int user_id)
         {
             Database_manager.UpdateAdmin(AdminLevel, user_id);
         }
 
-    
+        public static List<string> GetAllUsers()
+        {
+            return Database_manager.columnStringFromDB("Users", "Username");
+        }
+
 
 
 
@@ -144,12 +148,12 @@ namespace user_login_NEA
             {
                 return "Valid";
             }
-          
+
             else
             {
                 if (!Regex.IsMatch(name, @"^[A-Z].*$"))
                 {
-                     return ("Error: First character must be an uppercase letter.");
+                    return ("Error: First character must be an uppercase letter.");
                 }
                 else
                 {
@@ -159,7 +163,7 @@ namespace user_login_NEA
         }
         public static void AddPlayer(string firstname, string lastname, int team_id, int league_id)
         {
-           
+
             Database_manager.InsertPlayers(firstname, lastname);
             int player_id = Database_manager.singleIntFromDBMC($"{firstname}", $"{lastname}", "FirstName", "LastName", "Players", "player_id");
 
@@ -171,17 +175,17 @@ namespace user_login_NEA
 
         public static bool OtherPlayers(string InputtedFirstname, string InputtedLastname)
         {
-                
 
-              List<string> FirstNames =  Database_manager.columnStringFromDB("Players", "FirstName");
-              List<string> LastNames = Database_manager.columnStringFromDB("Players", "LastName");
 
-           if ( Database_manager.singleIntFromDBMC($"{InputtedFirstname}", $"{InputtedLastname}", "FirstName", "LastName", "Players", "player_id" ) != -1)
+            List<string> FirstNames = Database_manager.columnStringFromDB("Players", "FirstName");
+            List<string> LastNames = Database_manager.columnStringFromDB("Players", "LastName");
+
+            if (Database_manager.singleIntFromDBMC($"{InputtedFirstname}", $"{InputtedLastname}", "FirstName", "LastName", "Players", "player_id") != -1)
             {
                 return true;
-            } 
-                return false;
-            
+            }
+            return false;
+
 
         }
         public static string GetFirstName(int player_id)
@@ -205,9 +209,18 @@ namespace user_login_NEA
 
     public class Team
     {
-        public static int GetTeamID(int player_id)
+        public static int GetTeamID_playerID(int player_id)
         {
             return Database_manager.singleIntFromDB($"{player_id}", "player_id", "[Teams/Players]", "team_id");
+        }
+        public static List<int> GetTeamID_leagueID(int league_id)
+        {
+            return Database_manager.multipleIntFromDB($"{league_id}", "league_id", "Teams", "team_id");
+        }
+
+        public static int GetTeamID_TeamName(string TeamName)
+        {
+            return Database_manager.singleIntFromDB($"{TeamName}", "TeamName", "Teams", "team_id");
         }
 
         public static int GetPoints(int team_id)
@@ -224,8 +237,11 @@ namespace user_login_NEA
             int team_id = Database_manager.singleIntFromDB($"{TeamName}", "TeamName", "Teams", "team_id");
 
             return Database_manager.singleIntFromDB($"{team_id}", "team_id", "[Teams/Players]", "COUNT(player_id)"); //Aggregate SQL function
+        }
 
-
+        public static List<int> GetAllPlayerID(int team_id)
+        {
+            return Database_manager.multipleIntFromDB($"{team_id}", "team_id", "Teams/Players", "player_id");
         }
         public static int SetPoints(int match_id, int player_id1, int player_id2, int player_id3, int player_id4) //used to calculate + input points from a match  
         {
@@ -328,8 +344,8 @@ namespace user_login_NEA
                 newTeam2points += 2;
             }
 
-            int Team1_id = Team.GetTeamID(player_id1);
-            int Team2_id = Team.GetTeamID(player_id4);
+            int Team1_id = Team.GetTeamID_playerID(player_id1);
+            int Team2_id = Team.GetTeamID_playerID(player_id4);
 
             int Team1points = Database_manager.singleIntFromDB($"{Team1_id}", "team_id", "Teams", "Points") + newTeam1points;
             int Team2points = Database_manager.singleIntFromDB($"{Team2_id}", "team_id", "Teams", "Points") + newTeam2points;
@@ -457,7 +473,7 @@ namespace user_login_NEA
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
 
                     // Store player_id along with the highest game value as a Tuple
-                    HighestHandicapSeries.Add(new Tuple<int, int>(player_id, PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + (LeagueStats.GetHandicap(handicap_id) * 3) ));
+                    HighestHandicapSeries.Add(new Tuple<int, int>(player_id, PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + (LeagueStats.GetHandicap(handicap_id) * 3)));
                 }
             }
 
@@ -469,7 +485,7 @@ namespace user_login_NEA
 
         public static List<Tuple<int, int>> ScratchGameTeam(int week)
         {
-            
+
             int week_id = Week.GetWeekID(week);
 
             List<Tuple<int, int>> HighestScratchScores = new List<Tuple<int, int>>();
@@ -482,25 +498,25 @@ namespace user_login_NEA
 
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
-                        
+
                         List<int> PlayersGame = Database_manager.AllGames(player_id);
-                        if(PlayersGame.Count != 0)
+                        if (PlayersGame.Count != 0)
                         {
                             teamTotal[0] += PlayersGame[0];
                             teamTotal[1] += PlayersGame[1];
-                            teamTotal[2] += PlayersGame[2];  
+                            teamTotal[2] += PlayersGame[2];
                         }
-                        
+
                     }
 
-                    if(teamTotal[0] != 0)
+                    if (teamTotal[0] != 0)
                     {
                         teamTotal.Sort((a, b) => b.CompareTo(a));
 
                         // Store player_id along with the highest game value as a Tuple
                         HighestScratchScores.Add(new Tuple<int, int>(team_id1, teamTotal[0]));
                     }
-                    
+
                 }
                 foreach (int team_id2 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"))
                 {
@@ -545,11 +561,11 @@ namespace user_login_NEA
             foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
             {
                 int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-               
+
                 foreach (int team_id1 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"))
                 {
                     List<int> teamTotal = new List<int> { 0, 0, 0 };
-                   
+
 
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
@@ -620,7 +636,7 @@ namespace user_login_NEA
             {
                 foreach (int team_id1 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"))
                 {
-                    int teamTotal = 0 ;
+                    int teamTotal = 0;
 
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
@@ -628,7 +644,7 @@ namespace user_login_NEA
                         List<int> PlayersGame = Database_manager.AllGames(player_id);
                         if (PlayersGame.Count != 0)
                         {
-                            teamTotal = teamTotal+ PlayersGame[0] + PlayersGame[1] + PlayersGame[2];
+                            teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2];
 
                         }
 
@@ -636,7 +652,7 @@ namespace user_login_NEA
 
                     if (teamTotal != 0)
                     {
-                        
+
 
                         // Store player_id along with the highest game value as a Tuple
                         HighestScratchSeries.Add(new Tuple<int, int>(team_id1, teamTotal));
@@ -660,7 +676,7 @@ namespace user_login_NEA
 
                     if (teamTotal != 0)
                     {
-                      
+
 
                         // Store player_id along with the highest game value as a Tuple
                         HighestScratchSeries.Add(new Tuple<int, int>(team_id2, teamTotal));
@@ -748,7 +764,7 @@ namespace user_login_NEA
         {
             List<Tuple<string, int>> TeamName_Points = new List<Tuple<string, int>>();
 
-            foreach(int team_id in Database_manager.multipleIntFromDB($"{league_id}", "league_id", "Teams", "team_id"))
+            foreach (int team_id in Database_manager.multipleIntFromDB($"{league_id}", "league_id", "Teams", "team_id"))
             {
                 string TeamName = Team.GetTeamName(team_id);
                 int Points = Team.GetPoints(team_id);
@@ -756,12 +772,12 @@ namespace user_login_NEA
                 TeamName_Points.Add(new Tuple<string, int>(TeamName, Points));
             }
 
-           TeamName_Points.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+            TeamName_Points.Sort((a, b) => b.Item2.CompareTo(a.Item2));
 
             return TeamName_Points;
 
         }
-            
+
 
 
 
@@ -848,5 +864,57 @@ namespace user_login_NEA
         {
             return Database_manager.singleIntFromDB($"{week}", "Week", "Weeks", "week_id");
         }
+
+        public static List<int> TotalWeeks()
+        {
+            return Database_manager.columnIntFromDB("Weeks", "week");
+        }
     }
+
+    public class League
+    {
+        public static List<string> GetLeagues()
+        {
+            return Database_manager.columnStringFromDB("Leagues", "LeagueName");
+        }
+
+        public static int GetLeagueIDLeagueName(string LeagueName)
+        {
+            return Database_manager.singleIntFromDB($"{LeagueName}", "LeagueName", "Leagues", "league_id");
+        }
+        public static int GetLeagueIDMatch_id(int match_id)
+        {
+            return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
+        }
+
+    }
+
+    public class Matches
+    {
+        public static List<int> GetMatches(int week_id)
+        {
+            return Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id");
+        }
+
+        public static bool CheckForGame(int match_id)
+        {
+            if (Database_manager.singleIntFromDB($"{match_id}", "match_id", "Games", "game_id") != -1)
+            {
+                return true; // There already is a game
+            }
+            return false; // There is no game recorded for that match.
+        }
+        public static int GetTeamID1(int match_id)
+        {
+            return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1");
+        }
+
+        public static int GetTeamID2(int match_id)
+        {
+            return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2");
+        }
+    }
+
 }
+
+
