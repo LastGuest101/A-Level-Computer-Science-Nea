@@ -28,49 +28,49 @@ namespace user_login_NEA
 
         private void Standings_Load(object sender, EventArgs e)
         {
-            List<Tuple<string, int>> TEST = Game.Leaderboard(1);
+            List<Tuple<string, int>> Teamname_Points = Game.Leaderboard(1);
 
-            Team1.Text = TEST[0].Item1;
-            Points1.Text = Convert.ToString(TEST[0].Item2);
+            Team1.Text = Teamname_Points[0].Item1;
+            Points1.Text = Convert.ToString(Teamname_Points[0].Item2);
 
-            Team2.Text = TEST[1].Item1;
-            Points2.Text = Convert.ToString(TEST[1].Item2);
+            Team2.Text = Teamname_Points[1].Item1;
+            Points2.Text = Convert.ToString(Teamname_Points[1].Item2);
 
-            Team3.Text = TEST[2].Item1;
-            Points3.Text = Convert.ToString(TEST[2].Item2);
+            Team3.Text = Teamname_Points[2].Item1;
+            Points3.Text = Convert.ToString(Teamname_Points[2].Item2);
 
-            Team4.Text = TEST[3].Item1;
-            Points4.Text = Convert.ToString(TEST[3].Item2);
+            Team4.Text = Teamname_Points[3].Item1;
+            Points4.Text = Convert.ToString(Teamname_Points[3].Item2);
 
-            Team5.Text = TEST[4].Item1;
-            Points5.Text = Convert.ToString(TEST[4].Item2);
+            Team5.Text = Teamname_Points[4].Item1;
+            Points5.Text = Convert.ToString(Teamname_Points[4].Item2);
 
-            Team6.Text = TEST[5].Item1;
-            Points6.Text = Convert.ToString(TEST[5].Item2);
+            Team6.Text = Teamname_Points[5].Item1;
+            Points6.Text = Convert.ToString(Teamname_Points[5].Item2);
 
-            Team7.Text = TEST[6].Item1;
-            Points7.Text = Convert.ToString(TEST[6].Item2);
+            Team7.Text = Teamname_Points[6].Item1;
+            Points7.Text = Convert.ToString(Teamname_Points[6].Item2);
 
-            Team8.Text = TEST[7].Item1;
-            Points8.Text = Convert.ToString(TEST[7].Item2);
+            Team8.Text = Teamname_Points[7].Item1;
+            Points8.Text = Convert.ToString(Teamname_Points[7].Item2);
 
-            Team9.Text = TEST[8].Item1;
-            Points9.Text = Convert.ToString(TEST[8].Item2);
+            Team9.Text = Teamname_Points[8].Item1;
+            Points9.Text = Convert.ToString(Teamname_Points[8].Item2);
 
-            Team10.Text = TEST[9].Item1;
-            Points10.Text = Convert.ToString(TEST[9].Item2);
+            Team10.Text = Teamname_Points[9].Item1;
+            Points10.Text = Convert.ToString(Teamname_Points[9].Item2);
 
-            Team11.Text = TEST[10].Item1;
-            Points11.Text = Convert.ToString(TEST[10].Item2);
+            Team11.Text = Teamname_Points[10].Item1;
+            Points11.Text = Convert.ToString(Teamname_Points[10].Item2);
 
-            Team12.Text = TEST[11].Item1;
-            Points12.Text = Convert.ToString(TEST[11].Item2);
+            Team12.Text = Teamname_Points[11].Item1;
+            Points12.Text = Convert.ToString(Teamname_Points[11].Item2);
 
-            Team13.Text = TEST[12].Item1;
-            Points13.Text = Convert.ToString(TEST[12].Item2);
+            Team13.Text = Teamname_Points[12].Item1;
+            Points13.Text = Convert.ToString(Teamname_Points[12].Item2);
 
-            Team14.Text = TEST[13].Item1;
-            Points14.Text = Convert.ToString(TEST[13].Item2);
+            Team14.Text = Teamname_Points[13].Item1;
+            Points14.Text = Convert.ToString(Teamname_Points[13].Item2);
 
 
         }
