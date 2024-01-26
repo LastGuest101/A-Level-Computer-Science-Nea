@@ -22,16 +22,16 @@ namespace user_login_NEA
             foreach (var week in Week.TotalWeeks())
             {
                 int week_id = Week.GetWeekID(week);
-                int NumOfGames = 0;
+                int NumOfGamesTeam = 0;
 
                 foreach (var match_id in Matches.GetMatches(week_id))
                 {
                     if (Matches.CheckForGame(match_id) == true)
                     {
-                        NumOfGames += 4;
+                        NumOfGamesTeam += 2;
                     }
                 }
-                if (NumOfGames > 5)
+                if (NumOfGamesTeam > 5)
                 {
                     WeeksComboBox.Items.Add($"{week}");
                 }

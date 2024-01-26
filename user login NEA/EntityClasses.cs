@@ -25,7 +25,7 @@ namespace user_login_NEA
             }
             else
             {
-                if (username.Length < 1 || username.Length > 30)
+                if (username.Length < 2 || username.Length > 20)
                 {
                     return "Username has to be 1 - 30 characters long";
                 }
@@ -50,13 +50,13 @@ namespace user_login_NEA
 
         public static string PasswordValidator(string password)
         {
-            if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d|[^a-zA-Z])).{8,30}$"))
+            if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d|[^a-zA-Z])).{8,20}$"))
             {
                 return "valid";
             }
-            else if (password.Length < 8 || password.Length > 30)
+            else if (password.Length < 8 || password.Length > 20)
             {
-                return "Password must between 8 - 30 characters long.";
+                return "Password must between 8 - 20 characters long.";
             }
             else if (!Regex.IsMatch(password, @"^(?=.*[a-z])"))
             {
@@ -232,9 +232,9 @@ namespace user_login_NEA
             return Database_manager.singleStringFromDB($"{team_id}", "team_id", "Teams", "TeamName");
         }
 
-        public static int NumberOfPlayers(string TeamName)
+        public static int NumberOfPlayers(int team_id)
         {
-            int team_id = Database_manager.singleIntFromDB($"{TeamName}", "TeamName", "Teams", "team_id");
+            
 
             return Database_manager.singleIntFromDB($"{team_id}", "team_id", "[Teams/Players]", "COUNT(player_id)"); //Aggregate SQL function
         }

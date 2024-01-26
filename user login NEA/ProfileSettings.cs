@@ -100,8 +100,12 @@ namespace user_login_NEA
 
 
                     }
+                    
 
-
+                }
+                else
+                {
+                    MessageBox.Show($"Error : {User.UsernameValidator(UsernameTextBox.Text)}!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }

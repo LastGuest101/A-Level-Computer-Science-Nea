@@ -97,7 +97,7 @@ namespace user_login_NEA
 
                 int playerID = Player.GetPlayerIDName($"{SelectedFirstName}", $"{SelectedLastName}");
                 User.AddUser($"{UsernameTextBox.Text}", $"{PasswordTextbox.Text}", playerID);
-                MessageBox.Show($"Successfully added {UsernameTextBox.Text} to database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Successfully added {UsernameTextBox.Text} to database", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoginForm LoginForm = new();
                 LoginForm.Show();
                 Hide();

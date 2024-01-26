@@ -108,7 +108,7 @@ namespace user_login_NEA
             }
         }
 
-        private void CheckBoxShowPass_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxShowPass_CheckedChanged(object sender, EventArgs e) //Used to show/hide the characters in the password box
         {
             passwordTextBox.UseSystemPasswordChar = !CheckBoxShowPass.Checked;
 
