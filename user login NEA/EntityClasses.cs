@@ -14,29 +14,35 @@ namespace user_login_NEA
 {
     public class User
     {
-
+        //This subroutine is used to verify if the inputted user name is in the correct
+        //Format and isn't taken by other users.
         public static string UsernameValidator(string username)
         {
 
-            if (OtherUsers(username) == true)
+            if (OtherUsers(username) == true) //calls otherUsers routine to check for other users
             {
 
                 return "Username Taken";
             }
             else
             {
-                if (username.Length < 2 || username.Length > 20)
+                //Checks if user name is between 2 - 20 characters long
+                if (username.Length < 2 || username.Length > 20) 
                 {
                     return "Username has to be 1 - 30 characters long";
                 }
                 else
                 {
-                    if (Regex.IsMatch(username, "[^A-Za-z0-9_]") == true)
+                    //Regex used to check if the user name contains only alphanumeric characters
+                    //and _.
+                    if (Regex.IsMatch(username, "[^A-Za-z0-9_]") == true) 
+
                     {
                         return "Username can only include alphanumeric characters and '_'";
                     }
                     else
                     {
+                        //returns valid if all conditions for the user name is met.
                         return "valid";
                     }
 
@@ -47,10 +53,19 @@ namespace user_login_NEA
 
 
         }
+        //This subroutine is used to verify if the inputted password is in the correct
+        //Format and outputs an appropriate error message if not, to help the user
+        //input a valid password.
 
         public static string PasswordValidator(string password)
         {
+            //A valid password must contain at least:
+            //one lowercase letter
+            //one uppercase letter
+            //either one number or special character
+            //and must be between 8 to 20 characters long)
             if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d|[^a-zA-Z])).{8,20}$"))
+                //compares the inputted password with the regex representing the format of a valid password
             {
                 return "valid";
             }
@@ -59,19 +74,22 @@ namespace user_login_NEA
                 return "Password must between 8 - 20 characters long.";
             }
             else if (!Regex.IsMatch(password, @"^(?=.*[a-z])"))
+                //checks if the inputted password has at least one lowercase letter using regex pattern above.
             {
                 return "Password must contain at least one lowercase letter.";
             }
             else if (!Regex.IsMatch(password, @"^(?=.*[A-Z])"))
+            //checks if the inputted password has at least uppercase letter using regex pattern above.
             {
                 return "Password must contain at least one uppercase letter.";
             }
             else if (!Regex.IsMatch(password, @"^(?=.*(\d|[^a-zA-Z]))"))
+            //checks if the inputted password has at one number or special character using regex pattern above.
             {
                 return "Password must contain at least one digit or special character.";
             }
 
-
+            //Exception handling : In case the error isn't picked up by the rest of the code.
             {
                 return "Password does not meet the required criteria.";
             }
