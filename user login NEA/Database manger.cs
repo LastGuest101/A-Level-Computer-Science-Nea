@@ -16,7 +16,8 @@ namespace user_login_NEA
     {
 
 
-        // Connection string
+      // This subrountine is used to call the connection to the database, allowing visual studio C# to communicate
+      // with the SQLite database which is stored in a file on the laptop.
         public static string Connection()
         {
             string connectionString;
@@ -28,51 +29,12 @@ namespace user_login_NEA
             return connectionString;
         }
 
-
-        public static void InsertUser(string Username, string Password, int Player_id)
-        {
-
-            string insertQuery = $"INSERT INTO Users (Username, Password, player_id) VALUES ('{Username}','{Password}' , '{Player_id}');";
-
-            using (SQLiteConnection connection = new(Connection()))
-            {
-                // Open the connection
-                connection.Open();
-
-                // Create a command with the query and connection
-                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                {
-                    // Execute the query
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }
-
-
-        }
-
-        public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)
-        {
-            // INSERT query
-            string insertQuery = $"INSERT INTO Games (match_id, player_id, game1, game2, game3) VALUES ('{match_id}','{player_id}', '{game1}', '{game2}', '{game3}');";
-            // Create a new SQLite connection
-            using (SQLiteConnection connection = new(Connection()))
-            {
-                // Open the connection
-                connection.Open();
-
-                // Create a command with the query and connection
-                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
-                {
-                    // Execute the query
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                }
-            }
-        }
-
+        //Used to update the points of a team in the Teams Table.
+        //Takes new total number of points for the team and a team_id to idenify
+        //who the new points belong to.
         public static void UpdatePoints(int Points, int team_id)
         {
+            //Update Sql query
             string updateQuery = "UPDATE Teams SET Points = @Points WHERE team_id = @TeamID";
 
             // Create a new SQLite connection
@@ -93,8 +55,12 @@ namespace user_login_NEA
             }
         }
 
+        //Used to update the new handicaps after new games have been inputted
+        //Takes in the new handicaps which have been calculated in the entity class, and the handicap_id
+        //to identify who the new handicap belongs to.
         public static void UpdateHandicap(int Handicap, int handicap_id)
         {
+            // Update SQ: query
             string updateQuery = "UPDATE LeagueStats SET Handicap = @Handicap WHERE handicap_id = @HandicapID";
 
             // Create a new SQLite connection
@@ -115,8 +81,13 @@ namespace user_login_NEA
             }
         }
 
+        //Used to update the TotalPinFall after new games have been inputted.
+        //Takes new TotalPinFall which was calculated in the entity class.
+
         public static void UpdateTotalPinFall(int TotalPinFall, int handicap_id)
         {
+            //Update SQL query
+
             string updateQuery = "UPDATE LeagueStats SET TotalPinFall = @TotalPinFall WHERE handicap_id = @HandicapID";
 
             // Create a new SQLite connection
@@ -137,6 +108,7 @@ namespace user_login_NEA
             }
         }
 
+        //Used to update the NumberOfGames Played by a player after new games have been inputted.
         public static void UpdateNumberOfGames(int NumberOfGames, int handicap_id)
         {
             string updateQuery = "UPDATE LeagueStats SET Games = @Games WHERE handicap_id = @HandicapID";
@@ -159,6 +131,7 @@ namespace user_login_NEA
             }
         }
 
+        //Used to update the Username of a user from the User Table in the database.
         public static void UpdateUsername(string newUsername, int user_id)
         {
             string updateQuery = "UPDATE Users SET Username = @Username WHERE user_id = @user_id";
@@ -180,6 +153,8 @@ namespace user_login_NEA
                 }
             }
         }
+
+        //Used to update the accountlevel of the user from the User Table in the database.
         public static void UpdateAdmin(int AdminLevel, int user_id)
         {
             string updateQuery = "UPDATE Users SET Admin = @Admin WHERE user_id = @user_id";
@@ -202,6 +177,61 @@ namespace user_login_NEA
             }
         }
 
+        //This subroutine is used to make a user account in the database,
+        //taking 2 inputting data and 1 linking foreign key:
+        //Username, password, and player_id which is a foreign key from the Players table.        Cross-table parameterised SQL
+        public static void InsertUser(string Username, string Password, int Player_id)
+        {
+
+            // Creating the SQL query to insert a new user into the 'Users' table
+            string insertQuery = $"INSERT INTO Users (Username, Password, player_id) VALUES ('{Username}', '{Password}', '{Player_id}');";
+
+            // Using a connection to an SQLite database
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                // Open the database connection
+                connection.Open();
+
+                // Creating a command with the SQL query and the open connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Executing the query to insert a new user
+                    command.ExecuteNonQuery();
+
+                    // Close the database connection
+                    connection.Close();
+                }
+
+
+            }
+        }
+        //This subroutine is used to make insert a game into
+        //the Games table in the database, taking 3 inputs, and 2 foreign keys:
+        //the foreign keys is used to link the games to an individual player who played the three games
+        //and the match/fixture the games where played in.
+
+        //the primary key (game_id) is automatically incrimented by the database itself.      Cross-table parameterised SQL
+
+        public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)
+        {
+            // INSERT query
+            string insertQuery = $"INSERT INTO Games (match_id, player_id, game1, game2, game3) VALUES ('{match_id}','{player_id}', '{game1}', '{game2}', '{game3}');";
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+        //
         public static void InsertPlayers(string firstname, string lastname)
         {
 
@@ -553,12 +583,6 @@ namespace user_login_NEA
 
 
     }
-
-
-
-
-
-
 
 }
 
