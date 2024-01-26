@@ -396,7 +396,7 @@ namespace user_login_NEA
             {
                 foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id"))
                 {
-                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
 
                     // Store player_id along with the highest game value as a Tuple
@@ -421,7 +421,7 @@ namespace user_login_NEA
                 {
                     int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
                     int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
-                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
 
                     // Store player_id along with the highest game value as a Tuple
@@ -443,7 +443,7 @@ namespace user_login_NEA
             {
                 foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id"))
                 {
-                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
 
                     // Store player_id along with the highest game value as a Tuple
@@ -469,7 +469,7 @@ namespace user_login_NEA
                     int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
                     int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
-                    List<int> PlayersGame = Database_manager.AllGames(player_id);
+                    List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
 
                     // Store player_id along with the highest game value as a Tuple
@@ -499,7 +499,7 @@ namespace user_login_NEA
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal[0] += PlayersGame[0];
@@ -525,7 +525,7 @@ namespace user_login_NEA
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id2}", "team_id", "Teams/Players", "player_id"))
                     {
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal[0] += PlayersGame[0];
@@ -571,7 +571,7 @@ namespace user_login_NEA
                     {
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal[0] += PlayersGame[0] + LeagueStats.GetHandicap(handicap_id);
@@ -599,7 +599,7 @@ namespace user_login_NEA
                     {
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal[0] += PlayersGame[0] + LeagueStats.GetHandicap(handicap_id);
@@ -641,7 +641,7 @@ namespace user_login_NEA
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2];
@@ -666,7 +666,7 @@ namespace user_login_NEA
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id2}", "team_id", "Teams/Players", "player_id"))
                     {
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2];
@@ -710,7 +710,7 @@ namespace user_login_NEA
                     {
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + LeagueStats.GetHandicap(handicap_id) * 3;
@@ -736,7 +736,7 @@ namespace user_login_NEA
                     {
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
-                        List<int> PlayersGame = Database_manager.AllGames(player_id);
+                        List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + LeagueStats.GetHandicap(handicap_id) * 3;

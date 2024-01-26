@@ -16,13 +16,13 @@ namespace user_login_NEA
     {
 
 
-      // This subrountine is used to call the connection to the database, allowing visual studio C# to communicate
-      // with the SQLite database which is stored in a file on the laptop.
+        // This subroutine is used to call the connection to the database, allowing visual studio C# to communicate
+        // with the SQLite database which is stored in a file on the laptop.
         public static string Connection()
         {
             string connectionString;
 
-            string path = @"C:\Users\olive\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
+            string path = @"C:\Users\Jacob V\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
 
@@ -30,7 +30,7 @@ namespace user_login_NEA
         }
 
         //Used to update the points of a team in the Teams Table.
-        //Takes new total number of points for the team and a team_id to idenify
+        //Takes new total number of points for the team and a team_id to identify
         //who the new points belong to.
         public static void UpdatePoints(int Points, int team_id)
         {
@@ -131,7 +131,7 @@ namespace user_login_NEA
             }
         }
 
-        //Used to update the Username of a user from the User Table in the database.
+        //Used to update the User name of a user from the User Table in the database.
         public static void UpdateUsername(string newUsername, int user_id)
         {
             string updateQuery = "UPDATE Users SET Username = @Username WHERE user_id = @user_id";
@@ -154,7 +154,7 @@ namespace user_login_NEA
             }
         }
 
-        //Used to update the accountlevel of the user from the User Table in the database.
+        //Used to update the account level of the user from the User Table in the database.
         public static void UpdateAdmin(int AdminLevel, int user_id)
         {
             string updateQuery = "UPDATE Users SET Admin = @Admin WHERE user_id = @user_id";
@@ -179,7 +179,7 @@ namespace user_login_NEA
 
         //This subroutine is used to make a user account in the database,
         //taking 2 inputting data and 1 linking foreign key:
-        //Username, password, and player_id which is a foreign key from the Players table.        Cross-table parameterised SQL
+        //User name, password, and player_id which is a foreign key from the Players table.        Cross-table parameterized SQL
         public static void InsertUser(string Username, string Password, int Player_id)
         {
 
@@ -210,7 +210,7 @@ namespace user_login_NEA
         //the foreign keys is used to link the games to an individual player who played the three games
         //and the match/fixture the games where played in.
 
-        //the primary key (game_id) is automatically incrimented by the database itself.      Cross-table parameterised SQL
+        //the primary key (game_id) is automatically incremented by the database itself.      Cross-table parameterized SQL
 
         public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)
         {
@@ -231,12 +231,13 @@ namespace user_login_NEA
                 }
             }
         }
-        //
+        //This subroutine is used to make insert a player into
+        //the Players table in the database
         public static void InsertPlayers(string firstname, string lastname)
         {
-
+            // INSERT query
             string insertQuery = $"INSERT INTO Players (FirstName, LastName) VALUES ('{firstname}','{lastname}');";
-
+            // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
@@ -254,11 +255,13 @@ namespace user_login_NEA
 
         }
 
+        //This subroutine is used to make insert a new handicap into
+        //the LeagueStats table in the database
         public static void InsertHandicap(int league_id, int player_id)
         {
-
+            // INSERT query
             string insertQuery = $"INSERT INTO LeagueStats (league_id, player_id, Handicap) VALUES ('{league_id}','{player_id}' , '0');";
-
+            // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
@@ -276,6 +279,9 @@ namespace user_login_NEA
 
         }
 
+
+        //This subroutine is used to make insert a new player into a team 
+        //in the Teams/Players table.
         public static void InsertPlayerIntoTeam(int player_id, int team_id)
         {
 
@@ -298,11 +304,14 @@ namespace user_login_NEA
 
         }
 
-
+        //Used to compare the inputed user name and password with all of the user names 
+        // and passwords in the Users table.
         public static bool AuthenticateUserLoginIn(string username, string password)
         {
+            // Open the connection
             using (SQLiteConnection connection = new(Connection()))
             {
+                //SQL Select Query
                 string query = "SELECT * FROM Users WHERE Username = @Username AND Password = @Password";
 
                 using (SQLiteCommand command = new(query, connection))
@@ -314,11 +323,20 @@ namespace user_login_NEA
 
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
-                        return reader.Read();
+                        return reader.Read(); //returns true if a match is found
                     }
                 }
             }
         }
+
+        //This method is a general subroutine, to get a single integer value from the database.
+        //I made it a general method to increase the reproducibility of the subroutine and reduce
+        //code needed for similar queries. It takes in 5 values:
+        //Input - the data value being parameterized in the query.
+        //attributeNameQuery name of the heading/column the Input belongs to.
+        //TableName - Table in database being queried.
+        //attributeNameOutput - The heading/column the Output (string) data belongs to.          
+
         public static int singleIntFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             int attributeValue = -1; // Default value indicating attribute not found
@@ -327,8 +345,8 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                // Use a parameterized query to prevent SQL injection
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                // Used a parameterized query to prevent SQL injection
+                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{TableName}\"  WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -349,7 +367,9 @@ namespace user_login_NEA
 
             return attributeValue;
         }
-
+        //This method is a general subroutine, to get a single string value from the database.
+        //Similar to the subroutine above but the variable used to store the result must be string
+        //Instead of int.
         public static string singleStringFromDB(string input, string attributeNameQuery, string tableName, string attributeNameOutput)
         {
             string attributeString = null; // Default value indicating attribute not found
@@ -359,7 +379,7 @@ namespace user_login_NEA
                 connection.Open();
 
                 // Use a parameterized query to prevent SQL injection
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM {tableName} WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{tableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -381,6 +401,9 @@ namespace user_login_NEA
             return attributeString;
         }
 
+        //This method is a general subroutine, to get a multiple integer values from the database.
+        //The data type list is used as, the known items of the output can vary depending on the parameters inputted.
+
         public static List<int> multipleIntFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             List<int> attributeValues = new List<int>(); // Collection to store multiple attribute values
@@ -389,8 +412,8 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
-                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
+                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{TableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
+                // Previous issue, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes;
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -412,7 +435,8 @@ namespace user_login_NEA
 
             return attributeValues;
         }
-
+        //This method is a general subroutine, to get a multiple string values from the database.
+        //IS REDUNDANT AS IT NOT CALLED IN MY PROJECT, JUST KEPT JUST INCASE I NEEDED IT FOR EXTENSTION FUNCTIONS..
         public static List<string> multipleStringFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             List<string> attributeValues = new List<string>(); // Collection to store multiple attribute strings
@@ -421,7 +445,7 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
                 // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
@@ -444,6 +468,8 @@ namespace user_login_NEA
 
             return attributeValues;
         }
+
+        //It is used to return all the items in a column which are string, without a parameter, in a string list.
 
         public static List<string> columnStringFromDB(string TableName, string attributeNameOutput)
         {
@@ -453,8 +479,8 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" ";
-                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
+                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{TableName}\" ";
+
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -477,6 +503,7 @@ namespace user_login_NEA
             return attributeValues;
         }
 
+        //It is used to return all the items in a column which are int, without a parameter, in a int list.
         public static List<int> columnIntFromDB(string TableName, string attributeNameOutput)
         {
             List<int> attributeValues = new List<int>(); // Collection to store multiple attribute strings
@@ -486,7 +513,6 @@ namespace user_login_NEA
                 connection.Open();
 
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" ";
-                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -509,7 +535,9 @@ namespace user_login_NEA
             return attributeValues;
         }
 
-        public static List<int> AllGames(int player_id)
+        // Used to return all the games (games 1 + games 2 + game 3)
+        //From the foreign keys player_id and match_id      Cross-table parameterized SQL
+        public static List<int> AllGames(int player_id, int match_id)
         {
             List<int> attributeValues = new List<int>();
 
@@ -517,21 +545,20 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                string sqlQuery = $"SELECT game1, game2, game3 FROM Games WHERE player_id = @player_id";
-                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
+                string sqlQuery = $"SELECT game1, game2, game3 FROM Games WHERE player_id = @player_id AND match_id = @match_id";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
                     command.Parameters.AddWithValue("@player_id", player_id);
-
+                    command.Parameters.AddWithValue("@match_id", match_id);
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             // Read and add each attribute value to the collection
-                            int game1Value = reader.GetInt32(0);
-                            int game2Value = reader.GetInt32(1);  // Assuming game2 is the second column
-                            int game3Value = reader.GetInt32(2);  // Assuming game3 is the third column
+                            int game1Value = reader.GetInt32(0);  // Assumes game1 is the first column
+                            int game2Value = reader.GetInt32(1);  // Assumes game2 is the second column
+                            int game3Value = reader.GetInt32(2);  // Assumes game3 is the third column
 
                             attributeValues.Add(game1Value);
                             attributeValues.Add(game2Value);
@@ -542,14 +569,16 @@ namespace user_login_NEA
 
                 connection.Close();
             }
-                
-            
+
+
             // Collection to store multiple attribute strings
 
             return attributeValues;
         }
 
-        public static int singleIntFromDBMC(string Input, string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput) // Retrieves a single int value from the database, and queries from 2 columns.
+        //This method is a general subroutine,to get a single int from the database,
+        //which has two parameters than the output data needs to meet.
+        public static int singleIntFromDBMC(string Input, string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput)
         {
             int attributeValue = -1; // Default value indicating attribute not found
 
@@ -586,5 +615,5 @@ namespace user_login_NEA
 
 }
 
-    
+
 
