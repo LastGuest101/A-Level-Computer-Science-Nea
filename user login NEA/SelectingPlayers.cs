@@ -16,6 +16,8 @@ namespace user_login_NEA
 {
     public partial class SelectingPlayers : Form
     {
+        //used to carry data from one from to another form.
+
         public static string player1;
         public static string player2;
         public static string player3;

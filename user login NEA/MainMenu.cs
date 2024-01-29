@@ -19,10 +19,14 @@ namespace user_login_NEA
         public MainMenu()
         {
             InitializeComponent();
+            //Gets the player_id from the login username inputter in Login Form.
             loggedPlayerID = Player.GetPlayerID(LoginForm.LoggedInUsername);
+
             PlayerName.Text = "Bowler: " + Player.GetFirstName(loggedPlayerID) + " " + Player.GetLastName(loggedPlayerID);
             PlayerHandicap.Text = "Handicap:  " + LeagueStats.GetHandicap(LeagueStats.GetHandicapID(1, loggedPlayerID));
 
+
+            //Only displays Admin button if the user's account level is admin.
             if(User.GetAdminLevel(User.getUserID(LoginForm.LoggedInUsername)) == 1)
             {
                 AdminButton.Visible = true;
@@ -36,11 +40,6 @@ namespace user_login_NEA
             AdminMenu adminMenuForm = new();
             adminMenuForm.Show();
             Hide();
-        }
-
-        private void MainMenu_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void SignOut_Click(object sender, EventArgs e)

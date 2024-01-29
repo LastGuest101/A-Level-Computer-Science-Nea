@@ -22,7 +22,7 @@ namespace user_login_NEA
         {
             string connectionString;
 
-            string path = @"C:\Users\Jacob V\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
+            string path = @"C:\Users\olive\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
 
@@ -212,7 +212,7 @@ namespace user_login_NEA
 
         //the primary key (game_id) is automatically incremented by the database itself.      Cross-table parameterized SQL
 
-        public static void InsertGame(string match_id, string player_id, string game1, string game2, string game3)
+        public static void InsertGame(int match_id, int player_id, int game1, int game2, int game3)
         {
             // INSERT query
             string insertQuery = $"INSERT INTO Games (match_id, player_id, game1, game2, game3) VALUES ('{match_id}','{player_id}', '{game1}', '{game2}', '{game3}');";

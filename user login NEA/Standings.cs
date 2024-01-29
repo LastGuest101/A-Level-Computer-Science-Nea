@@ -28,15 +28,23 @@ namespace user_login_NEA
 
         private void Standings_Load(object sender, EventArgs e)
         {
-            List<Tuple<string, int>> Teamname_Points = Game.Leaderboard(1);
+            // 1 represents the league_id
 
+            List<Tuple<string, int>> Teamname_Points = Game.Leaderboard(1);
+            
+            //Displays the 1st team TeamName. 
             Team1.Text = Teamname_Points[0].Item1;
+            //Displays the 1st team points
             Points1.Text = Convert.ToString(Teamname_Points[0].Item2);
 
+            //Displays the 2nd team TeamName. 
             Team2.Text = Teamname_Points[1].Item1;
+            //Displays the 2nd team points
             Points2.Text = Convert.ToString(Teamname_Points[1].Item2);
 
+            //Displays the 3rd team TeamName. 
             Team3.Text = Teamname_Points[2].Item1;
+            //Displays the 3rd team points
             Points3.Text = Convert.ToString(Teamname_Points[2].Item2);
 
             Team4.Text = Teamname_Points[3].Item1;

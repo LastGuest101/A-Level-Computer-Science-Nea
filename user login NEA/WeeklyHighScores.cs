@@ -22,6 +22,7 @@ namespace user_login_NEA
 
         private void WeeklyHighScores_Load(object sender, EventArgs e)
         {
+            //Gets all the weeks from the database.
             foreach (var week in Week.TotalWeeks())
             {
                 int week_id = Week.GetWeekID(week);
@@ -34,6 +35,8 @@ namespace user_login_NEA
                         NumOfGames += 4;
                     }
                 }
+                //Only displays the weeks if there are enough games to display
+                //the top 3 scores in each category, preventing errors.
                 if (NumOfGames > 5)
                 {
                     WeeksComboBox.Items.Add($"{week}");
@@ -52,13 +55,26 @@ namespace user_login_NEA
 
         private void WeeksComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //Gets the highscratchscores of the week in a list in order.
             List<Tuple<int, int>> HighestScratchScores = Game.HighestScratch(Convert.ToInt32(WeeksComboBox.SelectedItem));
+            //Gets the highhandicapscores of the week in a list in order.
             List<Tuple<int, int>> HighestHandicapScores = Game.HighestHandicap(Convert.ToInt32(WeeksComboBox.SelectedItem));
+            //Gets the highscratchseries of the week in a list in order.
             List<Tuple<int, int>> HighestScratchSeries = Game.HighestScratchSeries(Convert.ToInt32(WeeksComboBox.SelectedItem));
+            //Gets the highhandicapseries of the week in a list in order.
             List<Tuple<int, int>> HighestHandicapSeries = Game.HighestHandicapSeries(Convert.ToInt32(WeeksComboBox.SelectedItem));
 
 
+            //Displays the list to the user: 
+            /*A player may only show up once in scratch leaderboard and handicap leaderboard. (seperate for game and series)
+
+            They will be displayed on whatever leaderboard they are placed higher in, Priority given in scratch score over handicap score
+
+            Priority order -->
+            Scratch score 1st  --> Handicap Score 1st --> Scratch Score 2nd --> Handicap Score 2nd --> Scratch Score 3rd --> Handicap Score 3rd
+
+            Scratch series 1st  --> Handicap series 1st --> Scratch series 2nd --> Handicap series 2nd --> Scratch series 3rd --> Handicap series 3rd
+            */
 
             FirstPlayerSS.Text = Player.GetFirstName(HighestScratchScores[0].Item1) + " " + Player.GetLastName(HighestScratchScores[0].Item1);
             FirstScratchScore.Text = Convert.ToString(HighestScratchScores[0].Item2);
@@ -83,7 +99,7 @@ namespace user_login_NEA
             ThirdPlayerHS.Text = Player.GetFirstName(HighestHandicapScores[2].Item1) + " " + Player.GetLastName(HighestHandicapScores[2].Item1);
             ThirdHandicapScore.Text = Convert.ToString(HighestHandicapScores[2].Item2);
             HighestScratchScores.RemoveAll(t => t.Item1 == HighestHandicapScores[2].Item1);
-        
+
 
 
             FirstPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[0].Item1) + " " + Player.GetLastName(HighestScratchSeries[0].Item1);
@@ -111,6 +127,7 @@ namespace user_login_NEA
             HighestScratchSeries.RemoveAll(t => t.Item1 == HighestHandicapSeries[2].Item1);
 
 
+            //Makes the standings visible when a week is selected.
 
             HandicapSeriesLabel.Visible = true;
             ScratchSeriesLabel.Visible = true;

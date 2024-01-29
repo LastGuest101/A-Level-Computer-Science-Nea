@@ -109,7 +109,6 @@
             Name = "MainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainMenu";
-            Load += MainMenu_Load;
             ResumeLayout(false);
             PerformLayout();
         }
