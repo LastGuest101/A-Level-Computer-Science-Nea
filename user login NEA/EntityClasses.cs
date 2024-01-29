@@ -31,7 +31,7 @@ namespace user_login_NEA
                 //Checks if user name is between 2 - 20 characters long
                 if (username.Length < 2 || username.Length > 20) 
                 {
-                    return "Username has to be 1 - 30 characters long";
+                    return "Username has to be 2 - 20 characters long";
                 }
                 else
                 {
