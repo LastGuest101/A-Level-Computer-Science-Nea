@@ -640,10 +640,10 @@ namespace user_login_NEA
                 else
                 {
                     //Inputs the user inputted scores for each player into the database.
-                    Game.InputGame($"{SelectingPlayers.match_id}", $"{player1_id}", $"{P1_Game1TextBox.Text}", $"{P1_Game2TextBox.Text}", $"{P1_Game3TextBox.Text}");
-                    Game.InputGame($"{SelectingPlayers.match_id}", $"{player2_id}", $"{P2_Game1TextBox.Text}", $"{P2_Game2TextBox.Text}", $"{P2_Game3TextBox.Text}");
-                    Game.InputGame($"{SelectingPlayers.match_id}", $"{player3_id}", $"{P3_Game1TextBox.Text}", $"{P3_Game2TextBox.Text}", $"{P3_Game3TextBox.Text}");
-                    Game.InputGame($"{SelectingPlayers.match_id}", $"{player4_id}", $"{P4_Game1TextBox.Text}", $"{P4_Game2TextBox.Text}", $"{P4_Game3TextBox.Text}");
+                    Game.InputGame(SelectingPlayers.match_id, player1_id, Convert.ToInt32(P1_Game1TextBox.Text), Convert.ToInt32(P1_Game2TextBox.Text), Convert.ToInt32(P1_Game3TextBox.Text));
+                    Game.InputGame(SelectingPlayers.match_id, player2_id, Convert.ToInt32(P2_Game1TextBox.Text), Convert.ToInt32(P2_Game2TextBox.Text), Convert.ToInt32(P2_Game3TextBox.Text));
+                    Game.InputGame(SelectingPlayers.match_id, player3_id, Convert.ToInt32(P3_Game1TextBox.Text), Convert.ToInt32(P3_Game2TextBox.Text), Convert.ToInt32(P3_Game3TextBox.Text));
+                    Game.InputGame(SelectingPlayers.match_id, player4_id, Convert.ToInt32(P4_Game1TextBox.Text), Convert.ToInt32(P4_Game2TextBox.Text), Convert.ToInt32(P4_Game3TextBox.Text));
 
                     //Updates the leaguestats for each of the players (totalpinfall and numberofgames).
                     LeagueStats.UpdateLeagueStats(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player1_id));
