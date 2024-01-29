@@ -973,6 +973,7 @@ namespace user_login_NEA
             return Database_manager.singleIntFromDB($"{handicap_id}", "handicap_id", "LeagueStats", "Games");
         }
 
+        // Cross-table Paramatised SQL
         public static int GetHandicapID(int league_id, int player_id)
         {
             return Database_manager.singleIntFromDBMC($"{league_id}", $"{player_id}", "league_id", "player_id", "LeagueStats", "handicap_id");
