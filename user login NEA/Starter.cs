@@ -6,7 +6,7 @@ namespace user_login_NEA
     static class Program
     {
 
-        //Used to start up the Forn
+        //Used to start up the Form
         static void Main()
         {
             Application.EnableVisualStyles();

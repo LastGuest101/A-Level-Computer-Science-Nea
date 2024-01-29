@@ -22,7 +22,7 @@ namespace user_login_NEA
         {
             string connectionString;
 
-            string path = @"C:\Users\olive\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
+            string path = @"C:\Users\Jacob V\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
 
@@ -346,7 +346,7 @@ namespace user_login_NEA
                 connection.Open();
 
                 // Used a parameterized query to prevent SQL injection
-                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{TableName}\"  WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -379,7 +379,7 @@ namespace user_login_NEA
                 connection.Open();
 
                 // Use a parameterized query to prevent SQL injection
-                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{tableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM {tableName} WHERE {attributeNameQuery} = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
@@ -412,7 +412,7 @@ namespace user_login_NEA
             {
                 connection.Open();
 
-                string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{TableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
                 // Previous issue, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes;
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
@@ -446,7 +446,6 @@ namespace user_login_NEA
                 connection.Open();
 
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
-                // when line 164 runs, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes; you might wanna enclose the other column names in quotes too
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
