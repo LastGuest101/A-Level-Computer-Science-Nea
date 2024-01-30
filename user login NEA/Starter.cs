@@ -9,6 +9,7 @@ namespace user_login_NEA
         //Used to start up the Form
         static void Main()
         {
+            Console.WriteLine(Encryption.HashString("Jacob"));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

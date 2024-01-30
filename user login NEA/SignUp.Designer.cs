@@ -176,6 +176,6 @@
         private Label BowlerLabel;
         private ComboBox BowlerComboBox;
         private Button SignUpButton;
-        private Button ValidatorLabel;
+        
     }
 }

@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.CompilerServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
+using BCrypt.Net;
+
+
 
 namespace user_login_NEA
 {
@@ -101,11 +104,22 @@ namespace user_login_NEA
         //is used to compare the user's inputted username and password with all the users logged in the database.
         public static bool LoginValidator(string username, string password)
         {
-            if (Database_manager.AuthenticateUserLoginIn(username, password) == true)
+            int user_id = GetUserID(username);
+            if (user_id == -1)
             {
-                return true;
+                return false;
+
             }
-            return false;
+            else
+            {
+                if (Encryption.HashChecking(password,user_id) == true)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
 
         }
 
@@ -124,15 +138,21 @@ namespace user_login_NEA
         //Adds a user to the database with its username, password and linked player the user is linked to.    Cross-table parameterised SQL
         public static void AddUser(string username, string password, int player_id)
         {
-            Database_manager.InsertUser(username, password, player_id);
+            string passwordHash = Encryption.HashString(password);
+
+            Database_manager.InsertUser(username, passwordHash, player_id);
 
         }
 
-        public static string getUsername(int user_id)
+        public static string GetUsername(int user_id)
         {
             return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "Username");
         }
-        public static int getUserID(string Username)
+        public static string GetPasswordHash(int user_id)
+        {
+            return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "PasswordHash");
+        }
+        public static int GetUserID(string Username)
         {
             return Database_manager.singleIntFromDB($"{Username}", "Username", "Users", "user_id");
         }
@@ -1043,6 +1063,29 @@ namespace user_login_NEA
         {
             return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2");
         }
+    }
+    
+
+    //Used to handle all the hashing part of the program
+    class Encryption
+    {
+        public static string HashString(string password)
+        {
+             string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(password, 13);
+             return passwordHash;
+        }
+
+        public static bool HashChecking(string InputtedPassword, int UserID)
+        {
+            
+            if(BCrypt.Net.BCrypt.EnhancedVerify($"{InputtedPassword}", User.GetPasswordHash(UserID)) == true)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
     }
 
 }

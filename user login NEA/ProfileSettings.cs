@@ -23,14 +23,14 @@ namespace user_login_NEA
             mainMenuForm.Show();
             Hide();
 
-            int user_id = User.getUserID(LoginForm.LoggedInUsername);
+            int user_id = User.GetUserID(LoginForm.LoggedInUsername);
 
 
         }
 
         private void ProfileSettings_Load(object sender, EventArgs e)
         {
-            int user_id = User.getUserID(LoginForm.LoggedInUsername);
+            int user_id = User.GetUserID(LoginForm.LoggedInUsername);
 
             UserID2.Text = Convert.ToString(user_id);
 
@@ -38,7 +38,7 @@ namespace user_login_NEA
             foreach (string Username in User.GetAllUsers())
             {
                 //Used to get user_ids for each of the usernames.
-                int allUser_id = User.getUserID(Username);
+                int allUser_id = User.GetUserID(Username);
 
                 //Checks if the user is a memeber
                 if (User.GetAdminLevel(allUser_id) == 0)
@@ -66,7 +66,7 @@ namespace user_login_NEA
                 AccountLevelDisplayLabel.Text = "Member";
             }
 
-            UsernameTextBox.Text = User.getUsername(user_id);
+            UsernameTextBox.Text = User.GetUsername(user_id);
 
         }
 
@@ -85,7 +85,7 @@ namespace user_login_NEA
 
         private void UsernameButton_Click(object sender, EventArgs e)
         {
-            int user_id = User.getUserID(LoginForm.LoggedInUsername);
+            int user_id = User.GetUserID(LoginForm.LoggedInUsername);
 
             //Checks if the textbox is not empty.
             if (string.IsNullOrEmpty(UsernameTextBox.Text) == false)
@@ -136,7 +136,7 @@ namespace user_login_NEA
             DialogResult confirmation = MessageBox.Show($"Do you want to give Admin level permission to {UserCombobox.SelectedItem}?", "Add Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmation == DialogResult.Yes)
             {
-                int selectedUser_id = User.getUserID(UserCombobox.SelectedItem.ToString());
+                int selectedUser_id = User.GetUserID(UserCombobox.SelectedItem.ToString());
                 //changes the admin level of the selected user.
                 User.SetAdminLevel(1, selectedUser_id);
 
@@ -165,7 +165,7 @@ namespace user_login_NEA
             DialogResult confirmation = MessageBox.Show($"Do you want to remove Admin level permission : {AdminComboBox.SelectedItem} ?", "Remove Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmation == DialogResult.Yes)
             {
-                int selectedUser_id = User.getUserID(AdminComboBox.SelectedItem.ToString());
+                int selectedUser_id = User.GetUserID(AdminComboBox.SelectedItem.ToString());
                 User.SetAdminLevel(0, selectedUser_id);
 
                 MessageBox.Show($"Admin Removed: {AdminComboBox.SelectedItem}  ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);

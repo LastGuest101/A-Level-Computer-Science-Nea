@@ -180,11 +180,11 @@ namespace user_login_NEA
         //This subroutine is used to make a user account in the database,
         //taking 2 inputting data and 1 linking foreign key:
         //User name, password, and player_id which is a foreign key from the Players table.        Cross-table parameterized SQL
-        public static void InsertUser(string Username, string Password, int Player_id)
+        public static void InsertUser(string Username, string PasswordHash, int Player_id)
         {
 
             // Creating the SQL query to insert a new user into the 'Users' table
-            string insertQuery = $"INSERT INTO Users (Username, Password, player_id) VALUES ('{Username}', '{Password}', '{Player_id}');";
+            string insertQuery = $"INSERT INTO Users (Username, PasswordHash, player_id) VALUES ('{Username}', '{PasswordHash}', '{Player_id}');";
 
             // Using a connection to an SQLite database
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))

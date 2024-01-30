@@ -27,7 +27,7 @@ namespace user_login_NEA
 
 
             //Only displays Admin button if the user's account level is admin.
-            if(User.GetAdminLevel(User.getUserID(LoginForm.LoggedInUsername)) == 1)
+            if(User.GetAdminLevel(User.GetUserID(LoginForm.LoggedInUsername)) == 1)
             {
                 AdminButton.Visible = true;
             }
