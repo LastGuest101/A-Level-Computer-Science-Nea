@@ -16,7 +16,7 @@ namespace user_login_NEA
         public Standings()
         {
             InitializeComponent();
-   
+
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace user_login_NEA
             // 1 represents the league_id
 
             List<Tuple<string, int>> Teamname_Points = Game.Leaderboard(1);
-            
+
             //Displays the 1st team TeamName. 
             Team1.Text = Teamname_Points[0].Item1;
             //Displays the 1st team points
@@ -82,11 +82,6 @@ namespace user_login_NEA
 
 
         }
-
-
-
-
-
     }
 }
 

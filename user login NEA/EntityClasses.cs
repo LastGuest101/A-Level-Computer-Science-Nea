@@ -29,7 +29,7 @@ namespace user_login_NEA
             else
             {
                 //Checks if user name is between 2 - 20 characters long
-                if (username.Length < 2 || username.Length > 20) 
+                if (username.Length < 2 || username.Length > 20)
                 {
                     return "Username has to be 2 - 20 characters long";
                 }
@@ -37,7 +37,7 @@ namespace user_login_NEA
                 {
                     //Regex used to check if the user name contains only alphanumeric characters
                     //and _.
-                    if (Regex.IsMatch(username, "[^A-Za-z0-9_]") == true) 
+                    if (Regex.IsMatch(username, "[^A-Za-z0-9_]") == true)
 
                     {
                         return "Username can only include alphanumeric characters and '_'";
@@ -67,7 +67,7 @@ namespace user_login_NEA
             //either one number or special character
             //and must be between 8 to 20 characters long)
             if (Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d|[^a-zA-Z])).{8,20}$"))
-                //compares the inputted password with the regex representing the format of a valid password
+            //compares the inputted password with the regex representing the format of a valid password
             {
                 return "valid";
             }
@@ -76,7 +76,7 @@ namespace user_login_NEA
                 return "Password must between 8 - 20 characters long.";
             }
             else if (!Regex.IsMatch(password, @"^(?=.*[a-z])"))
-                //checks if the inputted password has at least one lowercase letter using regex pattern above.
+            //checks if the inputted password has at least one lowercase letter using regex pattern above.
             {
                 return "Password must contain at least one lowercase letter.";
             }
@@ -108,7 +108,7 @@ namespace user_login_NEA
             return false;
 
         }
-        
+
         //It is used to compare the user's inputted username with all the other usernames in the database.
         public static bool OtherUsers(string username)
         {
@@ -194,8 +194,8 @@ namespace user_login_NEA
             Database_manager.InsertPlayers(firstname, lastname);
             //used to get the player id, of the newly added player
             int player_id = Database_manager.singleIntFromDBMC($"{firstname}", $"{lastname}", "FirstName", "LastName", "Players", "player_id");
-            
-            
+
+
             //makes the new league stats for the new player, using the playerid retrieved.
             Database_manager.InsertHandicap(league_id, player_id);
 
@@ -207,7 +207,7 @@ namespace user_login_NEA
         //Used to check if the player the user's wants to add is in the database already.
         public static bool OtherPlayers(string InputtedFirstname, string InputtedLastname)
         {
-           
+
             if (Database_manager.singleIntFromDBMC($"{InputtedFirstname}", $"{InputtedLastname}", "FirstName", "LastName", "Players", "player_id") != -1)
             {
                 return true;
@@ -263,7 +263,7 @@ namespace user_login_NEA
 
         public static int NumberOfPlayers(int team_id)
         {
-            
+
             return Database_manager.singleIntFromDB($"{team_id}", "team_id", "[Teams/Players]", "COUNT(player_id)"); //Aggregate SQL function
         }
         // Is stored in a list as a team had multiple players, which can also vary in amount.
@@ -285,7 +285,7 @@ namespace user_login_NEA
             // When Teams are given their points.
 
             if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id1)) == 0)
-            { 
+            {
                 LeagueStats.SetHandicap(match_id, player_id1);
             }
             else if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id2)) == 0)
@@ -427,7 +427,7 @@ namespace user_login_NEA
             }
         }
 
-       
+
         public static void InputGame(int match_id, int player_id, int game1, int game2, int game3)
         {
             Database_manager.InsertGame(match_id, player_id, game1, game2, game3);
@@ -480,13 +480,13 @@ namespace user_login_NEA
             List<Tuple<int, int>> HighestHandicapScore = new List<Tuple<int, int>>();
 
             //  Cross - table parameterised SQL
-            foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))  
+            foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
             {
                 //   Cross-table parameterised SQL
-                foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id")) 
+                foreach (int player_id in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Games", "player_id"))
                 {
                     //   Cross-table parameterised SQL
-                    int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");  
+                    int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
 
                     int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
@@ -832,7 +832,7 @@ namespace user_login_NEA
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
-                         //   Cross-table parameterised SQL
+                        //   Cross-table parameterised SQL
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
@@ -890,7 +890,7 @@ namespace user_login_NEA
 
             return HighestHandicapSeries;
         }
- 
+
         //This subroutine is used to store all the teams, and their points in order
         //from highest to lowest.
         public static List<Tuple<string, int>> Leaderboard(int league_id)

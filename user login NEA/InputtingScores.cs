@@ -51,7 +51,7 @@ namespace user_login_NEA
             string lastName4 = player4[1];
 
             //Gets the player_ids for each person's first name and last name.
-            int player1_id = Player.GetPlayerIDName(firstName1,lastName1);
+            int player1_id = Player.GetPlayerIDName(firstName1, lastName1);
             int player2_id = Player.GetPlayerIDName(firstName2, lastName2);
             int player3_id = Player.GetPlayerIDName(firstName3, lastName3);
             int player4_id = Player.GetPlayerIDName(firstName4, lastName4);
@@ -109,7 +109,7 @@ namespace user_login_NEA
             {
                 Average4Label.Text = "0";
             }
-            
+
             Total1Label.Text = "0";
             Total2Label.Text = "0";
             Total3Label.Text = "0";
@@ -664,7 +664,7 @@ namespace user_login_NEA
                     int team2 = Team.GetTeamID_playerID(player3_id);
 
                     //confirmatiion message.
-                    MessageBox.Show($"{Team.GetTeamName(team1)} has gained {Team.GetPoints(team1)} Points and {Team.GetTeamName(team2)} has gained {Team.GetPoints(team2)} ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"{Team.GetTeamName(team1)} has now got {Team.GetPoints(team1)} Points and {Team.GetTeamName(team2)} has now got {Team.GetPoints(team2)} ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     AdminMenu adminMenu = new AdminMenu();
                     adminMenu.Show();
                     Hide();
@@ -672,8 +672,8 @@ namespace user_login_NEA
                 }
             }
         }
-            
-        
+
+
 
         private bool AreTextBoxesFilled()
         {
@@ -698,4 +698,4 @@ namespace user_login_NEA
 
 
 
-    
+
