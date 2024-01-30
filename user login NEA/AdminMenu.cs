@@ -22,10 +22,21 @@ namespace user_login_NEA
         Creates the Main Menu From when the back button is clicked, 
         hiding the current form, and showing the main menu form
         */
-        private void BackButton_Click(object sender, EventArgs e)
+       
+
+        //Creates a Remove Players form, when the Remove Players button is clicked.
+        private void RemoveButton_Click(object sender, EventArgs e)
         {
-            MainMenu mainMenuForm = new();
-            mainMenuForm.Show();
+            RemovingPlayers  removingPlayers = new();
+            removingPlayers.Show();
+            Hide();
+        }
+        //Creates a Adding Players form, when the Add Players button is clicked.
+
+        private void AddPlayersButton_Click(object sender, EventArgs e)
+        {
+            AddingPlayers addingPlayers = new();
+            addingPlayers.Show();
             Hide();
         }
         //Creates a Selecting Players form, when the "Edit Scores"
@@ -37,12 +48,17 @@ namespace user_login_NEA
             Hide();
         }
 
-        //Cretes a Adding Players for, when the Add Players button is clicked.
-
-        private void AddPlayersButton_Click(object sender, EventArgs e)
+        private void BackButton_Click(object sender, EventArgs e)
         {
-            AddingPlayers addingPlayers = new();
-            addingPlayers.Show();
+            MainMenu mainMenuForm = new();
+            mainMenuForm.Show();
+            Hide();
+        }
+
+        private void TeamAddButton_Click(object sender, EventArgs e)
+        {
+            AddingTeams addingTeamsForm = new();
+            addingTeamsForm.Show();
             Hide();
         }
     }

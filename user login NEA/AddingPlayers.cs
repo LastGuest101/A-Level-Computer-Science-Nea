@@ -14,7 +14,7 @@ namespace user_login_NEA
 {
     public partial class AddingPlayers : Form
     {
-        // Creating variables that is used to carry data to other forms.
+        // Creating variables that is accessed by the whole form
         int team_id;
         int league_id;
 
@@ -24,46 +24,8 @@ namespace user_login_NEA
             InitializeComponent();
         }
 
-        //method is called when the form is loading.
-        private void AddingPlayers_Load(object sender, EventArgs e)
+        private void AddPlayerButton_Click_1(object sender, EventArgs e)
         {
-            foreach (var LeagueName in League.GetLeagues()) //adds the league name of each entity in the table Leagues to the combobox
-            {
-                LeagueComboBox.Items.Add(LeagueName);
-            }
-        }
-
-        //method is called when an the user selects a different league form the LeagueComboBox
-        private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            league_id = League.GetLeagueIDLeagueName(LeagueComboBox.SelectedItem.ToString()); // leagueID = selected league from user
-
-
-            TeamComboBox.Items.Clear(); //TeamsComboBox is cleared
-
-            List<int> legaueTeams = new List<int>(); //Used to store all the team_ids related to the league selected.
-
-            if (LeagueComboBox.SelectedIndex.ToString() != null) // Checks if League ComboBox is not empty
-            {
-
-
-                legaueTeams = Team.GetTeamID_leagueID(LeagueComboBox.SelectedIndex + 1);  // + 1 cause list starts at 0, and team_id starts at 1
-
-                foreach (var team in legaueTeams) //adds the team name of each entity in the table Leagues to the combobox, dependent on what league is selected first.
-                {
-
-                    TeamComboBox.Items.Add(Team.GetTeamName(team));
-                }
-            }
-            else //Exception handling
-            {
-                MessageBox.Show("Unknown ERROR with LeagueComboBox!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // exception handling
-            }
-        }
-
-        private void AddPlayerButton_Click(object sender, EventArgs e)
-        {
-            
 
             if (LeagueComboBox.SelectedIndex == -1) // Checks if anything has been selected from the LeagueComboBox    exception handling
             {
@@ -135,21 +97,54 @@ namespace user_login_NEA
                 addingPlayers.Show();
                 Hide();
             }
-
-        }
-
-        private void TeamComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            team_id = Team.GetTeamID_TeamName(TeamComboBox.SelectedItem.ToString()); //Gets the teamID from the user selected TeamName from the TeamComboBox
         }
         //Creates an Admin Menu, and shows the admin menu, whilst hiding the currently opened menu (admin Menu)
         //When the back button is pressed.
-        private void backButton_Click(object sender, EventArgs e) 
-
+        private void backButton_Click_1(object sender, EventArgs e)
         {
             AdminMenu adminMenuForm = new();
             adminMenuForm.Show();
             Hide();
+        }
+
+        private void TeamComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            team_id = Team.GetTeamID_TeamName(TeamComboBox.SelectedItem.ToString()); //Gets the teamID from the user selected TeamName from the TeamComboBox
+        }
+        //method is called when the form is loading.
+        private void AddingPlayers_Load_1(object sender, EventArgs e)
+        {
+            foreach (var LeagueName in League.GetLeagues()) //adds the league name of each entity in the table Leagues to the combobox
+            {
+                LeagueComboBox.Items.Add(LeagueName);
+            }
+        }
+        //method is called when an the user selects a different league form the LeagueComboBox
+        private void LeagueComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            league_id = League.GetLeagueIDLeagueName(LeagueComboBox.SelectedItem.ToString()); // leagueID = selected league from user
+
+
+            TeamComboBox.Items.Clear(); //TeamsComboBox is cleared
+
+            List<int> legaueTeams = new List<int>(); //Used to store all the team_ids related to the league selected.
+
+            if (LeagueComboBox.SelectedIndex.ToString() != null) // Checks if League ComboBox is not empty
+            {
+
+
+                legaueTeams = Team.GetTeamID_leagueID(LeagueComboBox.SelectedIndex + 1);  // + 1 cause list starts at 0, and team_id starts at 1
+
+                foreach (var team in legaueTeams) //adds the team name of each entity in the table Leagues to the combobox, dependent on what league is selected first.
+                {
+
+                    TeamComboBox.Items.Add(Team.GetTeamName(team));
+                }
+            }
+            else //Exception handling
+            {
+                MessageBox.Show("Unknown ERROR with LeagueComboBox!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // exception handling
+            }
         }
     }
 }

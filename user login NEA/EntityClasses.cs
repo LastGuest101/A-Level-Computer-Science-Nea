@@ -101,6 +101,8 @@ namespace user_login_NEA
 
         }
 
+
+
         //is used to compare the user's inputted username and password with all the users logged in the database.
         public static bool LoginValidator(string username, string password)
         {
@@ -235,6 +237,12 @@ namespace user_login_NEA
             return false;
         }
 
+        //Used to call the Delete Player SQL in database manager file to complete delete a player from the database
+        public static void RemovePlayer(int player_id)
+        {
+            Database_manager.DeletePlayer(player_id);
+        }
+
         public static string GetFirstName(int player_id)
         {
             return Database_manager.singleStringFromDB($"{player_id}", "player_id", "Players", "FirstName");
@@ -290,6 +298,10 @@ namespace user_login_NEA
         public static List<int> GetAllPlayerID(int team_id)
         {
             return Database_manager.multipleIntFromDB($"{team_id}", "team_id", "Teams/Players", "player_id");
+        }
+        public static void AddTeam(String TeamName, int league_id)
+        {
+            Database_manager.InsertTeam(TeamName, league_id);
         }
 
         //This subroutine is responsible for calculating the points earned for each team, after a match.
@@ -1041,9 +1053,10 @@ namespace user_login_NEA
 
     public class Matches
     {
-        public static List<int> GetMatches(int week_id)
+        //Cross table parameterised SQL
+        public static List<int> GetMatches(int week_id, int league_id)
         {
-            return Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id");
+            return Database_manager.multipleIntFromDBMC($"{week_id}", $"{league_id}","week_id", "league_id", "Matches", $"match_id");
         }
 
         public static bool CheckForGame(int match_id)
@@ -1066,7 +1079,8 @@ namespace user_login_NEA
     }
     
 
-    //Used to handle all the hashing part of the program
+
+    //Used to handle all the hashing part of the program being using a library for bcrypt algorithm.
     class Encryption
     {
         public static string HashString(string password)

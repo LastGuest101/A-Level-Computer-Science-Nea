@@ -28,129 +28,137 @@
         /// </summary>
         private void InitializeComponent()
         {
-            LeagueLabel = new Label();
-            LeagueComboBox = new ComboBox();
-            TeamLabel = new Label();
-            TeamComboBox = new ComboBox();
-            FirstNameLabel = new Label();
-            LastNameLabel = new Label();
-            FirstNameTextBox = new TextBox();
-            LastNameTextBox = new TextBox();
-            AddPlayerButton = new Button();
-            backButton = new Button();
-            SuspendLayout();
+            this.LeagueLabel = new System.Windows.Forms.Label();
+            this.LeagueComboBox = new System.Windows.Forms.ComboBox();
+            this.TeamLabel = new System.Windows.Forms.Label();
+            this.TeamComboBox = new System.Windows.Forms.ComboBox();
+            this.FirstNameLabel = new System.Windows.Forms.Label();
+            this.LastNameLabel = new System.Windows.Forms.Label();
+            this.FirstNameTextBox = new System.Windows.Forms.TextBox();
+            this.LastNameTextBox = new System.Windows.Forms.TextBox();
+            this.AddPlayerButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // LeagueLabel
             // 
-            LeagueLabel.AutoSize = true;
-            LeagueLabel.Location = new Point(128, 22);
-            LeagueLabel.Name = "LeagueLabel";
-            LeagueLabel.Size = new Size(57, 20);
-            LeagueLabel.TabIndex = 12;
-            LeagueLabel.Text = "League";
+            this.LeagueLabel.AutoSize = true;
+            this.LeagueLabel.Location = new System.Drawing.Point(112, 16);
+            this.LeagueLabel.Name = "LeagueLabel";
+            this.LeagueLabel.Size = new System.Drawing.Size(45, 15);
+            this.LeagueLabel.TabIndex = 12;
+            this.LeagueLabel.Text = "League";
             // 
             // LeagueComboBox
             // 
-            LeagueComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            LeagueComboBox.FormattingEnabled = true;
-            LeagueComboBox.Location = new Point(84, 64);
-            LeagueComboBox.Name = "LeagueComboBox";
-            LeagueComboBox.Size = new Size(151, 28);
-            LeagueComboBox.TabIndex = 13;
-            LeagueComboBox.SelectedIndexChanged += LeagueComboBox_SelectedIndexChanged;
+            this.LeagueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LeagueComboBox.FormattingEnabled = true;
+            this.LeagueComboBox.Location = new System.Drawing.Point(74, 48);
+            this.LeagueComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LeagueComboBox.Name = "LeagueComboBox";
+            this.LeagueComboBox.Size = new System.Drawing.Size(133, 23);
+            this.LeagueComboBox.TabIndex = 13;
+            this.LeagueComboBox.SelectedIndexChanged += new System.EventHandler(this.LeagueComboBox_SelectedIndexChanged_1);
             // 
             // TeamLabel
             // 
-            TeamLabel.AutoSize = true;
-            TeamLabel.Location = new Point(466, 22);
-            TeamLabel.Name = "TeamLabel";
-            TeamLabel.Size = new Size(45, 20);
-            TeamLabel.TabIndex = 14;
-            TeamLabel.Text = "Team";
+            this.TeamLabel.AutoSize = true;
+            this.TeamLabel.Location = new System.Drawing.Point(408, 16);
+            this.TeamLabel.Name = "TeamLabel";
+            this.TeamLabel.Size = new System.Drawing.Size(35, 15);
+            this.TeamLabel.TabIndex = 14;
+            this.TeamLabel.Text = "Team";
             // 
             // TeamComboBox
             // 
-            TeamComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            TeamComboBox.FormattingEnabled = true;
-            TeamComboBox.Location = new Point(420, 64);
-            TeamComboBox.Name = "TeamComboBox";
-            TeamComboBox.Size = new Size(151, 28);
-            TeamComboBox.TabIndex = 15;
-            TeamComboBox.SelectedIndexChanged += TeamComboBox_SelectedIndexChanged;
+            this.TeamComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TeamComboBox.FormattingEnabled = true;
+            this.TeamComboBox.Location = new System.Drawing.Point(368, 48);
+            this.TeamComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.TeamComboBox.Name = "TeamComboBox";
+            this.TeamComboBox.Size = new System.Drawing.Size(133, 23);
+            this.TeamComboBox.TabIndex = 15;
+            this.TeamComboBox.SelectedIndexChanged += new System.EventHandler(this.TeamComboBox_SelectedIndexChanged_1);
             // 
             // FirstNameLabel
             // 
-            FirstNameLabel.AutoSize = true;
-            FirstNameLabel.Location = new Point(128, 132);
-            FirstNameLabel.Name = "FirstNameLabel";
-            FirstNameLabel.Size = new Size(73, 20);
-            FirstNameLabel.TabIndex = 16;
-            FirstNameLabel.Text = "Firstname";
+            this.FirstNameLabel.AutoSize = true;
+            this.FirstNameLabel.Location = new System.Drawing.Point(112, 99);
+            this.FirstNameLabel.Name = "FirstNameLabel";
+            this.FirstNameLabel.Size = new System.Drawing.Size(59, 15);
+            this.FirstNameLabel.TabIndex = 16;
+            this.FirstNameLabel.Text = "Firstname";
             // 
             // LastNameLabel
             // 
-            LastNameLabel.AutoSize = true;
-            LastNameLabel.Location = new Point(129, 181);
-            LastNameLabel.Name = "LastNameLabel";
-            LastNameLabel.Size = new Size(72, 20);
-            LastNameLabel.TabIndex = 17;
-            LastNameLabel.Text = "Lastname";
+            this.LastNameLabel.AutoSize = true;
+            this.LastNameLabel.Location = new System.Drawing.Point(113, 136);
+            this.LastNameLabel.Name = "LastNameLabel";
+            this.LastNameLabel.Size = new System.Drawing.Size(58, 15);
+            this.LastNameLabel.TabIndex = 17;
+            this.LastNameLabel.Text = "Lastname";
             // 
             // FirstNameTextBox
             // 
-            FirstNameTextBox.Location = new Point(234, 132);
-            FirstNameTextBox.Name = "FirstNameTextBox";
-            FirstNameTextBox.Size = new Size(125, 27);
-            FirstNameTextBox.TabIndex = 18;
+            this.FirstNameTextBox.Location = new System.Drawing.Point(205, 99);
+            this.FirstNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.FirstNameTextBox.Name = "FirstNameTextBox";
+            this.FirstNameTextBox.Size = new System.Drawing.Size(110, 23);
+            this.FirstNameTextBox.TabIndex = 18;
             // 
             // LastNameTextBox
             // 
-            LastNameTextBox.Location = new Point(234, 181);
-            LastNameTextBox.Name = "LastNameTextBox";
-            LastNameTextBox.Size = new Size(125, 27);
-            LastNameTextBox.TabIndex = 19;
+            this.LastNameTextBox.Location = new System.Drawing.Point(205, 136);
+            this.LastNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.LastNameTextBox.Name = "LastNameTextBox";
+            this.LastNameTextBox.Size = new System.Drawing.Size(110, 23);
+            this.LastNameTextBox.TabIndex = 19;
             // 
             // AddPlayerButton
             // 
-            AddPlayerButton.Location = new Point(444, 160);
-            AddPlayerButton.Name = "AddPlayerButton";
-            AddPlayerButton.Size = new Size(94, 29);
-            AddPlayerButton.TabIndex = 20;
-            AddPlayerButton.Text = "Add Player";
-            AddPlayerButton.UseVisualStyleBackColor = true;
-            AddPlayerButton.Click += AddPlayerButton_Click;
+            this.AddPlayerButton.Location = new System.Drawing.Point(388, 120);
+            this.AddPlayerButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.AddPlayerButton.Name = "AddPlayerButton";
+            this.AddPlayerButton.Size = new System.Drawing.Size(82, 22);
+            this.AddPlayerButton.TabIndex = 20;
+            this.AddPlayerButton.Text = "Add Player";
+            this.AddPlayerButton.UseVisualStyleBackColor = true;
+            this.AddPlayerButton.Click += new System.EventHandler(this.AddPlayerButton_Click_1);
             // 
             // backButton
             // 
-            backButton.Location = new Point(12, 12);
-            backButton.Name = "backButton";
-            backButton.Size = new Size(94, 29);
-            backButton.TabIndex = 21;
-            backButton.Text = "Back";
-            backButton.UseVisualStyleBackColor = true;
-            backButton.Click += backButton_Click;
+            this.backButton.Location = new System.Drawing.Point(10, 9);
+            this.backButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(82, 22);
+            this.backButton.TabIndex = 21;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click_1);
             // 
             // AddingPlayers
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(backButton);
-            Controls.Add(AddPlayerButton);
-            Controls.Add(LastNameTextBox);
-            Controls.Add(FirstNameTextBox);
-            Controls.Add(LastNameLabel);
-            Controls.Add(FirstNameLabel);
-            Controls.Add(TeamComboBox);
-            Controls.Add(TeamLabel);
-            Controls.Add(LeagueComboBox);
-            Controls.Add(LeagueLabel);
-            Name = "AddingPlayers";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "AddingPlayers";
-            Load += AddingPlayers_Load;
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.Controls.Add(this.backButton);
+            this.Controls.Add(this.AddPlayerButton);
+            this.Controls.Add(this.LastNameTextBox);
+            this.Controls.Add(this.FirstNameTextBox);
+            this.Controls.Add(this.LastNameLabel);
+            this.Controls.Add(this.FirstNameLabel);
+            this.Controls.Add(this.TeamComboBox);
+            this.Controls.Add(this.TeamLabel);
+            this.Controls.Add(this.LeagueComboBox);
+            this.Controls.Add(this.LeagueLabel);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "AddingPlayers";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "AddingPlayers";
+            this.Load += new System.EventHandler(this.AddingPlayers_Load_1);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

@@ -28,156 +28,188 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Team1 = new Label();
-            Team2 = new Label();
-            SelectPlayersTeam1 = new ListBox();
-            SelectPlayersTeam2 = new ListBox();
-            SelectPlayers = new Button();
-            BackButton = new Button();
-            WeeksCombobox = new ComboBox();
-            WeekLabel = new Label();
-            MatchComboBox = new ComboBox();
-            MatchLabel = new Label();
-            CompletedLabel = new Label();
-            CompletedComboBox = new ComboBox();
-            SuspendLayout();
+            this.Team1 = new System.Windows.Forms.Label();
+            this.Team2 = new System.Windows.Forms.Label();
+            this.SelectPlayersTeam1 = new System.Windows.Forms.ListBox();
+            this.SelectPlayersTeam2 = new System.Windows.Forms.ListBox();
+            this.SelectPlayers = new System.Windows.Forms.Button();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.WeeksCombobox = new System.Windows.Forms.ComboBox();
+            this.WeekLabel = new System.Windows.Forms.Label();
+            this.MatchComboBox = new System.Windows.Forms.ComboBox();
+            this.MatchLabel = new System.Windows.Forms.Label();
+            this.CompletedLabel = new System.Windows.Forms.Label();
+            this.CompletedComboBox = new System.Windows.Forms.ComboBox();
+            this.LeagueLabel = new System.Windows.Forms.Label();
+            this.LeagueComboBox = new System.Windows.Forms.ComboBox();
+            this.SuspendLayout();
             // 
             // Team1
             // 
-            Team1.AutoSize = true;
-            Team1.Location = new Point(209, 102);
-            Team1.Name = "Team1";
-            Team1.Size = new Size(53, 20);
-            Team1.TabIndex = 0;
-            Team1.Text = "Team1";
+            this.Team1.AutoSize = true;
+            this.Team1.Location = new System.Drawing.Point(183, 76);
+            this.Team1.Name = "Team1";
+            this.Team1.Size = new System.Drawing.Size(41, 15);
+            this.Team1.TabIndex = 0;
+            this.Team1.Text = "Team1";
             // 
             // Team2
             // 
-            Team2.AutoSize = true;
-            Team2.Location = new Point(527, 102);
-            Team2.Name = "Team2";
-            Team2.Size = new Size(53, 20);
-            Team2.TabIndex = 1;
-            Team2.Text = "Team2";
+            this.Team2.AutoSize = true;
+            this.Team2.Location = new System.Drawing.Point(461, 76);
+            this.Team2.Name = "Team2";
+            this.Team2.Size = new System.Drawing.Size(41, 15);
+            this.Team2.TabIndex = 1;
+            this.Team2.Text = "Team2";
             // 
             // SelectPlayersTeam1
             // 
-            SelectPlayersTeam1.FormattingEnabled = true;
-            SelectPlayersTeam1.ItemHeight = 20;
-            SelectPlayersTeam1.Location = new Point(112, 157);
-            SelectPlayersTeam1.Name = "SelectPlayersTeam1";
-            SelectPlayersTeam1.SelectionMode = SelectionMode.MultiSimple;
-            SelectPlayersTeam1.Size = new Size(150, 104);
-            SelectPlayersTeam1.TabIndex = 2;
+            this.SelectPlayersTeam1.FormattingEnabled = true;
+            this.SelectPlayersTeam1.ItemHeight = 15;
+            this.SelectPlayersTeam1.Location = new System.Drawing.Point(98, 118);
+            this.SelectPlayersTeam1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SelectPlayersTeam1.Name = "SelectPlayersTeam1";
+            this.SelectPlayersTeam1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.SelectPlayersTeam1.Size = new System.Drawing.Size(132, 79);
+            this.SelectPlayersTeam1.TabIndex = 2;
             // 
             // SelectPlayersTeam2
             // 
-            SelectPlayersTeam2.FormattingEnabled = true;
-            SelectPlayersTeam2.ItemHeight = 20;
-            SelectPlayersTeam2.Location = new Point(506, 157);
-            SelectPlayersTeam2.Name = "SelectPlayersTeam2";
-            SelectPlayersTeam2.SelectionMode = SelectionMode.MultiSimple;
-            SelectPlayersTeam2.Size = new Size(150, 104);
-            SelectPlayersTeam2.TabIndex = 3;
+            this.SelectPlayersTeam2.FormattingEnabled = true;
+            this.SelectPlayersTeam2.ItemHeight = 15;
+            this.SelectPlayersTeam2.Location = new System.Drawing.Point(443, 118);
+            this.SelectPlayersTeam2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SelectPlayersTeam2.Name = "SelectPlayersTeam2";
+            this.SelectPlayersTeam2.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.SelectPlayersTeam2.Size = new System.Drawing.Size(132, 79);
+            this.SelectPlayersTeam2.TabIndex = 3;
             // 
             // SelectPlayers
             // 
-            SelectPlayers.Location = new Point(327, 232);
-            SelectPlayers.Name = "SelectPlayers";
-            SelectPlayers.Size = new Size(94, 29);
-            SelectPlayers.TabIndex = 5;
-            SelectPlayers.Text = "Select";
-            SelectPlayers.UseVisualStyleBackColor = true;
-            SelectPlayers.Click += SelectPlayers_Click;
+            this.SelectPlayers.Location = new System.Drawing.Point(286, 174);
+            this.SelectPlayers.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SelectPlayers.Name = "SelectPlayers";
+            this.SelectPlayers.Size = new System.Drawing.Size(82, 22);
+            this.SelectPlayers.TabIndex = 5;
+            this.SelectPlayers.Text = "Select";
+            this.SelectPlayers.UseVisualStyleBackColor = true;
+            this.SelectPlayers.Click += new System.EventHandler(this.SelectPlayers_Click);
             // 
             // BackButton
             // 
-            BackButton.Location = new Point(12, 12);
-            BackButton.Name = "BackButton";
-            BackButton.Size = new Size(94, 29);
-            BackButton.TabIndex = 6;
-            BackButton.Text = "Back";
-            BackButton.UseVisualStyleBackColor = true;
-            BackButton.Click += BackButton_Click;
+            this.BackButton.Location = new System.Drawing.Point(10, 9);
+            this.BackButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BackButton.Name = "BackButton";
+            this.BackButton.Size = new System.Drawing.Size(82, 22);
+            this.BackButton.TabIndex = 6;
+            this.BackButton.Text = "Back";
+            this.BackButton.UseVisualStyleBackColor = true;
+            this.BackButton.Click += new System.EventHandler(this.BackButton_Click_1);
             // 
             // WeeksCombobox
             // 
-            WeeksCombobox.DropDownStyle = ComboBoxStyle.DropDownList;
-            WeeksCombobox.FormattingEnabled = true;
-            WeeksCombobox.Location = new Point(156, 49);
-            WeeksCombobox.Name = "WeeksCombobox";
-            WeeksCombobox.Size = new Size(63, 28);
-            WeeksCombobox.TabIndex = 7;
-            WeeksCombobox.SelectedIndexChanged += WeeksCombobox_SelectedIndexChanged;
+            this.WeeksCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.WeeksCombobox.FormattingEnabled = true;
+            this.WeeksCombobox.Location = new System.Drawing.Point(136, 37);
+            this.WeeksCombobox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.WeeksCombobox.Name = "WeeksCombobox";
+            this.WeeksCombobox.Size = new System.Drawing.Size(56, 23);
+            this.WeeksCombobox.TabIndex = 7;
+            this.WeeksCombobox.SelectedIndexChanged += new System.EventHandler(this.WeeksCombobox_SelectedIndexChanged);
             // 
             // WeekLabel
             // 
-            WeekLabel.AutoSize = true;
-            WeekLabel.Location = new Point(156, 22);
-            WeekLabel.Name = "WeekLabel";
-            WeekLabel.Size = new Size(52, 20);
-            WeekLabel.TabIndex = 8;
-            WeekLabel.Text = "Week :";
+            this.WeekLabel.AutoSize = true;
+            this.WeekLabel.Location = new System.Drawing.Point(136, 16);
+            this.WeekLabel.Name = "WeekLabel";
+            this.WeekLabel.Size = new System.Drawing.Size(42, 15);
+            this.WeekLabel.TabIndex = 8;
+            this.WeekLabel.Text = "Week :";
             // 
             // MatchComboBox
             // 
-            MatchComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            MatchComboBox.FormattingEnabled = true;
-            MatchComboBox.Location = new Point(393, 49);
-            MatchComboBox.Name = "MatchComboBox";
-            MatchComboBox.Size = new Size(317, 28);
-            MatchComboBox.TabIndex = 9;
-            MatchComboBox.SelectedIndexChanged += MatchComboBox_SelectedIndexChanged;
+            this.MatchComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.MatchComboBox.FormattingEnabled = true;
+            this.MatchComboBox.Location = new System.Drawing.Point(410, 37);
+            this.MatchComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MatchComboBox.Name = "MatchComboBox";
+            this.MatchComboBox.Size = new System.Drawing.Size(278, 23);
+            this.MatchComboBox.TabIndex = 9;
+            this.MatchComboBox.SelectedIndexChanged += new System.EventHandler(this.MatchComboBox_SelectedIndexChanged);
             // 
             // MatchLabel
             // 
-            MatchLabel.AutoSize = true;
-            MatchLabel.Location = new Point(393, 22);
-            MatchLabel.Name = "MatchLabel";
-            MatchLabel.Size = new Size(57, 20);
-            MatchLabel.TabIndex = 10;
-            MatchLabel.Text = "Match :";
+            this.MatchLabel.AutoSize = true;
+            this.MatchLabel.Location = new System.Drawing.Point(410, 16);
+            this.MatchLabel.Name = "MatchLabel";
+            this.MatchLabel.Size = new System.Drawing.Size(47, 15);
+            this.MatchLabel.TabIndex = 10;
+            this.MatchLabel.Text = "Match :";
             // 
             // CompletedLabel
             // 
-            CompletedLabel.AutoSize = true;
-            CompletedLabel.Location = new Point(90, 318);
-            CompletedLabel.Name = "CompletedLabel";
-            CompletedLabel.Size = new Size(90, 20);
-            CompletedLabel.TabIndex = 11;
-            CompletedLabel.Text = "Completed :";
+            this.CompletedLabel.AutoSize = true;
+            this.CompletedLabel.Location = new System.Drawing.Point(79, 238);
+            this.CompletedLabel.Name = "CompletedLabel";
+            this.CompletedLabel.Size = new System.Drawing.Size(72, 15);
+            this.CompletedLabel.TabIndex = 11;
+            this.CompletedLabel.Text = "Completed :";
             // 
             // CompletedComboBox
             // 
-            CompletedComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            CompletedComboBox.FormattingEnabled = true;
-            CompletedComboBox.Location = new Point(90, 351);
-            CompletedComboBox.Name = "CompletedComboBox";
-            CompletedComboBox.Size = new Size(305, 28);
-            CompletedComboBox.TabIndex = 12;
+            this.CompletedComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CompletedComboBox.FormattingEnabled = true;
+            this.CompletedComboBox.Location = new System.Drawing.Point(79, 263);
+            this.CompletedComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.CompletedComboBox.Name = "CompletedComboBox";
+            this.CompletedComboBox.Size = new System.Drawing.Size(267, 23);
+            this.CompletedComboBox.TabIndex = 12;
+            // 
+            // LeagueLabel
+            // 
+            this.LeagueLabel.AutoSize = true;
+            this.LeagueLabel.Location = new System.Drawing.Point(286, 16);
+            this.LeagueLabel.Name = "LeagueLabel";
+            this.LeagueLabel.Size = new System.Drawing.Size(51, 15);
+            this.LeagueLabel.TabIndex = 13;
+            this.LeagueLabel.Text = "League :";
+            // 
+            // LeagueComboBox
+            // 
+            this.LeagueComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LeagueComboBox.FormattingEnabled = true;
+            this.LeagueComboBox.Location = new System.Drawing.Point(262, 37);
+            this.LeagueComboBox.Name = "LeagueComboBox";
+            this.LeagueComboBox.Size = new System.Drawing.Size(121, 23);
+            this.LeagueComboBox.TabIndex = 14;
+            this.LeagueComboBox.SelectedIndexChanged += new System.EventHandler(this.LeagueComboBox_SelectedIndexChanged);
             // 
             // SelectingPlayers
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(CompletedComboBox);
-            Controls.Add(CompletedLabel);
-            Controls.Add(MatchLabel);
-            Controls.Add(MatchComboBox);
-            Controls.Add(WeekLabel);
-            Controls.Add(WeeksCombobox);
-            Controls.Add(BackButton);
-            Controls.Add(SelectPlayers);
-            Controls.Add(SelectPlayersTeam2);
-            Controls.Add(SelectPlayersTeam1);
-            Controls.Add(Team2);
-            Controls.Add(Team1);
-            Name = "SelectingPlayers";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "SelectingPlayers";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.Controls.Add(this.LeagueComboBox);
+            this.Controls.Add(this.LeagueLabel);
+            this.Controls.Add(this.CompletedComboBox);
+            this.Controls.Add(this.CompletedLabel);
+            this.Controls.Add(this.MatchLabel);
+            this.Controls.Add(this.MatchComboBox);
+            this.Controls.Add(this.WeekLabel);
+            this.Controls.Add(this.WeeksCombobox);
+            this.Controls.Add(this.BackButton);
+            this.Controls.Add(this.SelectPlayers);
+            this.Controls.Add(this.SelectPlayersTeam2);
+            this.Controls.Add(this.SelectPlayersTeam1);
+            this.Controls.Add(this.Team2);
+            this.Controls.Add(this.Team1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Name = "SelectingPlayers";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "SelectingPlayers";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
@@ -194,5 +226,7 @@
         private Label MatchLabel;
         private Label CompletedLabel;
         private ComboBox CompletedComboBox;
+        private Label LeagueLabel;
+        private ComboBox LeagueComboBox;
     }
 }

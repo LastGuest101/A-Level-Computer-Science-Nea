@@ -251,8 +251,25 @@ namespace user_login_NEA
                     connection.Close();
                 }
             }
+        }
+        public static void InsertTeam(string TeamName, int league_id)
+        {
+            // INSERT query
+            string insertQuery = $"INSERT INTO Teams (TeamName, league_id) VALUES ('{TeamName}','{league_id}');";
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
 
-
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
+                {
+                    // Execute the query
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
         }
 
         //This subroutine is used to make insert a new handicap into
@@ -275,8 +292,6 @@ namespace user_login_NEA
                     connection.Close();
                 }
             }
-
-
         }
 
 
@@ -301,6 +316,24 @@ namespace user_login_NEA
                 }
             }
 
+
+        }
+        //Used to delete players from the database, by inputting their player_id
+        //From the Players table.
+        public static void DeletePlayer(int player_id)
+        {
+            string deleteQuery = $"DELETE FROM Players WHERE player_id = '{player_id}';";
+
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+            }
 
         }
 
@@ -609,10 +642,40 @@ namespace user_login_NEA
             return attributeValue;
         }
 
+        //This method is a general subroutine,to get a list of int from the database,
+        //which has two parameters than the output data needs to meet.
+        public static List<int> multipleIntFromDBMC(string Input, string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput)
+        {
+            List<int> attributeValues = new List<int>();
 
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+
+                // Use a parameterized query to prevent SQL injection
+                string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery} AND {attributeNameQuery2} = @{attributeNameQuery2}";
+
+                using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
+                {
+                    command.Parameters.AddWithValue($"@{attributeNameQuery}", Input);
+                    command.Parameters.AddWithValue($"@{attributeNameQuery2}", Input2);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Read and add each attribute value to the collection
+                            int attributeValue = reader.GetInt32(0);
+                            attributeValues.Add(attributeValue);
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return attributeValues;
+        }
     }
 
 }
-
-
-
