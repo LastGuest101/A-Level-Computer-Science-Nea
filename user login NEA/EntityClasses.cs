@@ -151,6 +151,11 @@ namespace user_login_NEA
         {
             Database_manager.UpdateUsername(newUsername, user_id);
         }
+        public static void SetPassword(string newPassword, int user_id)
+        {
+            string hashedNewPassword = Encryption.HashString(newPassword);
+            Database_manager.UpdatePassword(hashedNewPassword, user_id);
+        }
         //Changes the User's accountLevel.
         public static void SetAdminLevel(int AdminLevel, int user_id)
         {
@@ -195,7 +200,14 @@ namespace user_login_NEA
             //used to get the player id, of the newly added player
             int player_id = Database_manager.singleIntFromDBMC($"{firstname}", $"{lastname}", "FirstName", "LastName", "Players", "player_id");
             //makes the new league stats for the new player, using the playerid retrieved.
-            Database_manager.InsertHandicap(league_id, player_id);
+            LeagueStats.InputLeagueStats(league_id, player_id);
+            //links the new player to the team they are associated to and is added to the Teams/Players linking table.
+            Database_manager.InsertPlayerIntoTeam(player_id, team_id);
+        }
+        public static void AddExistingPlayer(int player_id, int team_id, int league_id)
+        {
+            //makes the new league stats for the new player, using the playerid retrieved.
+            LeagueStats.InputLeagueStats(league_id, player_id);
             //links the new player to the team they are associated to and is added to the Teams/Players linking table.
             Database_manager.InsertPlayerIntoTeam(player_id, team_id);
         }
@@ -233,12 +245,16 @@ namespace user_login_NEA
         {
             return Database_manager.singleIntFromDBMC($"{FirstName}", $"{LastName}", "FirstName", "LastName", "Players", "player_id");
         }
+        public static List<int> GetAllPlayers()
+        {
+            return Database_manager.columnIntFromDB("Players", "player_id");
+        }
     }
     public class Team
     {
-        public static int GetTeamID_playerID(int player_id)
+        public static List<int> GetTeamID_playerID(int player_id)
         {
-            return Database_manager.singleIntFromDB($"{player_id}", "player_id", "[Teams/Players]", "team_id");
+            return Database_manager.multipleIntFromDB($"{player_id}", "player_id", "Teams/Players", "team_id");
         }
         //Is stored in a list as a league has multiple teams, which can vary in amount depending on the league.   List
         public static List<int> GetTeamID_leagueID(int league_id)
@@ -266,6 +282,14 @@ namespace user_login_NEA
         public static List<int> GetAllPlayerID(int team_id)
         {
             return Database_manager.multipleIntFromDB($"{team_id}", "team_id", "Teams/Players", "player_id");
+        }
+        public static bool OtherTeams(string InputtedTeamName)
+        {
+            if (Database_manager.singleIntFromDB($"{InputtedTeamName}", "TeamName", "Teams", "team_id") != -1)
+            {
+                return true;
+            }
+            return false;
         }
         public static void AddTeam(String TeamName, int league_id)
         {
@@ -376,8 +400,8 @@ namespace user_login_NEA
             {
                 newTeam2points += 2;
             }
-            int Team1_id = Team.GetTeamID_playerID(player_id1);
-            int Team2_id = Team.GetTeamID_playerID(player_id4);
+            int Team1_id = Matches.GetTeamID1(match_id);
+            int Team2_id = Matches.GetTeamID2(match_id);
             // Is used to get the old points for each team and store the old points of each team.
             //+ the new points each point earned from the current match.
             int Team1points = Database_manager.singleIntFromDB($"{Team1_id}", "team_id", "Teams", "Points") + newTeam1points;
@@ -621,10 +645,7 @@ namespace user_login_NEA
                             // Both player's game 3 is added + the player's handicap and stores it in the first item in the teamTotal list.
                             teamTotal[2] += PlayersGame[2] + LeagueStats.GetHandicap(handicap_id);
                         }
-
-
                     }
-
                     if (teamTotal[0] != 0)
                     {
                         teamTotal.Sort((a, b) => b.CompareTo(a));
@@ -787,7 +808,7 @@ namespace user_login_NEA
             HighestHandicapSeries.Sort((a, b) => b.Item2.CompareTo(a.Item2));
             return HighestHandicapSeries;
         }
-        //This subroutine is used to store all the teams, and their points in order
+        //This subroutine is used to store all the team's teamname, and their points in order
         //from highest to lowest.
         public static List<Tuple<string, int>> Leaderboard(int league_id)
         {
@@ -810,7 +831,6 @@ namespace user_login_NEA
             return Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game1") + Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game2") + Database_manager.singleIntFromDB($"{game_id}", "game_id", "Games", "game3");
         }
     }
-
     public class LeagueStats
     {
         public static void SetTotalPinFall(int match_id, int player_id)
@@ -846,6 +866,10 @@ namespace user_login_NEA
             int newHandicap = maths.Handicap(GetTotalPinFall(handicap_id) / GetNumberOfGames(handicap_id));
             //Adds the new handicap to the database.
             Database_manager.UpdateHandicap(newHandicap, handicap_id);
+        }
+        public static void InputLeagueStats(int league_id, int player_id)
+        {
+            Database_manager.InsertHandicap(league_id, player_id);
         }
         public static int GetHandicap(int handicap_id)
         {
@@ -890,6 +914,10 @@ namespace user_login_NEA
         {
             return Database_manager.columnStringFromDB("Leagues", "LeagueName");
         }
+        public static string GetLeagueName(int league_id)
+        {
+            return Database_manager.singleStringFromDB($"{league_id}", "league_id", "Leagues", "LeagueName");
+        }
         public static int GetLeagueIDLeagueName(string LeagueName)
         {
             return Database_manager.singleIntFromDB($"{LeagueName}", "LeagueName", "Leagues", "league_id");
@@ -897,6 +925,10 @@ namespace user_login_NEA
         public static int GetLeagueIDMatch_id(int match_id)
         {
             return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
+        }
+        public static int GetLeagueID_Team_id(int team_id)
+        {
+            return Database_manager.singleIntFromDB($"{team_id}", "team_id", "Teams", "league_id");
         }
     }
 

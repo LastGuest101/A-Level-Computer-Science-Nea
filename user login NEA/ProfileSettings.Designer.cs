@@ -36,6 +36,8 @@
             AccountLevelDisplayLabel = new Label();
             UsernameTextBox = new TextBox();
             UsernameLabel = new Label();
+            ChangePasswordLabel = new Label();
+            PasswordTextbox = new TextBox();
             UsernameButton = new Button();
             UserCombobox = new ComboBox();
             AddAdminButton = new Button();
@@ -43,6 +45,7 @@
             AdminComboBox = new ComboBox();
             RemoveAdminLabel = new Label();
             RemoveAdminButton = new Button();
+            PasswordChangeButton = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,6 +70,8 @@
             tableLayoutPanel1.Controls.Add(AccountLevelDisplayLabel, 1, 1);
             tableLayoutPanel1.Controls.Add(UsernameTextBox, 1, 2);
             tableLayoutPanel1.Controls.Add(UsernameLabel, 0, 2);
+            tableLayoutPanel1.Controls.Add(ChangePasswordLabel, 0, 3);
+            tableLayoutPanel1.Controls.Add(PasswordTextbox, 1, 3);
             tableLayoutPanel1.Location = new Point(141, 35);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 6;
@@ -133,6 +138,23 @@
             UsernameLabel.Size = new Size(82, 20);
             UsernameLabel.TabIndex = 2;
             UsernameLabel.Text = "Username :";
+            // 
+            // ChangePasswordLabel
+            // 
+            ChangePasswordLabel.AutoSize = true;
+            ChangePasswordLabel.Location = new Point(3, 174);
+            ChangePasswordLabel.Name = "ChangePasswordLabel";
+            ChangePasswordLabel.Size = new Size(75, 40);
+            ChangePasswordLabel.TabIndex = 5;
+            ChangePasswordLabel.Text = "Change password:";
+            // 
+            // PasswordTextbox
+            // 
+            PasswordTextbox.Location = new Point(128, 177);
+            PasswordTextbox.Name = "PasswordTextbox";
+            PasswordTextbox.Size = new Size(119, 27);
+            PasswordTextbox.TabIndex = 6;
+            PasswordTextbox.TextChanged += PasswordTextbox_TextChanged;
             // 
             // UsernameButton
             // 
@@ -209,11 +231,23 @@
             RemoveAdminButton.Visible = false;
             RemoveAdminButton.Click += RemoveAdminButton_Click;
             // 
+            // PasswordChangeButton
+            // 
+            PasswordChangeButton.Location = new Point(412, 211);
+            PasswordChangeButton.Name = "PasswordChangeButton";
+            PasswordChangeButton.Size = new Size(94, 29);
+            PasswordChangeButton.TabIndex = 9;
+            PasswordChangeButton.Text = "Change";
+            PasswordChangeButton.UseVisualStyleBackColor = true;
+            PasswordChangeButton.Visible = false;
+            PasswordChangeButton.Click += PasswordChangeButton_Click;
+            // 
             // ProfileSettings
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(PasswordChangeButton);
             Controls.Add(RemoveAdminButton);
             Controls.Add(RemoveAdminLabel);
             Controls.Add(AdminComboBox);
@@ -250,5 +284,8 @@
         private ComboBox AdminComboBox;
         private Label RemoveAdminLabel;
         private Button RemoveAdminButton;
+        private Label ChangePasswordLabel;
+        private TextBox PasswordTextbox;
+        private Button PasswordChangeButton;
     }
 }

@@ -47,7 +47,13 @@ namespace user_login_NEA
             else if (String.IsNullOrWhiteSpace(TeamTextBox.Text)) // Checks if textbox is empty/contains only whitespace    exception handling 
             {
                 TeamTextBox.Text = "ERROR";
-                MessageBox.Show("Please enter a FirstName!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a Team!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TeamTextBox.Clear();
+                TeamTextBox.Focus();
+            }
+            else if (Team.OtherTeams(TeamTextBox.Text) == true)
+            {
+                MessageBox.Show($"Team is already in the database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 TeamTextBox.Clear();
                 TeamTextBox.Focus();
             }

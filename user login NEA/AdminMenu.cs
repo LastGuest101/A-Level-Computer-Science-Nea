@@ -19,7 +19,7 @@ namespace user_login_NEA
         //Creates a Remove Players form, when the Remove Players button is clicked.
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            RemovingPlayers  removingPlayers = new();
+            RemovingPlayers removingPlayers = new();
             removingPlayers.Show();
             Hide();
         }
@@ -53,6 +53,12 @@ namespace user_login_NEA
         {
             AddingTeams addingTeamsForm = new();
             addingTeamsForm.Show();
+            Hide();
+        }
+        private void AddExistingPlayersButton_Click(object sender, EventArgs e)
+        {
+            AddExistingPlayers AddExistingPlayersForm = new();
+            AddExistingPlayersForm.Show();
             Hide();
         }
     }

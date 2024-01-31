@@ -26,7 +26,7 @@ namespace user_login_NEA
                 int week_id = Week.GetWeekID(week);
                 int NumOfGames = 0;
 
-                foreach (var match_id in Matches.GetMatches(week_id, 3))
+                foreach (var match_id in Matches.GetMatches(week_id, UserMenu.LeagueID))
                 {
                     if (Matches.CheckForGame(match_id) == true)
                     {

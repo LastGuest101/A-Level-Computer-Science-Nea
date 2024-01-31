@@ -19,7 +19,6 @@ namespace user_login_NEA
         private void SignUp_Load(object sender, EventArgs e)
         {
             foreach (var LeagueName in League.GetLeagues())
-
             {
                 LeagueComboBox.Items.Add(LeagueName);
             }

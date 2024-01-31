@@ -112,7 +112,7 @@ namespace user_login_NEA
             }
         }
         private void AddAdminButton_Click(object sender, EventArgs e)
-        { 
+        {
             //confirmation button.
             DialogResult confirmation = MessageBox.Show($"Do you want to give Admin level permission to {UserCombobox.SelectedItem}?", "Add Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmation == DialogResult.Yes)
@@ -153,5 +153,43 @@ namespace user_login_NEA
                 Hide();
             }
         }
+
+        private void PasswordTextbox_TextChanged(object sender, EventArgs e)
+        {
+            //Checks if the password textbox is null
+            if (!String.IsNullOrWhiteSpace(PasswordTextbox.Text))
+            {
+                PasswordChangeButton.Visible = true;
+            }
+            else
+            {
+                PasswordChangeButton.Visible = false;
+            }
+        }
+        private void PasswordChangeButton_Click(object sender, EventArgs e)
+        {
+            int user_id = User.GetUserID(LoginForm.LoggedInUsername);
+            //checked if the new username the user has inputted is valid
+            if (User.PasswordValidator(PasswordTextbox.Text) == "valid")
+            {
+                //Confirmation message.
+                DialogResult confirmation = MessageBox.Show($"Do you want to change your Password to {PasswordTextbox.Text}?", "Change Username", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmation == DialogResult.Yes)
+                {
+                    //Changes the username of the login user.
+                    User.SetPassword(PasswordTextbox.Text, user_id);
+                    //Refreshes the form 
+                    ProfileSettings profileSettingsForm = new ProfileSettings();
+                    profileSettingsForm.Show(this);
+                    Hide();
+                }
+            }
+            else
+            {
+                //Exception handling.
+                MessageBox.Show($"Error : {User.PasswordValidator(PasswordTextbox.Text)}!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }
+

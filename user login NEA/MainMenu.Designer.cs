@@ -28,22 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            PlayerHandicap = new Label();
             AdminButton = new Button();
             PlayerName = new Label();
             SignOut = new Button();
             UserMenu = new Button();
             UserSettings = new Button();
             SuspendLayout();
-            // 
-            // PlayerHandicap
-            // 
-            PlayerHandicap.AutoSize = true;
-            PlayerHandicap.Location = new Point(403, 33);
-            PlayerHandicap.Name = "PlayerHandicap";
-            PlayerHandicap.Size = new Size(126, 20);
-            PlayerHandicap.TabIndex = 0;
-            PlayerHandicap.Text = "Player's Handicap";
             // 
             // AdminButton
             // 
@@ -59,9 +49,10 @@
             // PlayerName
             // 
             PlayerName.AutoSize = true;
-            PlayerName.Location = new Point(235, 33);
+            PlayerName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            PlayerName.Location = new Point(312, 35);
             PlayerName.Name = "PlayerName";
-            PlayerName.Size = new Size(129, 20);
+            PlayerName.Size = new Size(200, 31);
             PlayerName.TabIndex = 7;
             PlayerName.Text = "Player's Full Name";
             // 
@@ -105,7 +96,6 @@
             Controls.Add(SignOut);
             Controls.Add(PlayerName);
             Controls.Add(AdminButton);
-            Controls.Add(PlayerHandicap);
             Name = "MainMenu";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainMenu";
@@ -114,8 +104,6 @@
         }
 
         #endregion
-
-        private Label PlayerHandicap;
         private Button AdminButton;
         private Label PlayerName;
         private Button SignOut;

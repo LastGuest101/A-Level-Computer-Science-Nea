@@ -128,6 +128,26 @@ namespace user_login_NEA
                 }
             }
         }
+        //Used to update a user's password hashed
+        public static void UpdatePassword(string PasswordHash, int user_id)
+        {
+            string updateQuery = "UPDATE Users SET PasswordHash = @PasswordHash WHERE user_id = @user_id";
+            // Create a new SQLite connection
+            using (SQLiteConnection connection = new(Connection()))
+            {
+                // Open the connection
+                connection.Open();
+                // Create a command with the query and connection
+                using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@PasswordHash", PasswordHash);
+                    command.Parameters.AddWithValue("@user_id", user_id);
+
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
         //Used to update the account level of the user from the User Table in the database.
         public static void UpdateAdmin(int AdminLevel, int user_id)
         {

@@ -21,7 +21,6 @@ namespace user_login_NEA
             //Gets the player_id from the login username inputter in Login Form.
             loggedPlayerID = Player.GetPlayerID(LoginForm.LoggedInUsername);
             PlayerName.Text = "Bowler: " + Player.GetFirstName(loggedPlayerID) + " " + Player.GetLastName(loggedPlayerID);
-            PlayerHandicap.Text = "Handicap:  " + LeagueStats.GetHandicap(LeagueStats.GetHandicapID(1, loggedPlayerID));
             //Only displays Admin button if the user's account level is admin.
             if(User.GetAdminLevel(User.GetUserID(LoginForm.LoggedInUsername)) == 1)
             {

@@ -630,8 +630,8 @@ namespace user_login_NEA
                     LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player2_id));
                     LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player3_id));
                     LeagueStats.SetHandicap(Convert.ToInt32(SelectingPlayers.match_id), Convert.ToInt32(player4_id));
-                    int team1 = Team.GetTeamID_playerID(player1_id);
-                    int team2 = Team.GetTeamID_playerID(player3_id);
+                    int team1 = Matches.GetTeamID1(SelectingPlayers.match_id);
+                    int team2 = Matches.GetTeamID2(SelectingPlayers.match_id);
                     //confirmatiion message.
                     MessageBox.Show($"{Team.GetTeamName(team1)} has now got {Team.GetPoints(team1)} Points and {Team.GetTeamName(team2)} has now got {Team.GetPoints(team2)} ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     AdminMenu adminMenu = new AdminMenu();

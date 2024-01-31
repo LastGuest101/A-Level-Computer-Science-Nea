@@ -25,7 +25,7 @@ namespace user_login_NEA
                 int NumOfGamesTeam = 0;
                 //Only displays the weeks if there are enough games to display
                 //the top 3 scores in each category, preventing errors.
-                foreach (var match_id in Matches.GetMatches(week_id, 3))
+                foreach (var match_id in Matches.GetMatches(week_id, UserMenu.LeagueID))
                 {
                     if (Matches.CheckForGame(match_id) == true)
                     {
