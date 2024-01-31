@@ -151,6 +151,8 @@ namespace user_login_NEA
         {
             Database_manager.UpdateUsername(newUsername, user_id);
         }
+        //Makes the Inputted password hashed, and changes the password 
+        //in the database.
         public static void SetPassword(string newPassword, int user_id)
         {
             string hashedNewPassword = Encryption.HashString(newPassword);
