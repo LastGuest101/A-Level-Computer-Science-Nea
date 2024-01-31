@@ -17,7 +17,7 @@ namespace user_login_NEA
         public static string Connection()
         {
             string connectionString;
-            string path = @"C:\Users\Jacob V\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
+            string path = @"C:\Users\olive\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
             return connectionString;

@@ -13,8 +13,6 @@ using System.Runtime.CompilerServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 using BCrypt.Net;
 
-
-
 namespace user_login_NEA
 {
     public class User
@@ -23,10 +21,8 @@ namespace user_login_NEA
         //Format and isn't taken by other users.
         public static string UsernameValidator(string username)
         {
-
             if (OtherUsers(username) == true) //calls otherUsers routine to check for other users
             {
-
                 return "Username Taken";
             }
             else
@@ -41,7 +37,6 @@ namespace user_login_NEA
                     //Regex used to check if the user name contains only alphanumeric characters
                     //and _.
                     if (Regex.IsMatch(username, "[^A-Za-z0-9_]") == true)
-
                     {
                         return "Username can only include alphanumeric characters and '_'";
                     }
@@ -50,18 +45,12 @@ namespace user_login_NEA
                         //returns valid if all conditions for the user name is met.
                         return "valid";
                     }
-
                 }
-
-
             }
-
-
         }
         //This subroutine is used to verify if the inputted password is in the correct
         //Format and outputs an appropriate error message if not, to help the user
         //input a valid password.
-
         public static string PasswordValidator(string password)
         {
             //A valid password must contain at least:
@@ -98,33 +87,26 @@ namespace user_login_NEA
             {
                 return "Password does not meet the required criteria.";
             }
-
         }
-
-
-
         //is used to compare the user's inputted username and password with all the users logged in the database.
         public static bool LoginValidator(string username, string password)
         {
+            //Gets the userId from the username
             int user_id = GetUserID(username);
+            //Checks if the user_id exists
             if (user_id == -1)
             {
                 return false;
-
             }
             else
-            {
+            { //Checks the hashed password from the database from the password
                 if (Encryption.HashChecking(password,user_id) == true)
                 {
                     return true;
                 }
-
                 return false;
             }
-
-
         }
-
         //It is used to compare the user's inputted username with all the other usernames in the database.
         public static bool OtherUsers(string username)
         {
@@ -141,67 +123,62 @@ namespace user_login_NEA
         public static void AddUser(string username, string password, int player_id)
         {
             string passwordHash = Encryption.HashString(password);
-
             Database_manager.InsertUser(username, passwordHash, player_id);
-
         }
-
+        //Gets username from the database from the user_id
         public static string GetUsername(int user_id)
         {
             return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "Username");
         }
+        //Gets PasswordHash from the database from the user_id
         public static string GetPasswordHash(int user_id)
         {
             return Database_manager.singleStringFromDB($"{user_id}", "user_id", "Users", "PasswordHash");
         }
+        //Gets UserID from the database from the Username 
         public static int GetUserID(string Username)
         {
             return Database_manager.singleIntFromDB($"{Username}", "Username", "Users", "user_id");
         }
-
+        //Gets AdminLevel from the database from the user_id
         public static int GetAdminLevel(int user_id)
         {
             return Database_manager.singleIntFromDB($"{user_id}", "user_id", "Users", "Admin");
         }
-
-
+        //Changes the User's Username in the database
         public static void SetUsername(string newUsername, int user_id)
         {
             Database_manager.UpdateUsername(newUsername, user_id);
         }
-
+        //Changes the User's accountLevel.
         public static void SetAdminLevel(int AdminLevel, int user_id)
         {
             Database_manager.UpdateAdmin(AdminLevel, user_id);
         }
-
+        //Gets all the users from the database.
         public static List<string> GetAllUsers()
         {
             return Database_manager.columnStringFromDB("Users", "Username");
         }
-
     }
-
     public class Player
     {
         //This subrountine uses a regex pattern to validate a inputted name.
         //The name must start with a capital letter
         //followed by lowercase alphabet characters.
-
         public static string ValidateName(string name)
         {
             if (Regex.IsMatch(name, @"^[A-Z][a-z ,.'-]*$"))
             {
                 return "Valid";
             }
-
             else
             {
                 if (!Regex.IsMatch(name, @"^[A-Z].*$")) // exception handling
                 {
                     return ("Error: First character must be an uppercase letter.");
                 }
-                else // exception handling
+                else     // exception handling
                 {
                     return "Error: Invalid characters or format.";
                 }
@@ -216,70 +193,62 @@ namespace user_login_NEA
             Database_manager.InsertPlayers(firstname, lastname);
             //used to get the player id, of the newly added player
             int player_id = Database_manager.singleIntFromDBMC($"{firstname}", $"{lastname}", "FirstName", "LastName", "Players", "player_id");
-
-
             //makes the new league stats for the new player, using the playerid retrieved.
             Database_manager.InsertHandicap(league_id, player_id);
-
             //links the new player to the team they are associated to and is added to the Teams/Players linking table.
             Database_manager.InsertPlayerIntoTeam(player_id, team_id);
-
         }
-
         //Used to check if the player the user's wants to add is in the database already.
         public static bool OtherPlayers(string InputtedFirstname, string InputtedLastname)
         {
-
             if (Database_manager.singleIntFromDBMC($"{InputtedFirstname}", $"{InputtedLastname}", "FirstName", "LastName", "Players", "player_id") != -1)
             {
                 return true;
             }
             return false;
         }
-
         //Used to call the Delete Player SQL in database manager file to complete delete a player from the database
         public static void RemovePlayer(int player_id)
         {
             Database_manager.DeletePlayer(player_id);
         }
-
+        //Used to get a Player's FirstName from the database from the player_id
         public static string GetFirstName(int player_id)
         {
             return Database_manager.singleStringFromDB($"{player_id}", "player_id", "Players", "FirstName");
         }
+        //Used to get a Player's LastName from the database from the player_id
         public static string GetLastName(int player_id)
         {
             return Database_manager.singleStringFromDB($"{player_id}", "player_id", "Players", "LastName");
         }
-
+        //Used to get a Player's ID from the database from the Username.  Cross-table paramatised SQL.
         public static int GetPlayerID(string LoggedUsername)
         {
             return Database_manager.singleIntFromDB(LoggedUsername, "Username", "Users", "player_id");
         }
+        //Used to get a Player's ID from the database from the player's FirstName and LastName
         public static int GetPlayerIDName(string FirstName, string LastName)
         {
             return Database_manager.singleIntFromDBMC($"{FirstName}", $"{LastName}", "FirstName", "LastName", "Players", "player_id");
         }
     }
-
     public class Team
     {
         public static int GetTeamID_playerID(int player_id)
         {
             return Database_manager.singleIntFromDB($"{player_id}", "player_id", "[Teams/Players]", "team_id");
         }
-
-        //Is stored in a list as a league has multiple teams, which can vary in amount depending on the league.
+        //Is stored in a list as a league has multiple teams, which can vary in amount depending on the league.   List
         public static List<int> GetTeamID_leagueID(int league_id)
         {
             return Database_manager.multipleIntFromDB($"{league_id}", "league_id", "Teams", "team_id");
         }
-
+        //Used to get TeamId from the TeamName
         public static int GetTeamID_TeamName(string TeamName)
         {
             return Database_manager.singleIntFromDB($"{TeamName}", "TeamName", "Teams", "team_id");
         }
-
         public static int GetPoints(int team_id)
         {
             return Database_manager.singleIntFromDB($"{team_id}", "team_id", "Teams", "Points");
@@ -288,10 +257,8 @@ namespace user_login_NEA
         {
             return Database_manager.singleStringFromDB($"{team_id}", "team_id", "Teams", "TeamName");
         }
-
         public static int NumberOfPlayers(int team_id)
         {
-
             return Database_manager.singleIntFromDB($"{team_id}", "team_id", "[Teams/Players]", "COUNT(player_id)"); //Aggregate SQL function
         }
         // Is stored in a list as a team had multiple players, which can also vary in amount.
@@ -303,7 +270,6 @@ namespace user_login_NEA
         {
             Database_manager.InsertTeam(TeamName, league_id);
         }
-
         //This subroutine is responsible for calculating the points earned for each team, after a match.
         public static void SetPoints(int match_id, int player_id1, int player_id2, int player_id3, int player_id4) //used to calculate + input points from a match  
         {
@@ -311,7 +277,6 @@ namespace user_login_NEA
             int newTeam2points = 0;
             //Gets the league id from the match_id   //Cross-table parameterised SQL
             int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-
             // Used to set the handicap for players who didn't have a handicap before the game played.
             // Whilst Players who already have a handicap dont get their handicap updated until after the match is over.
             // When Teams are given their points.
@@ -332,10 +297,8 @@ namespace user_login_NEA
             {
                 LeagueStats.SetHandicap(match_id, player_id4);
             }
-
             // Gets total handicap from player_id1 and player_id2     Cross-table parameterised SQL
             int TotalHandicapTeam1 = Database_manager.singleIntFromDB($"{player_id1}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id2}", "player_id", "LeagueStats", "Handicap");
-
             // Gets total handicap from player_id3 and player_id4     Cross-table parameterised SQL
             int TotalHandicapTeam2 = Database_manager.singleIntFromDB($"{player_id3}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id4}", "player_id", "LeagueStats", "Handicap");
 
@@ -369,7 +332,6 @@ namespace user_login_NEA
             {
                 newTeam2points += 2;
             }
-
             //Whoever has the team score in game 2 get's two points
             if (Team1_Game2 > Team2_Game2)
             {
@@ -384,7 +346,6 @@ namespace user_login_NEA
             {
                 newTeam2points += 2;
             }
-
             //Whoever has the team score in game 3 get's two points
             if (Team1_Game3 > Team2_Game3)
             {
@@ -399,44 +360,33 @@ namespace user_login_NEA
             {
                 newTeam2points += 2;
             }
-
             //Used to get the each team total handicap score over the three games.
             //Whoever has the highest score gets 2 points as well.
             if ((maths.Series(Team1_Game1, Team1_Game2, Team1_Game3) + TotalHandicapTeam1) > (maths.Series(Team2_Game1, Team2_Game2, Team2_Game3) + TotalHandicapTeam2))
             {
                 newTeam1points += 2;
             }
-
             else if ((maths.Series(Team1_Game1, Team1_Game2, Team1_Game3) + TotalHandicapTeam1) == (maths.Series(Team2_Game1, Team2_Game2, Team2_Game3) + TotalHandicapTeam2))
             {
                 newTeam1points++;
                 newTeam2points++;
             }
-
             else
             {
                 newTeam2points += 2;
             }
-
             int Team1_id = Team.GetTeamID_playerID(player_id1);
             int Team2_id = Team.GetTeamID_playerID(player_id4);
-
             // Is used to get the old points for each team and store the old points of each team.
             //+ the new points each point earned from the current match.
-
             int Team1points = Database_manager.singleIntFromDB($"{Team1_id}", "team_id", "Teams", "Points") + newTeam1points;
             int Team2points = Database_manager.singleIntFromDB($"{Team2_id}", "team_id", "Teams", "Points") + newTeam2points;
-
 
             //updated points are added to the database
             Database_manager.UpdatePoints(Team1points, Team1_id);
             Database_manager.UpdatePoints(Team2points, Team2_id);
-
-
-
         }
     }
-
     public class Game
     {
         //Only allows values 0 - 300 to inputted into the scoresheet.
@@ -445,9 +395,7 @@ namespace user_login_NEA
         {
             string pattern = @"^(0|[1-9]|[1-9]\d|1\d{2}|2[0-9]{2}|300)$";
             string input = inputNumber;
-
             Regex regex = new Regex(pattern);
-
             //checks if the input number matches with the regex pattern.
             if (regex.IsMatch(input))
             {
@@ -458,18 +406,14 @@ namespace user_login_NEA
                 return "Input does not match the pattern for numbers from 0 to 300.";
             }
         }
-
-
         public static void InputGame(int match_id, int player_id, int game1, int game2, int game3)
         {
             Database_manager.InsertGame(match_id, player_id, game1, game2, game3);
         }
-
         public static int GetGameID(int match_id, int player_id)
         {
             return Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id}", "match_id", "player_id", "Games", "game_id");
         }
-
         //Used to get the Scratch game score from each player in a given week. from highest to lowest
         //which is stored in order from highest to lowest, in a Touple list (int,int)
         //with item 1 being the, player id the highest score belongs to and item 2,
@@ -478,7 +422,6 @@ namespace user_login_NEA
         {
             //gets the week_id
             int week_id = Week.GetWeekID(week);
-
             List<Tuple<int, int>> HighestScratchScores = new List<Tuple<int, int>>();
 
             //Used to get all the matches in a given week from the week_id     Cross-table paramatised SQL.
@@ -489,28 +432,21 @@ namespace user_login_NEA
                 {
                     //Used to get the all of a player's games and stores it in a list.
                     List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
-
                     //sorts out the list from the player's highest score to lowest.
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
-
                     // Store player_id along with the highest game value as a Tuple
                     HighestScratchScores.Add(new Tuple<int, int>(player_id, PlayersGame[0]));
                 }
             }
-
             //Sort the TotalGames list based on the highest game value
             HighestScratchScores.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestScratchScores;
         }
-
         //Used to get the Handicap game score from each team in a given week. from highest to lowest
         public static List<Tuple<int, int>> HighestHandicap(int week)
         {
             int week_id = Week.GetWeekID(week);
-
             List<Tuple<int, int>> HighestHandicapScore = new List<Tuple<int, int>>();
-
             //  Cross - table parameterised SQL
             foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
             {
@@ -519,30 +455,24 @@ namespace user_login_NEA
                 {
                     //   Cross-table parameterised SQL
                     int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-
                     int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
-
                     List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
 
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
-
                     // Store player_id along with the highest game value as a Tuple
                     HighestHandicapScore.Add(new Tuple<int, int>(player_id, PlayersGame[0] + LeagueStats.GetHandicap(handicap_id)));
                 }
             }
-
             // Sort the TotalGames list based on the highest game value
             HighestHandicapScore.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestHandicapScore;
         }
-
         //Used to get the Scratch series score from each player in a given week. from highest to lowest
         public static List<Tuple<int, int>> HighestScratchSeries(int week)
         {
             int week_id = Week.GetWeekID(week);
+            //Used to Store the highest Scores by each player[player_id,score]
             List<Tuple<int, int>> HighestScratchSeries = new List<Tuple<int, int>>();
-
             //   Cross-table parameterised SQL
             foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
             {
@@ -551,7 +481,6 @@ namespace user_login_NEA
                 {
                     List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
-
                     // Store player_id along with the highest game value as a Tuple
                     HighestScratchSeries.Add(new Tuple<int, int>(player_id, PlayersGame[0] + PlayersGame[1] + PlayersGame[2]));
                 }
@@ -562,7 +491,6 @@ namespace user_login_NEA
 
             return HighestScratchSeries;
         }
-
 
         //Used to get the HighestHandicap Series score from a player in a given week.
         public static List<Tuple<int, int>> HighestHandicapSeries(int week)
@@ -587,22 +515,15 @@ namespace user_login_NEA
                     HighestHandicapSeries.Add(new Tuple<int, int>(player_id, PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + (LeagueStats.GetHandicap(handicap_id) * 3)));
                 }
             }
-
             // Sort the TotalGames list based on the highest game value
             HighestHandicapSeries.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestHandicapSeries;
         }
-
-
         //Used to get the Scratch game scores from each team in a given week. from highest to lowest
         public static List<Tuple<int, int>> ScratchGameTeam(int week)
         {
-
             int week_id = Week.GetWeekID(week);
-
             List<Tuple<int, int>> HighestScratchScores = new List<Tuple<int, int>>();
-
             //   Cross-table parameterised SQL
             foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
             {
@@ -611,13 +532,10 @@ namespace user_login_NEA
                 {
                     //makes a list used to store 3 items.
                     List<int> teamTotal = new List<int> { 0, 0, 0 };
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
-
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
-
                         //Checks if the player has scores inputted into the system. 
                         if (PlayersGame.Count != 0)
                         {
@@ -628,21 +546,16 @@ namespace user_login_NEA
                             // Both player's game 3 is added and stored in the first item in the teamTotal list.
                             teamTotal[2] += PlayersGame[2];
                         }
-
                     }
-
                     //Checks if the team has inputted scores yet (prevents errors)
                     if (teamTotal[0] != 0)
                     {
                         //sorts the team game scores from highest to lowest.
                         teamTotal.Sort((a, b) => b.CompareTo(a));
-
                         // Stores the team_id along with the highest game value as a Tuple
                         HighestScratchScores.Add(new Tuple<int, int>(team_id1, teamTotal[0]));
                     }
-
                 }
-
                 //Each match has two teams, so the process is repeated for the second team as well
                 //And follows the same code above but teamid_1 is replaced with teamid_2
 
