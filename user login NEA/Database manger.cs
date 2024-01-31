@@ -8,41 +8,31 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.VisualBasic.Devices;
-
-
 namespace user_login_NEA
 {
     public class Database_manager
     {
-
-
         // This subroutine is used to call the connection to the database, allowing visual studio C# to communicate
         // with the SQLite database which is stored in a file on the laptop.
         public static string Connection()
         {
             string connectionString;
-
             string path = @"C:\Users\Jacob V\OneDrive\Documents\GitHub\A-Level-Computer-Science-Nea";
             string databaseName = "DATABASE.db";
             connectionString = $"Data Source={System.IO.Path.Combine(path, databaseName)};Version=3;";
-
             return connectionString;
         }
-
         //Used to update the points of a team in the Teams Table.
         //Takes new total number of points for the team and a team_id to identify
         //who the new points belong to.
         public static void UpdatePoints(int Points, int team_id)
-        {
-            //Update Sql query
+        {   //Update Sql query
             string updateQuery = "UPDATE Teams SET Points = @Points WHERE team_id = @TeamID";
-
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                 {
@@ -54,21 +44,17 @@ namespace user_login_NEA
                 }
             }
         }
-
         //Used to update the new handicaps after new games have been inputted
         //Takes in the new handicaps which have been calculated in the entity class, and the handicap_id
         //to identify who the new handicap belongs to.
         public static void UpdateHandicap(int Handicap, int handicap_id)
-        {
-            // Update SQ: query
+        {   // Update SQ: query
             string updateQuery = "UPDATE LeagueStats SET Handicap = @Handicap WHERE handicap_id = @HandicapID";
-
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                 {
@@ -80,22 +66,17 @@ namespace user_login_NEA
                 }
             }
         }
-
         //Used to update the TotalPinFall after new games have been inputted.
         //Takes new TotalPinFall which was calculated in the entity class.
-
         public static void UpdateTotalPinFall(int TotalPinFall, int handicap_id)
         {
             //Update SQL query
-
             string updateQuery = "UPDATE LeagueStats SET TotalPinFall = @TotalPinFall WHERE handicap_id = @HandicapID";
-
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                 {
@@ -107,18 +88,15 @@ namespace user_login_NEA
                 }
             }
         }
-
         //Used to update the NumberOfGames Played by a player after new games have been inputted.
         public static void UpdateNumberOfGames(int NumberOfGames, int handicap_id)
         {
             string updateQuery = "UPDATE LeagueStats SET Games = @Games WHERE handicap_id = @HandicapID";
-
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                 {
@@ -130,18 +108,15 @@ namespace user_login_NEA
                 }
             }
         }
-
         //Used to update the User name of a user from the User Table in the database.
         public static void UpdateUsername(string newUsername, int user_id)
         {
             string updateQuery = "UPDATE Users SET Username = @Username WHERE user_id = @user_id";
-
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                 {
@@ -153,18 +128,15 @@ namespace user_login_NEA
                 }
             }
         }
-
         //Used to update the account level of the user from the User Table in the database.
         public static void UpdateAdmin(int AdminLevel, int user_id)
         {
             string updateQuery = "UPDATE Users SET Admin = @Admin WHERE user_id = @user_id";
-
             // Create a new SQLite connection
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(updateQuery, connection))
                 {
@@ -182,16 +154,13 @@ namespace user_login_NEA
         //User name, password, and player_id which is a foreign key from the Players table.        Cross-table parameterized SQL
         public static void InsertUser(string Username, string PasswordHash, int Player_id)
         {
-
             // Creating the SQL query to insert a new user into the 'Users' table
             string insertQuery = $"INSERT INTO Users (Username, PasswordHash, player_id) VALUES ('{Username}', '{PasswordHash}', '{Player_id}');";
-
             // Using a connection to an SQLite database
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 // Open the database connection
                 connection.Open();
-
                 // Creating a command with the SQL query and the open connection
                 using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -201,8 +170,6 @@ namespace user_login_NEA
                     // Close the database connection
                     connection.Close();
                 }
-
-
             }
         }
         //This subroutine is used to make insert a game into
@@ -221,7 +188,6 @@ namespace user_login_NEA
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -242,7 +208,6 @@ namespace user_login_NEA
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -271,7 +236,6 @@ namespace user_login_NEA
                 }
             }
         }
-
         //This subroutine is used to make insert a new handicap into
         //the LeagueStats table in the database
         public static void InsertHandicap(int league_id, int player_id)
@@ -283,7 +247,6 @@ namespace user_login_NEA
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -293,20 +256,15 @@ namespace user_login_NEA
                 }
             }
         }
-
-
         //This subroutine is used to make insert a new player into a team 
         //in the Teams/Players table.
         public static void InsertPlayerIntoTeam(int player_id, int team_id)
         {
-
             string insertQuery = $"INSERT INTO [Teams/Players] (player_id, team_id ) VALUES ('{player_id}','{team_id}');"; // Had to use [] since / is a reserved word in SQL.
-
             using (SQLiteConnection connection = new(Connection()))
             {
                 // Open the connection
                 connection.Open();
-
                 // Create a command with the query and connection
                 using (SQLiteCommand command = new SQLiteCommand(insertQuery, connection))
                 {
@@ -315,8 +273,6 @@ namespace user_login_NEA
                     connection.Close();
                 }
             }
-
-
         }
         //Used to delete players from the database, by inputting their player_id
         //From the Players table.
@@ -327,14 +283,11 @@ namespace user_login_NEA
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
                 {
                     command.ExecuteNonQuery();
                 }
-
             }
-
         }
 
         //Used to compare the inputed user name and password with all of the user names 
@@ -346,7 +299,6 @@ namespace user_login_NEA
             {
                 //SQL Select Query
                 string query = "SELECT * FROM Users WHERE Username = @Username AND Password = @Password";
-
                 using (SQLiteCommand command = new(query, connection))
                 {
                     command.Parameters.AddWithValue("@Username", username);
@@ -369,15 +321,12 @@ namespace user_login_NEA
         //attributeNameQuery name of the heading/column the Input belongs to.
         //TableName - Table in database being queried.
         //attributeNameOutput - The heading/column the Output (string) data belongs to.          
-
         public static int singleIntFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             int attributeValue = -1; // Default value indicating attribute not found
-
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 // Used a parameterized query to prevent SQL injection
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery}";
 
@@ -394,10 +343,8 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeValue;
         }
         //This method is a general subroutine, to get a single string value from the database.
@@ -406,11 +353,9 @@ namespace user_login_NEA
         public static string singleStringFromDB(string input, string attributeNameQuery, string tableName, string attributeNameOutput)
         {
             string attributeString = null; // Default value indicating attribute not found
-
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 // Use a parameterized query to prevent SQL injection
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM {tableName} WHERE {attributeNameQuery} = @{attributeNameQuery}";
 
@@ -427,27 +372,21 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeString;
         }
-
         //This method is a general subroutine, to get a multiple integer values from the database.
         //The data type list is used as, the known items of the output can vary depending on the parameters inputted.
-
         public static List<int> multipleIntFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             List<int> attributeValues = new List<int>(); // Collection to store multiple attribute values
-
             using (SQLiteConnection connection = new(Connection()))
             {
                 connection.Open();
 
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE {attributeNameQuery} = @{attributeNameQuery}";
                 // Previous issue, it executes the literal of this string, so it was running "SELECT x FROM y/z" and slashes are special; i escaped that slash by enclosing it in quotes;
-
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
                     command.Parameters.AddWithValue($"@{attributeNameQuery}", Input);
@@ -462,10 +401,8 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeValues;
         }
         //This method is a general subroutine, to get a multiple string values from the database.
@@ -473,11 +410,9 @@ namespace user_login_NEA
         public static List<string> multipleStringFromDB(string Input, string attributeNameQuery, string TableName, string attributeNameOutput)
         {
             List<string> attributeValues = new List<string>(); // Collection to store multiple attribute strings
-
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" WHERE \"{attributeNameQuery}\" = @{attributeNameQuery}";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
@@ -494,10 +429,8 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeValues;
         }
 
@@ -506,18 +439,13 @@ namespace user_login_NEA
         public static List<string> columnStringFromDB(string TableName, string attributeNameOutput)
         {
             List<string> attributeValues = new List<string>(); // Collection to store multiple attribute strings
-
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 string sqlQuery = $"SELECT \"{attributeNameOutput}\" FROM \"{TableName}\" ";
-
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
-
-
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -528,10 +456,8 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeValues;
         }
 
@@ -543,13 +469,10 @@ namespace user_login_NEA
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM \"{TableName}\" ";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
                 {
-
-
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -560,10 +483,8 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeValues;
         }
 
@@ -576,7 +497,6 @@ namespace user_login_NEA
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 string sqlQuery = $"SELECT game1, game2, game3 FROM Games WHERE player_id = @player_id AND match_id = @match_id";
 
                 using (SQLiteCommand command = new SQLiteCommand(sqlQuery, connection))
@@ -598,13 +518,9 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
-
             // Collection to store multiple attribute strings
-
             return attributeValues;
         }
 
@@ -617,7 +533,6 @@ namespace user_login_NEA
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
-
                 // Use a parameterized query to prevent SQL injection
                 string sqlQuery = $"SELECT {attributeNameOutput} FROM {TableName}  WHERE {attributeNameQuery} = @{attributeNameQuery} AND {attributeNameQuery2} = @{attributeNameQuery2}";
 
@@ -635,10 +550,8 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return attributeValue;
         }
 
@@ -647,7 +560,6 @@ namespace user_login_NEA
         public static List<int> multipleIntFromDBMC(string Input, string Input2, string attributeNameQuery, string attributeNameQuery2, string TableName, string attributeNameOutput)
         {
             List<int> attributeValues = new List<int>();
-
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();
@@ -670,12 +582,10 @@ namespace user_login_NEA
                         }
                     }
                 }
-
                 connection.Close();
             }
 
             return attributeValues;
         }
     }
-
 }

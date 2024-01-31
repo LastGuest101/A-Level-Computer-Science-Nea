@@ -18,14 +18,14 @@ namespace user_login_NEA
         {
             InitializeComponent();
         }
-
+        // Calls this method when the back button is clicked
+        // And goes back to adminMenu by making a new instance of the form.
         private void backButton_Click(object sender, EventArgs e)
         {
             AdminMenu adminMenu = new AdminMenu();
             adminMenu.Show();
             Hide();
         }
-
         private void AddingTeams_Load(object sender, EventArgs e)
         {
             foreach (var LeagueName in League.GetLeagues()) //adds the league name of each entity in the table Leagues to the combobox
@@ -33,7 +33,7 @@ namespace user_login_NEA
                 LeagueComboBox.Items.Add(LeagueName);
             }
         }
-
+        //Is called when the player selects a new league from the list.
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             league_id = League.GetLeagueIDLeagueName(LeagueComboBox.SelectedItem.ToString());
@@ -52,11 +52,10 @@ namespace user_login_NEA
                 TeamTextBox.Focus();
             }
             else
-            {
-                Team.AddTeam($"{TeamTextBox.Text}", league_id);
-                MessageBox.Show($"Team has been added to the Database", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information); //confirmation that data was added to the database
-
+            {//confirmation that data was added to the database
                 AddingTeams addingTeams = new();
+                Team.AddTeam($"{TeamTextBox.Text}", league_id);
+                MessageBox.Show($"Team has been added to the Database", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                 addingTeams.Show();
                 Hide();
             }

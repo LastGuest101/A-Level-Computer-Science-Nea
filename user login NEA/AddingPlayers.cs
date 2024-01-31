@@ -26,43 +26,43 @@ namespace user_login_NEA
 
         private void AddPlayerButton_Click_1(object sender, EventArgs e)
         {
-
-            if (LeagueComboBox.SelectedIndex == -1) // Checks if anything has been selected from the LeagueComboBox    exception handling
+            // Checks if anything has been selected from the LeagueComboBox    exception handling
+                if (LeagueComboBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select a league!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (TeamComboBox.SelectedIndex == -1) // Checks if anything has been selected from the TeamComboBox    exception handling
+            // Checks if anything has been selected from the TeamComboBox    exception handling
+            else if (TeamComboBox.SelectedIndex == -1) 
             {
                 MessageBox.Show("Please select a team!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
-            else if (String.IsNullOrWhiteSpace(FirstNameTextBox.Text)) // Checks if textbox is empty/contains only whitespace    exception handling 
+            // Checks if textbox is empty/contains only whitespace    exception handling 
+            else if (String.IsNullOrWhiteSpace(FirstNameTextBox.Text)) 
             {
                 FirstNameTextBox.Text = "ERROR";
                 MessageBox.Show("Please enter a FirstName!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 FirstNameTextBox.Clear();
                 FirstNameTextBox.Focus();
             }
-            else if (String.IsNullOrWhiteSpace(LastNameTextBox.Text)) // Checks if textbox is empty/contains only whitespace     exception handling
+            // Checks if textbox is empty/contains only whitespace     exception handling
+            else if (String.IsNullOrWhiteSpace(LastNameTextBox.Text)) 
             {
                 LastNameTextBox.Text = "ERROR";
                 MessageBox.Show("Please enter a LastName!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LastNameTextBox.Clear();
                 LastNameTextBox.Focus();
             }
-
-
-            else if (Player.ValidateName(FirstNameTextBox.Text) != "Valid") // Checks if Name inputted is valid using Player.ValidateName     exception handling
+            // Checks if Name inputted is valid using Player.ValidateName     exception handling
+            else if (Player.ValidateName(FirstNameTextBox.Text) != "Valid") 
             {
                 FirstNameTextBox.Text = "ERROR";
                 MessageBox.Show($"{Player.ValidateName(FirstNameTextBox.Text)} - FirstName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 FirstNameTextBox.Clear();
                 FirstNameTextBox.Focus();
             }
-            else if (Player.ValidateName(LastNameTextBox.Text) != "Valid") // Checks if Name inputted is valid using Player.ValidateName     exception handling
-            {
+            // Checks if Name inputted is valid using Player.ValidateName     exception handling
+            else if (Player.ValidateName(LastNameTextBox.Text) != "Valid")
+            { 
                 LastNameTextBox.Text = "ERROR";
                 MessageBox.Show($"{Player.ValidateName(LastNameTextBox.Text)} - LastName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LastNameTextBox.Clear();
@@ -106,7 +106,7 @@ namespace user_login_NEA
             adminMenuForm.Show();
             Hide();
         }
-
+        //Calls the method when the user selects a new item from the team's list
         private void TeamComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             team_id = Team.GetTeamID_TeamName(TeamComboBox.SelectedItem.ToString()); //Gets the teamID from the user selected TeamName from the TeamComboBox
@@ -123,21 +123,16 @@ namespace user_login_NEA
         private void LeagueComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             league_id = League.GetLeagueIDLeagueName(LeagueComboBox.SelectedItem.ToString()); // leagueID = selected league from user
-
-
             TeamComboBox.Items.Clear(); //TeamsComboBox is cleared
 
             List<int> legaueTeams = new List<int>(); //Used to store all the team_ids related to the league selected.
 
             if (LeagueComboBox.SelectedIndex.ToString() != null) // Checks if League ComboBox is not empty
-            {
-
-
+            { 
                 legaueTeams = Team.GetTeamID_leagueID(LeagueComboBox.SelectedIndex + 1);  // + 1 cause list starts at 0, and team_id starts at 1
 
                 foreach (var team in legaueTeams) //adds the team name of each entity in the table Leagues to the combobox, dependent on what league is selected first.
                 {
-
                     TeamComboBox.Items.Add(Team.GetTeamName(team));
                 }
             }
