@@ -126,7 +126,7 @@ namespace user_login_NEA
             else
             {
                 Player.AddExistingPlayer(selectedPlayer_id, selectedTeam_id, selectedLeague_id);
-                MessageBox.Show($"{PlayerComboBox.SelectedItem.ToString()} has been added to team: {TeamComboBox.SelectedItem.ToString()} ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show($"{PlayerComboBox.SelectedItem.ToString()} has been added to team: {TeamComboBox.SelectedItem.ToString()} ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //confirmation that data was added to the database
                 AddingPlayers addingPlayers = new();
                 addingPlayers.Show();
