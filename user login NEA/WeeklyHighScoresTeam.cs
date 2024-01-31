@@ -16,7 +16,6 @@ namespace user_login_NEA
         {
             InitializeComponent();
         }
-
         private void WeeklyHighScoresTeam_Load(object sender, EventArgs e)
         {
             //Gets all the weeks from the database.
@@ -24,10 +23,9 @@ namespace user_login_NEA
             {
                 int week_id = Week.GetWeekID(week);
                 int NumOfGamesTeam = 0;
-
                 //Only displays the weeks if there are enough games to display
                 //the top 3 scores in each category, preventing errors.
-                foreach (var match_id in Matches.GetMatches(week_id,3))
+                foreach (var match_id in Matches.GetMatches(week_id, 3))
                 {
                     if (Matches.CheckForGame(match_id) == true)
                     {
@@ -38,18 +36,14 @@ namespace user_login_NEA
                 {
                     WeeksComboBox.Items.Add($"{week}");
                 }
-
-
             }
         }
-
         private void backButton_Click(object sender, EventArgs e)
         {
             UserMenu UserMenuForm = new UserMenu();
             UserMenuForm.Show();
             Hide();
         }
-
         private void WeekComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<Tuple<int, int>> HighestScratchGame = Game.ScratchGameTeam(Convert.ToInt32(WeeksComboBox.SelectedItem));
@@ -92,8 +86,6 @@ namespace user_login_NEA
             ThirdHandicapGame.Text = Convert.ToString(HighestHandicapGame[2].Item2);
             HighestScratchGame.RemoveAll(t => t.Item1 == HighestHandicapGame[2].Item1);
 
-
-
             FirstTeamSSeries.Text = Team.GetTeamName(HighestScratchSeries[0].Item1);
             FirstScratchSeries.Text = Convert.ToString(HighestScratchSeries[0].Item2);
             HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[0].Item1);
@@ -117,7 +109,6 @@ namespace user_login_NEA
             ThirdTeamHSeries.Text = Team.GetTeamName(HighestHandicapSeries[2].Item1);
             ThirdHandicapSeries.Text = Convert.ToString(HighestHandicapSeries[2].Item2);
             HighestScratchSeries.RemoveAll(t => t.Item1 == HighestHandicapSeries[2].Item1);
-
             //Makes the standings visible when a week is selected.
             ScratchScoreLabel.Visible = true;
             HandicapScoreLabel.Visible = true;
@@ -155,12 +146,6 @@ namespace user_login_NEA
             FirstHandicapSeries.Visible = true;
             SecondHandicapSeries.Visible = true;
             ThirdHandicapSeries.Visible = true;
-
-
-
-
         }
-
-
     }
 }

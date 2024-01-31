@@ -18,7 +18,6 @@ namespace user_login_NEA
     public partial class SelectingPlayers : Form
     {
         //used to carry data from one from to another form.
-
         public static string player1;
         public static string player2;
         public static string player3;
@@ -28,15 +27,10 @@ namespace user_login_NEA
         //Used to hold data inside the form.
         int weekid;
         int leagueid;
-
-
         List<int> match_ids = new List<int>();
-
-
         public SelectingPlayers()
         {
             InitializeComponent();
-
             foreach (var week in Week.TotalWeeks())
             //Adds all the weeks in the week's combobox
             {
@@ -47,7 +41,6 @@ namespace user_login_NEA
                     LeagueComboBox.Items.Add(LeagueName);
                 }
             }
-
         }
 
         private void LeagueComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,9 +50,7 @@ namespace user_login_NEA
             SelectPlayersTeam1.Items.Clear();
             SelectPlayersTeam2.Items.Clear();
             CompletedComboBox.Items.Clear();
-
             // Clears the comboboxes and the list when a different week is selected.
-
             if (WeeksCombobox.SelectedItem != null && LeagueComboBox.SelectedItem != null)   //Checks if the Week Combobox is empty or not
             {
                 weekid = Week.GetWeekID(WeeksCombobox.SelectedIndex + 1);  // + 1 cause list starts at 0, and team_id starts at 1
@@ -77,7 +68,6 @@ namespace user_login_NEA
 
                         MatchComboBox.Items.Add(Team.GetTeamName(team_id1) + " VS " + Team.GetTeamName(team_id2));
                     }
-
                     else if (Matches.CheckForGame(match_id) == true) // If the Match already has Games recorded for it, it will stored the match into completed combobox, so it will not allow more games to be added to the same match.
                     {
                         int team_id1 = Matches.GetTeamID1(match_id); // Get's team_1 id from match_id
@@ -85,43 +75,28 @@ namespace user_login_NEA
 
                         CompletedComboBox.Items.Add(Team.GetTeamName(team_id1) + " VS " + Team.GetTeamName(team_id2));
                     }
-
                 }
-
             }
         }
-
         private void BackButton_Click_1(object sender, EventArgs e)
         {
             AdminMenu adminMenuForm = new();
             adminMenuForm.Show();
             Hide();
         }
-
         private void SelectPlayers_Click(object sender, EventArgs e)
         {
-
             if ((SelectPlayersTeam1.SelectedItems.Count == 2) && (SelectPlayersTeam2.SelectedItems.Count == 2))
             {
-
-
-
                 player1 = Convert.ToString(SelectPlayersTeam1.SelectedItems[0]);
                 player2 = Convert.ToString(SelectPlayersTeam1.SelectedItems[1]);
                 player3 = Convert.ToString(SelectPlayersTeam2.SelectedItems[0]);
                 player4 = Convert.ToString(SelectPlayersTeam2.SelectedItems[1]);
                 match_id = match_ids[MatchComboBox.SelectedIndex];
 
-
-
-
-
-
                 InputtingScores inputtingScores = new();
                 inputtingScores.Show();
                 Hide();
-
-
             }
             else
             {
@@ -131,18 +106,12 @@ namespace user_login_NEA
 
         private void WeeksCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             MatchComboBox.Items.Clear();
             match_ids.Clear();
             SelectPlayersTeam1.Items.Clear();
             SelectPlayersTeam2.Items.Clear();
             CompletedComboBox.Items.Clear();
-
             // Clears the comboboxes and the list when a different week is selected.
-
-
-
-
             if (WeeksCombobox.SelectedItem != null && LeagueComboBox.SelectedItem != null)  //Checks if the Week Combobox is empty or not
             {
                 weekid = Week.GetWeekID(WeeksCombobox.SelectedIndex + 1);  // + 1 cause list starts at 0, and team_id starts at 1
@@ -150,17 +119,13 @@ namespace user_login_NEA
 
                 foreach (var match_id in Matches.GetMatches(weekid, leagueid)) //Gets all the match_ids in the week
                 {
-
                     if (Matches.CheckForGame(match_id) == false) //Checks if the Matches has any Games recorded or not. If not then it will add the match to the MatchCombobox
                     {
                         match_ids.Add(match_id);
-
                         int team_id1 = Matches.GetTeamID1(match_id); // Get's team_1 id from match_id
                         int team_id2 = Matches.GetTeamID2(match_id); // Get's team_2 id from match_id
-
                         MatchComboBox.Items.Add(Team.GetTeamName(team_id1) + " VS " + Team.GetTeamName(team_id2));
                     }
-
                     else if (Matches.CheckForGame(match_id) == true) // If the Match already has Games recorded for it, it will stored the match into completed combobox, so it will not allow more games to be added to the same match.
                     {
                         int team_id1 = Matches.GetTeamID1(match_id); // Get's team_1 id from match_id
@@ -168,17 +133,14 @@ namespace user_login_NEA
 
                         CompletedComboBox.Items.Add(Team.GetTeamName(team_id1) + " VS " + Team.GetTeamName(team_id2));
                     }
-
                 }
-
             }
         }
-
         private void MatchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             SelectPlayersTeam1.Items.Clear();
             SelectPlayersTeam2.Items.Clear();
+            //Clears the selected players boxes
 
             int selectedMatch_id = match_ids[MatchComboBox.SelectedIndex];
             int selectedTeam_id1 = Matches.GetTeamID1(selectedMatch_id);

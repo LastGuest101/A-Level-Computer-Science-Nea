@@ -16,24 +16,18 @@ namespace user_login_NEA
         {
             InitializeComponent();
         }
-
         private void backButton_Click(object sender, EventArgs e)
         {
             MainMenu mainMenuForm = new();
             mainMenuForm.Show();
             Hide();
-
             int user_id = User.GetUserID(LoginForm.LoggedInUsername);
-
-
         }
 
         private void ProfileSettings_Load(object sender, EventArgs e)
         {
             int user_id = User.GetUserID(LoginForm.LoggedInUsername);
-
             UserID2.Text = Convert.ToString(user_id);
-
             //used to get the Username of all the users in the database.
             foreach (string Username in User.GetAllUsers())
             {
@@ -50,7 +44,6 @@ namespace user_login_NEA
                 {
                     AdminComboBox.Items.Add($"{Username}");
                 }
-
             }
             //Only displays if the user is an admin
             if (User.GetAdminLevel(user_id) == 1)
@@ -67,9 +60,7 @@ namespace user_login_NEA
             }
 
             UsernameTextBox.Text = User.GetUsername(user_id);
-
         }
-
         private void UsernameTextBox_TextChanged(object sender, EventArgs e)
         {
             //Checks if the inputted username is = to the login username.
@@ -82,7 +73,6 @@ namespace user_login_NEA
                 UsernameButton.Visible = false;
             }
         }
-
         private void UsernameButton_Click(object sender, EventArgs e)
         {
             int user_id = User.GetUserID(LoginForm.LoggedInUsername);
@@ -92,7 +82,7 @@ namespace user_login_NEA
             {
                 //checked if the new username the user has inputted is valid
                 if (User.UsernameValidator(UsernameTextBox.Text) == "valid")
-                {  
+                {
                     //Confirmation message.
                     DialogResult confirmation = MessageBox.Show($"Do you want to change your Username to {UsernameTextBox.Text}?", "Change Username", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (confirmation == DialogResult.Yes)
@@ -100,27 +90,19 @@ namespace user_login_NEA
                         //Changes the username of the login user.
                         User.SetUsername(UsernameTextBox.Text, user_id);
                         LoginForm.LoggedInUsername = UsernameTextBox.Text;
-
                         //Refreshes the form 
                         ProfileSettings profileSettingsForm = new ProfileSettings();
                         profileSettingsForm.Show(this);
                         Hide();
-
-
                     }
-                    
-
                 }
                 else
                 {
                     //Exception handling.
                     MessageBox.Show($"Error : {User.UsernameValidator(UsernameTextBox.Text)}!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
             }
-
         }
-
         private void UserCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //shows the add admin button if the user has selected a user from the usercombobox.
@@ -129,7 +111,6 @@ namespace user_login_NEA
                 AddAdminButton.Visible = true;
             }
         }
-
         private void AddAdminButton_Click(object sender, EventArgs e)
         { 
             //confirmation button.
@@ -139,19 +120,14 @@ namespace user_login_NEA
                 int selectedUser_id = User.GetUserID(UserCombobox.SelectedItem.ToString());
                 //changes the admin level of the selected user.
                 User.SetAdminLevel(1, selectedUser_id);
-
                 //confirmation message
                 MessageBox.Show($"Admin Added: {UserCombobox.SelectedItem}  ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 //refreshes the form
                 ProfileSettings profileSettingsForm = new ProfileSettings();
                 profileSettingsForm.Show(this);
                 Hide();
-
-
             }
         }
-
         private void AdminComboBox_SelectedIndexChanged(object sender, EventArgs e)
         { // shows remove admin button if a admin is selected and is not null.
             if (AdminComboBox.SelectedIndex.ToString() != null)
@@ -159,21 +135,22 @@ namespace user_login_NEA
                 RemoveAdminButton.Visible = true;
             }
         }
-
+        //Calls this method when the remove admin button is clicked.
         private void RemoveAdminButton_Click(object sender, EventArgs e)
-        {
+        {//Confirmation message
             DialogResult confirmation = MessageBox.Show($"Do you want to remove Admin level permission : {AdminComboBox.SelectedItem} ?", "Remove Admin", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmation == DialogResult.Yes)
             {
+                //Gets the userid from the user's selected username
                 int selectedUser_id = User.GetUserID(AdminComboBox.SelectedItem.ToString());
+                //Changes the adminlevel of userid
                 User.SetAdminLevel(0, selectedUser_id);
-
+                //Confirmation message
                 MessageBox.Show($"Admin Removed: {AdminComboBox.SelectedItem}  ", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                //Reloads the form
                 ProfileSettings profileSettingsForm = new ProfileSettings();
                 profileSettingsForm.Show(this);
                 Hide();
-
             }
         }
     }

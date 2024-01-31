@@ -17,29 +17,21 @@ namespace user_login_NEA
 
         // Static variable to store the logged-in username
         public static string? LoggedInUsername;
-
         // Form constructor
         public LoginForm()
         {
             InitializeComponent();
-
-           
-
-
             // Attach the Click event handler for the login button
             loginButton.Click += LoginButton_Click;
-
             // Attach the KeyDown event handler to the password TextBox
             passwordTextBox.KeyDown += PasswordTextBox_KeyDown;
         }
-
         // Method to authenticate the user
         private void AuthenticateUser()
         {
             // Retrieve username and password from the respective TextBoxes
             string username = usernameTextBox.Text;
             string password = passwordTextBox.Text;
-
             try
             {
                 // Attempt to authenticate the user using the database manager
@@ -47,7 +39,6 @@ namespace user_login_NEA
                 {
                     MessageBox.Show("Login Successful!");
                     LoggedInUsername = username;
-
                     // Redirect to the next form or perform actions upon successful login
                     MainMenu MenuForm = new();
                     MenuForm.Show();
@@ -66,14 +57,12 @@ namespace user_login_NEA
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
         // Event handler for the login button Click event
         private void LoginButton_Click(object sender, EventArgs e)
         {
             // Call the method responsible for authenticating the user
             AuthenticateUser();
         }
-
         // Event handler for the password TextBox KeyDown event
         private void PasswordTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -84,14 +73,12 @@ namespace user_login_NEA
                 AuthenticateUser();
             }
         }
-
         private void ClearButton_Click(object sender, EventArgs e)
         {
             usernameTextBox.Clear();
             passwordTextBox.Clear();
             passwordTextBox.Focus();
         }
-
         private void ExitButton_Click(object sender, EventArgs e)
         {
             // Display a confirmation dialog for exiting the application
@@ -111,9 +98,7 @@ namespace user_login_NEA
         private void CheckBoxShowPass_CheckedChanged(object sender, EventArgs e) //Used to show/hide the characters in the password box
         {
             passwordTextBox.UseSystemPasswordChar = !CheckBoxShowPass.Checked;
-
         }
-
         private void Sign_Up_Button_Click(object sender, EventArgs e)
         {
             SignUp signUp = new();
@@ -121,5 +106,4 @@ namespace user_login_NEA
             Hide();
         }
     }
-
 }

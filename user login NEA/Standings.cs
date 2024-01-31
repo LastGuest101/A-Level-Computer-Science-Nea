@@ -18,14 +18,12 @@ namespace user_login_NEA
             InitializeComponent();
 
         }
-
         private void BackButton_Click(object sender, EventArgs e)
         {
             UserMenu UserMenuForm = new UserMenu();
             UserMenuForm.Show();
             Hide();
         }
-
         private void Standings_Load(object sender, EventArgs e)
         {
             // 1 represents the league_id
@@ -79,8 +77,6 @@ namespace user_login_NEA
 
             Team14.Text = Teamname_Points[13].Item1;
             Points14.Text = Convert.ToString(Teamname_Points[13].Item2);
-
-
         }
     }
 }

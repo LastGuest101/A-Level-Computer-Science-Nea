@@ -19,7 +19,6 @@ namespace user_login_NEA
             InitializeComponent();
 
         }
-
         private void WeeklyHighScores_Load(object sender, EventArgs e)
         {
             //Gets all the weeks from the database.
@@ -28,7 +27,7 @@ namespace user_login_NEA
                 int week_id = Week.GetWeekID(week);
                 int NumOfGames = 0;
 
-                foreach (var match_id in Matches.GetMatches(week_id,3))
+                foreach (var match_id in Matches.GetMatches(week_id, 3))
                 {
                     if (Matches.CheckForGame(match_id) == true)
                     {
@@ -41,18 +40,14 @@ namespace user_login_NEA
                 {
                     WeeksComboBox.Items.Add($"{week}");
                 }
-
-
             }
         }
-
         private void BackButton_Click(object sender, EventArgs e)
         {
             UserMenu UserMenuForm = new();
             UserMenuForm.Show();
             Hide();
         }
-
         private void WeeksComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Gets the highscratchscores of the week in a list in order.
@@ -64,7 +59,6 @@ namespace user_login_NEA
             //Gets the highhandicapseries of the week in a list in order.
             List<Tuple<int, int>> HighestHandicapSeries = Game.HighestHandicapSeries(Convert.ToInt32(WeeksComboBox.SelectedItem));
 
-
             //Displays the list to the user: 
             /*A player may only show up once in scratch leaderboard and handicap leaderboard. (seperate for game and series)
 
@@ -75,7 +69,6 @@ namespace user_login_NEA
 
             Scratch series 1st  --> Handicap series 1st --> Scratch series 2nd --> Handicap series 2nd --> Scratch series 3rd --> Handicap series 3rd
             */
-
             FirstPlayerSS.Text = Player.GetFirstName(HighestScratchScores[0].Item1) + " " + Player.GetLastName(HighestScratchScores[0].Item1);
             FirstScratchScore.Text = Convert.ToString(HighestScratchScores[0].Item2);
             HighestHandicapScores.RemoveAll(t => t.Item1 == HighestScratchScores[0].Item1);
@@ -100,8 +93,6 @@ namespace user_login_NEA
             ThirdHandicapScore.Text = Convert.ToString(HighestHandicapScores[2].Item2);
             HighestScratchScores.RemoveAll(t => t.Item1 == HighestHandicapScores[2].Item1);
 
-
-
             FirstPlayerSSeries.Text = Player.GetFirstName(HighestScratchSeries[0].Item1) + " " + Player.GetLastName(HighestScratchSeries[0].Item1);
             FirstScratchSeries.Text = Convert.ToString(HighestScratchSeries[0].Item2);
             HighestHandicapSeries.RemoveAll(t => t.Item1 == HighestScratchSeries[0].Item1);
@@ -125,16 +116,11 @@ namespace user_login_NEA
             ThirdPlayerHSeries.Text = Player.GetFirstName(HighestHandicapSeries[2].Item1) + " " + Player.GetLastName(HighestHandicapSeries[2].Item1);
             ThirdHandicapSeries.Text = Convert.ToString(HighestHandicapSeries[2].Item2);
             HighestScratchSeries.RemoveAll(t => t.Item1 == HighestHandicapSeries[2].Item1);
-
-
             //Makes the standings visible when a week is selected.
-
             HandicapSeriesLabel.Visible = true;
             ScratchSeriesLabel.Visible = true;
             HighestScratchGames.Visible = true;
             HighestHandicapGames.Visible = true;
-
-
             FirstPlayerSS.Visible = true;
             SecondPlayerSS.Visible = true;
             ThirdPlayerSS.Visible = true;
@@ -166,12 +152,6 @@ namespace user_login_NEA
             FirstHandicapSeries.Visible = true;
             SecondHandicapSeries.Visible = true;
             ThirdHandicapSeries.Visible = true;
-
-
-
         }
-
-
     }
-
 }

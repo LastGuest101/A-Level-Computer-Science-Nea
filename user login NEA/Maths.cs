@@ -16,12 +16,11 @@ namespace user_login_NEA
         {
             return game1 + game2 + game3;
         }
-
         //used to calculate a player's new handicap
         public static int Handicap(int average)
         {
             int Basis_Score = 220;
-            float Percentage_Factor = 0.8f;  
+            float Percentage_Factor = 0.8f;
             //handicap is in decimial which isn't allowed.
             float newHandicap_D = (Basis_Score - average) * Percentage_Factor;
             int newHandicap_Whole = (int)newHandicap_D;
@@ -33,9 +32,7 @@ namespace user_login_NEA
             {
                 return newHandicap_Whole;
             }
-
         }
-        
         //used to calculate average from totalpinfall and number of games.
         public static int Average(int totalPinFall, int NumberOfGames)
         {
@@ -43,8 +40,6 @@ namespace user_login_NEA
             return Average;
 
         }
-
     }
-
 }
 

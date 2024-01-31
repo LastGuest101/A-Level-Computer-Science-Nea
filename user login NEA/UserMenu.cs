@@ -16,28 +16,24 @@ namespace user_login_NEA
         {
             InitializeComponent();
         }
-
         private void backButton_Click(object sender, EventArgs e)
         {
             MainMenu MainMenuForm = new();
             MainMenuForm.Show();
             Hide();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             WeeklyHighScores WeeklyScoresForm = new WeeklyHighScores();
             WeeklyScoresForm.Show();
             Hide();
         }
-
         private void WeeklyScoresTeamButton_Click(object sender, EventArgs e)
         {
             WeeklyHighScoresTeam WeeklyScoresTeamForm = new WeeklyHighScoresTeam();
             WeeklyScoresTeamForm.Show();
             Hide();
         }
-
         private void StandingsButton_Click(object sender, EventArgs e)
         {
             Standings standingsForm = new Standings();

@@ -12,6 +12,7 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.CompilerServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 using BCrypt.Net;
+using System.Collections;
 
 namespace user_login_NEA
 {
@@ -100,7 +101,7 @@ namespace user_login_NEA
             }
             else
             { //Checks the hashed password from the database from the password
-                if (Encryption.HashChecking(password,user_id) == true)
+                if (Encryption.HashChecking(password, user_id) == true)
                 {
                     return true;
                 }
@@ -278,9 +279,9 @@ namespace user_login_NEA
             //Gets the league id from the match_id   //Cross-table parameterised SQL
             int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
             // Used to set the handicap for players who didn't have a handicap before the game played.
+
             // Whilst Players who already have a handicap dont get their handicap updated until after the match is over.
             // When Teams are given their points.
-
             if (LeagueStats.GetHandicap(LeagueStats.GetHandicapID(league_id, player_id1)) == 0)
             {
                 LeagueStats.SetHandicap(match_id, player_id1);
@@ -302,7 +303,7 @@ namespace user_login_NEA
             // Gets total handicap from player_id3 and player_id4     Cross-table parameterised SQL
             int TotalHandicapTeam2 = Database_manager.singleIntFromDB($"{player_id3}", "player_id", "LeagueStats", "Handicap") + Database_manager.singleIntFromDB($"{player_id4}", "player_id", "LeagueStats", "Handicap");
 
-            //Gets the Game_id fro each player     Cross-table parameterised SQL
+            //Gets the Game_id for each player     Cross-table parameterised SQL
             int player1_gameID = Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id1}", "match_id", "player_id", "Games", "game_id");
             int player2_gameID = Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id2}", "match_id", "player_id", "Games", "game_id");
             int player3_gameID = Database_manager.singleIntFromDBMC($"{match_id}", $"{player_id3}", "match_id", "player_id", "Games", "game_id");
@@ -432,7 +433,7 @@ namespace user_login_NEA
                 {
                     //Used to get the all of a player's games and stores it in a list.
                     List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
-                    //sorts out the list from the player's highest score to lowest.
+                    //sorts out the list from the player's highest score to lowest. //List operations
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
                     // Store player_id along with the highest game value as a Tuple
                     HighestScratchScores.Add(new Tuple<int, int>(player_id, PlayersGame[0]));
@@ -459,7 +460,7 @@ namespace user_login_NEA
                     List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
 
                     PlayersGame.Sort((a, b) => b.CompareTo(a));
-                    // Store player_id along with the highest game value as a Tuple
+                    // Store player_id along with the highest game value as a Tuple    //List operations
                     HighestHandicapScore.Add(new Tuple<int, int>(player_id, PlayersGame[0] + LeagueStats.GetHandicap(handicap_id)));
                 }
             }
@@ -563,47 +564,37 @@ namespace user_login_NEA
                 foreach (int team_id2 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"))
                 {
                     List<int> teamTotal = new List<int> { 0, 0, 0 };
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id2}", "team_id", "Teams/Players", "player_id"))
                     {
-
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
-                            teamTotal[0] += PlayersGame[0];
-                            teamTotal[1] += PlayersGame[1];
-                            teamTotal[2] += PlayersGame[2];
+                            teamTotal[0] += PlayersGame[0]; //game1
+                            teamTotal[1] += PlayersGame[1]; //game2
+                            teamTotal[2] += PlayersGame[2]; //game3
                         }
-
                     }
-
-                    if (teamTotal[0] != 0)
+                    if (teamTotal[0] != 0) //Checks if the team's list is empty
                     {
                         teamTotal.Sort((a, b) => b.CompareTo(a));
-
+                        //Sorts the list from highest to lowest depending on the score (item 2)
                         // Store team_id along with the highest game value as a Tuple
                         HighestScratchScores.Add(new Tuple<int, int>(team_id2, teamTotal[0]));
                     }
-
                 }
             }
-
             //Sorts out the teams from the highest scoring team game to the lowest scoring team game.
             HighestScratchScores.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestScratchScores;
         }
-
 
         //Used to get the Handicap game score from each team in a given week. from highest to lowest
         //Basically the same as the subroutine above but adds the team's handicap onto the 
         //team's highest scratch scores for each game
         public static List<Tuple<int, int>> HandicapGameTeam(int week)
         {
-
             int week_id = Week.GetWeekID(week);
-
             List<Tuple<int, int>> HighestHandicapScores = new List<Tuple<int, int>>();
 
             //   Cross-table parameterised SQL
@@ -616,12 +607,10 @@ namespace user_login_NEA
                 foreach (int team_id1 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"))
                 {
                     List<int> teamTotal = new List<int> { 0, 0, 0 };
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
-
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
@@ -639,53 +628,45 @@ namespace user_login_NEA
                     if (teamTotal[0] != 0)
                     {
                         teamTotal.Sort((a, b) => b.CompareTo(a));
-
                         // Store player_id along with the highest game value as a Tuple
                         HighestHandicapScores.Add(new Tuple<int, int>(team_id1, teamTotal[0]));
                     }
-
                 }
                 //   Cross-table parameterised SQL
                 foreach (int team_id2 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"))
                 {
                     List<int> teamTotal = new List<int> { 0, 0, 0 };
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id2}", "team_id", "Teams/Players", "player_id"))
                     {
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
-
+                        //   Cross-table parameterised SQL
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal[0] += PlayersGame[0] + LeagueStats.GetHandicap(handicap_id);
+                            //Adds the current selected players game1 + their handicap.
                             teamTotal[1] += PlayersGame[1] + LeagueStats.GetHandicap(handicap_id);
+                            //Adds the current selected players game2 + their handicap.
                             teamTotal[2] += PlayersGame[2] + LeagueStats.GetHandicap(handicap_id);
+                            //Adds the current selected players game3 + their handicap.
                         }
-
                     }
-
                     if (teamTotal[0] != 0)
                     {
                         teamTotal.Sort((a, b) => b.CompareTo(a));
-
                         // Store player_id along with the highest game value as a Tuple
                         HighestHandicapScores.Add(new Tuple<int, int>(team_id2, teamTotal[0]));
                     }
-
                 }
             }
-
             //Sorts out the teams from the highest scoring team game to the lowest scoring team game.
             HighestHandicapScores.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestHandicapScores;
         }
-
         //Used to get the Scratch series score from each team in a given week. from highest to lowest
         public static List<Tuple<int, int>> ScratchSeriesTeam(int week)
         {
-
             int week_id = Week.GetWeekID(week);
 
             List<Tuple<int, int>> HighestScratchSeries = new List<Tuple<int, int>>();
@@ -697,108 +678,81 @@ namespace user_login_NEA
                 foreach (int team_id1 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"))
                 {
                     int teamTotal = 0;
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
-
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2];
-
                         }
-
                     }
-
                     if (teamTotal != 0)
                     {
-
-
                         // Store player_id along with the highest game value as a Tuple
                         HighestScratchSeries.Add(new Tuple<int, int>(team_id1, teamTotal));
                     }
-
                 }
                 //   Cross-table parameterised SQL
+                // Gets all the team_id2 from the selected matches
                 foreach (int team_id2 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"))
                 {
                     int teamTotal = 0;
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id2}", "team_id", "Teams/Players", "player_id"))
                     {
-
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             //Adds all of the currently selected players games and adds it to the team total.
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2];
                         }
-
                     }
-
                     if (teamTotal != 0)
                     {
-
-
                         // Store player_id along with the highest game value as a Tuple
                         HighestScratchSeries.Add(new Tuple<int, int>(team_id2, teamTotal));
                     }
-
                 }
             }
 
             //Sorts out the teams from the highest scoring team series to the lowest scoring team series.
             HighestScratchSeries.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestScratchSeries;
         }
-
         //Used to get the Handicap series score from each team in a given week. from highest to lowest
         public static List<Tuple<int, int>> HandicapSeriesTeam(int week)
         {
-
             int week_id = Week.GetWeekID(week);
-
             List<Tuple<int, int>> HighestHandicapSeries = new List<Tuple<int, int>>();
 
             //   Cross-table parameterised SQL
             foreach (int match_id in Database_manager.multipleIntFromDB($"{week_id}", "week_id", "Matches", "match_id"))
             {
                 int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-
                 //   Cross-table parameterised SQL
                 foreach (int team_id1 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1"))
                 {
                     int teamTotal = 0;
-
-
                     //   Cross-table parameterised SQL
                     foreach (int player_id in Database_manager.multipleIntFromDB($"{team_id1}", "team_id", "Teams/Players", "player_id"))
                     {
                         //   Cross-table parameterised SQL
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
-
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
                         if (PlayersGame.Count != 0)
                         {
                             //Adds all of the currently selected players games + their handicap X 3
                             //(since there are 3 games in a series) and adds it to the team total.
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + LeagueStats.GetHandicap(handicap_id) * 3;
-
                         }
-
                     }
 
                     if (teamTotal != 0)
                     {
-
-
                         // Store player_id along with the highest game value as a Tuple
                         HighestHandicapSeries.Add(new Tuple<int, int>(team_id1, teamTotal));
                     }
-
                 }
                 //   Cross-table parameterised SQL
                 foreach (int team_id2 in Database_manager.multipleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2"))
@@ -812,53 +766,44 @@ namespace user_login_NEA
                         int handicap_id = LeagueStats.GetHandicapID(league_id, player_id);
 
                         List<int> PlayersGame = Database_manager.AllGames(player_id, match_id);
+                        //Checks if the PlayersGame list is empty
                         if (PlayersGame.Count != 0)
                         {
+                            //Adds the current player selected all three games + their total handicap series
+                            //to team total.
                             teamTotal = teamTotal + PlayersGame[0] + PlayersGame[1] + PlayersGame[2] + LeagueStats.GetHandicap(handicap_id) * 3;
                         }
-
                     }
 
                     if (teamTotal != 0)
                     {
-
-
                         // Store player_id along with the highest game value as a Tuple
                         HighestHandicapSeries.Add(new Tuple<int, int>(team_id2, teamTotal));
                     }
 
                 }
             }
-
             //Sorts out the teams from the highest scoring team series to the lowest scoring team series.
             HighestHandicapSeries.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return HighestHandicapSeries;
         }
-
         //This subroutine is used to store all the teams, and their points in order
         //from highest to lowest.
         public static List<Tuple<string, int>> Leaderboard(int league_id)
         {
             List<Tuple<string, int>> TeamName_Points = new List<Tuple<string, int>>();
-
             // Gets the teams in associated in a league.
             //Cross-table paramatised sql.
             foreach (int team_id in Database_manager.multipleIntFromDB($"{league_id}", "league_id", "Teams", "team_id"))
             {
                 string TeamName = Team.GetTeamName(team_id);
                 int Points = Team.GetPoints(team_id);
-
                 TeamName_Points.Add(new Tuple<string, int>(TeamName, Points));
             }
-
             //sorts the list out depending on the points of the team from highest to lowest.
             TeamName_Points.Sort((a, b) => b.Item2.CompareTo(a.Item2));
-
             return TeamName_Points;
-
         }
-
         //Gets the total score from a game_id's game1, game2 and game 
         public static int Series(int game_id)
         {
@@ -870,67 +815,60 @@ namespace user_login_NEA
     {
         public static void SetTotalPinFall(int match_id, int player_id)
         {
+            //Cross-table paramatised sql.
             int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-
+            //Cross-table paramatised sql.
             int game_id = Game.GetGameID(match_id, player_id);
+            //Cross-table paramatised sql.
             int handicap_id = GetHandicapID(league_id, player_id);
-
             int newTotalPinFall = GetTotalPinFall(handicap_id) + Game.Series(game_id);
-
+            //Updates the new TotalPinfall of the player to the database.
             Database_manager.UpdateTotalPinFall(newTotalPinFall, handicap_id);
         }
-
+        //Updates the players total number of games played to the database.
         public static void SetNumberOfGames(int match_id, int player_id)
         {
             int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-            int game_id = Game.GetGameID(match_id, player_id);
+            //Cross-table paramatised sql.
             int handicap_id = GetHandicapID(league_id, player_id);
-
+            //Cross-table paramatised sql.
             int newNumberOfGames = GetNumberOfGames(handicap_id) + 3;
-
             Database_manager.UpdateNumberOfGames(newNumberOfGames, handicap_id);
         }
-
+        //Calculates and updates the player's handicap after a game.
         public static void SetHandicap(int match_id, int player_id)
         {
             int league_id = Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
-            int game_id = Game.GetGameID(match_id, player_id);
+            //Cross-table paramatised sql.
             int handicap_id = GetHandicapID(league_id, player_id);
-
+            //Cross-table paramatised sql.
+            //Calculates the new handicap of the selected player
             int newHandicap = maths.Handicap(GetTotalPinFall(handicap_id) / GetNumberOfGames(handicap_id));
-
+            //Adds the new handicap to the database.
             Database_manager.UpdateHandicap(newHandicap, handicap_id);
-
         }
-
         public static int GetHandicap(int handicap_id)
         {
             return Database_manager.singleIntFromDB($"{handicap_id}", "handicap_id", "LeagueStats", "Handicap");
         }
-
         public static int GetTotalPinFall(int handicap_id)
         {
             return Database_manager.singleIntFromDB($"{handicap_id}", "handicap_id", "LeagueStats", "TotalPinFall");
         }
-
         public static int GetNumberOfGames(int handicap_id)
         {
             return Database_manager.singleIntFromDB($"{handicap_id}", "handicap_id", "LeagueStats", "Games");
         }
-
         // Cross-table Paramatised SQL
         public static int GetHandicapID(int league_id, int player_id)
         {
             return Database_manager.singleIntFromDBMC($"{league_id}", $"{player_id}", "league_id", "player_id", "LeagueStats", "handicap_id");
         }
-
-
         public static void UpdateLeagueStats(int match_id, int player_id)
         {
             SetTotalPinFall(match_id, player_id);
             SetNumberOfGames(match_id, player_id);
         }
-
     }
 
     public class Week
@@ -939,20 +877,19 @@ namespace user_login_NEA
         {
             return Database_manager.singleIntFromDB($"{week}", "Week", "Weeks", "week_id");
         }
-
+        //List is used as the total number of weeks could changed.
         public static List<int> TotalWeeks()
         {
             return Database_manager.columnIntFromDB("Weeks", "week");
         }
     }
-
     public class League
     {
+        //List is used as the total amount of leagues could changed.
         public static List<string> GetLeagues()
         {
             return Database_manager.columnStringFromDB("Leagues", "LeagueName");
         }
-
         public static int GetLeagueIDLeagueName(string LeagueName)
         {
             return Database_manager.singleIntFromDB($"{LeagueName}", "LeagueName", "Leagues", "league_id");
@@ -961,7 +898,6 @@ namespace user_login_NEA
         {
             return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "league_id");
         }
-
     }
 
     public class Matches
@@ -969,9 +905,8 @@ namespace user_login_NEA
         //Cross table parameterised SQL
         public static List<int> GetMatches(int week_id, int league_id)
         {
-            return Database_manager.multipleIntFromDBMC($"{week_id}", $"{league_id}","week_id", "league_id", "Matches", $"match_id");
+            return Database_manager.multipleIntFromDBMC($"{week_id}", $"{league_id}", "week_id", "league_id", "Matches", $"match_id");
         }
-
         public static bool CheckForGame(int match_id)
         {
             if (Database_manager.singleIntFromDB($"{match_id}", "match_id", "Games", "game_id") != -1)
@@ -984,37 +919,30 @@ namespace user_login_NEA
         {
             return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id1");
         }
-
         public static int GetTeamID2(int match_id)
         {
             return Database_manager.singleIntFromDB($"{match_id}", "match_id", "Matches", "team_id2");
         }
     }
-    
-
 
     //Used to handle all the hashing part of the program being using a library for bcrypt algorithm.
     class Encryption
-    {
+    {   //Used to taken in a unhashed password and returns a hashed password with a salt.
         public static string HashString(string password)
         {
-             string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(password, 13);
-             return passwordHash;
+            string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(password, 13);
+            return passwordHash;
         }
 
         public static bool HashChecking(string InputtedPassword, int UserID)
-        {
-            
-            if(BCrypt.Net.BCrypt.EnhancedVerify($"{InputtedPassword}", User.GetPasswordHash(UserID)) == true)
+        {//Used to compare a inputted password to the hashpassword of the desired user.
+            if (BCrypt.Net.BCrypt.EnhancedVerify($"{InputtedPassword}", User.GetPasswordHash(UserID)) == true)
             {
                 return true;
             }
-
             return false;
         }
-        
     }
-
 }
 
 
