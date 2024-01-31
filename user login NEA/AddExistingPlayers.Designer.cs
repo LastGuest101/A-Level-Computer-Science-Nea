@@ -145,7 +145,6 @@
         private Label label2;
         private Label label3;
         private Button BackButton;
-        private Button button2;
         private ComboBox TeamComboBox;
         private ComboBox LeagueComboBox;
         private Label LeagueLabel;

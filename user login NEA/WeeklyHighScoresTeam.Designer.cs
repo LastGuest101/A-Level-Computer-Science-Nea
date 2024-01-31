@@ -502,7 +502,6 @@
         private Label FirstScratchGame;
         private Label ScratchScoreLabel;
         private Label WeekLabel;
-        private ComboBox WeekComboBox;
         private ComboBox WeeksComboBox;
         private TableLayoutPanel tableLayoutPanel2;
         private Label ThirdTeamHS;
