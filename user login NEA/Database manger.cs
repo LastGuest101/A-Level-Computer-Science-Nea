@@ -584,7 +584,6 @@ namespace user_login_NEA
                 }
                 connection.Close();
             }
-
             return attributeValues;
         }
     }

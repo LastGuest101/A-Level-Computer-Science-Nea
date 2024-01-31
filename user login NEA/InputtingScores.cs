@@ -12,8 +12,6 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace user_login_NEA
 {
-
-
     public partial class InputtingScores : Form
     {
         public InputtingScores()

@@ -16,7 +16,6 @@ namespace user_login_NEA
         public Standings()
         {
             InitializeComponent();
-
         }
         private void BackButton_Click(object sender, EventArgs e)
         {

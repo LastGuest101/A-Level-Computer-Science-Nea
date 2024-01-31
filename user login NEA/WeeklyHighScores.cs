@@ -17,7 +17,6 @@ namespace user_login_NEA
         public WeeklyHighScores()
         {
             InitializeComponent();
-
         }
         private void WeeklyHighScores_Load(object sender, EventArgs e)
         {

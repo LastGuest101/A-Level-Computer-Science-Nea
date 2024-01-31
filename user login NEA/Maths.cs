@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace user_login_NEA
 {
-
-
-
     class maths
     {
         //used to get the series score from 3 games.
