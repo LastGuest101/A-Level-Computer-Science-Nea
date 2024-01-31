@@ -204,6 +204,7 @@ namespace user_login_NEA
             //links the new player to the team they are associated to and is added to the Teams/Players linking table.
             Database_manager.InsertPlayerIntoTeam(player_id, team_id);
         }
+        //Method to add an existing player in the database to another team in a different league.
         public static void AddExistingPlayer(int player_id, int team_id, int league_id)
         {
             //makes the new league stats for the new player, using the playerid retrieved.
