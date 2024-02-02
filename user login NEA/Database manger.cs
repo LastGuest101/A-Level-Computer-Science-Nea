@@ -294,12 +294,30 @@ namespace user_login_NEA
                 }
             }
         }
-        //Used to delete players from the database, by inputting their player_id
-        //From the Players table.
+        //Used to delete players and their linked information in leaguestats and Team/Players from the database,
+        //by inputting their player_id From the Players table.
         public static void DeletePlayer(int player_id)
         {
             string deleteQuery = $"DELETE FROM Players WHERE player_id = '{player_id}';";
 
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            deleteQuery = $"DELETE FROM LeagueStats WHERE player_id = '{player_id}';";
+            using (SQLiteConnection connection = new SQLiteConnection(Connection()))
+            {
+                connection.Open();
+                using (SQLiteCommand command = new SQLiteCommand(deleteQuery, connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+            }
+            deleteQuery = $"DELETE FROM [Teams/Players] WHERE player_id = '{player_id}';";
             using (SQLiteConnection connection = new SQLiteConnection(Connection()))
             {
                 connection.Open();

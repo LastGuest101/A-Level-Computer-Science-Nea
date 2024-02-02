@@ -36,10 +36,11 @@ namespace user_login_NEA
             {
                 WeeksCombobox.Items.Add($"{week}");
 
-                foreach (var LeagueName in League.GetLeagues()) //adds the league name of each entity in the table Leagues to the combobox
-                {
-                    LeagueComboBox.Items.Add(LeagueName);
-                }
+               
+            }
+            foreach (var LeagueName in League.GetLeagues()) //adds the league name of each entity in the table Leagues to the combobox
+            {
+                LeagueComboBox.Items.Add(LeagueName);
             }
         }
 
